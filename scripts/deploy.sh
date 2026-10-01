@@ -129,7 +129,7 @@ for ps in "${PERMSETS[@]}"; do
   echo "Assigned $ps"
 done
 
-egress="$(sf data query -q "SELECT Egress_Enabled__c FROM Gavel_Ops_Config__mdt WHERE DeveloperName = 'Default'" --target-org "$ORG" --json 2>/dev/null | jq -r '.result.records[0].Egress_Enabled__c // "missing"')"
+egress="$(sf data query -q "SELECT Egress_Enabled__c FROM Gavel_Ops_Config__mdt WHERE DeveloperName = 'Default'" --target-org "$ORG" --json 2>/dev/null | jq -r '.result.records[0].Egress_Enabled__c | if . == null then "missing" else tostring end')"
 echo "Egress_Enabled__c = $egress (no data leaves the org until an admin turns it on)"
 
 if [ $SAMPLE -eq 1 ]; then
