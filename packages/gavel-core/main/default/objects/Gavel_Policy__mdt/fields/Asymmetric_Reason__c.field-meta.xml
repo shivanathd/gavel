@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Asymmetric_Reason__c</fullName>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Asymmetric Reason</label>
+    <required>false</required>
+    <type>TextArea</type>
+</CustomField>

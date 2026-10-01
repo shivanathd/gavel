@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>One admin-configured decision definition. DeveloperName is the definition API name.</description>
+    <label>Gavel Decision</label>
+    <pluralLabel>Gavel Decisions</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

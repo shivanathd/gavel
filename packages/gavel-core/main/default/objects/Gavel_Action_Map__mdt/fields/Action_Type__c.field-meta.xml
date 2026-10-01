@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action_Type__c</fullName>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Action Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>set_field</fullName>
+                <default>false</default>
+                <label>set_field</label>
+            </value>
+            <value>
+                <fullName>assign_queue</fullName>
+                <default>false</default>
+                <label>assign_queue</label>
+            </value>
+            <value>
+                <fullName>create_task</fullName>
+                <default>false</default>
+                <label>create_task</label>
+            </value>
+            <value>
+                <fullName>publish_event</fullName>
+                <default>false</default>
+                <label>publish_event</label>
+            </value>
+            <value>
+                <fullName>invoke_flow</fullName>
+                <default>false</default>
+                <label>invoke_flow</label>
+            </value>
+            <value>
+                <fullName>none</fullName>
+                <default>false</default>
+                <label>none</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

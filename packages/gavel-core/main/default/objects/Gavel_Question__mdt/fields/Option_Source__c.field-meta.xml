@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Option_Source__c</fullName>
+    <description>Apex class implementing Gavel_OptionSource for runtime options.</description>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <externalId>false</externalId>
+    <label>Option Source</label>
+    <length>120</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
