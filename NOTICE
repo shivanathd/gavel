@@ -1,0 +1,15 @@
+Gavel
+Copyright 2026 Shivanath Devinarayanan
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Prior art (no code copied):
+- JevForce by Ravi Narayanan (https://github.com/ravinarayanan89/JevForce),
+  the first Apex SDK for Jev. Gavel is an independent codebase.
+- jev-mcp (https://github.com/jkudish/jev-mcp): composed judgment patterns
+  (screen, verify, find, decide) that inspired the packs.
+- typed-decisions-shadow-layer (https://github.com/alonsuare/typed-decisions-shadow-layer):
+  the shadow-first pattern for CRM.
+
+Gavel is not affiliated with TypeSafe AI or Salesforce, Inc. Jev is a product of
+TypeSafe AI. Salesforce, Agentforce and Flow are trademarks of Salesforce, Inc.
