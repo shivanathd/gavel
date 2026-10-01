@@ -6,7 +6,7 @@ The model judges. Your org's policy decides. Gavel keeps a record of both.
 
 Gavel is a set of Salesforce components you can deploy: typed, calibrated judgments (Choice, Score, Noul) run from Flow, Apex and Agentforce. Every judgment passes through policy you set, lands in an immutable ledger, runs in shadow mode first, and gets calibrated against what your people actually do.
 
-> Status: spec v1.0.0 (2026-10-01). Not yet implemented. The spec lives in `docs/spec/active/2026-10-01-gavel-v1/`.
+> Status: v1 implementation in progress (spec v1.0.0, 2026-10-01). Not released. The spec lives in `docs/spec/active/2026-10-01-gavel-v1/`; build status is in `PROGRESS.md`.
 
 ## Why this exists
 

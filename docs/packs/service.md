@@ -1,0 +1,119 @@
+# Service pack
+
+`gavel-pack-service` depends on gavel-core, gavel-flow and gavel-shadow. It adds five decisions for Cases and emails, the `Gavel_KB_Gap__c` object, the `Gavel_Service_Pack` permission set, mock fixtures and 200 labeled sample Cases.
+
+Every definition installs in **Shadow** (ADR-015): decisions run and are ledgered, but no Case field changes until you promote a definition. No flow is active after install.
+
+## Decisions
+
+<!-- generated:start -->
+
+### Gavel_Case_Triage
+
+Routes a new Case to a queue or reason, and flags security or fraud concerns. Installs in Shadow.
+
+- Target object: `Case`
+- Install mode: **Shadow**
+- Daily budget: 5000 calls
+- Provider config: `TypeSafe_Default`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `category`: Which team should handle this case? | choice | `BILLING`, `FRAUD`, `TECHNICAL`, `ACCOUNT`, `manual_review` (escape) | 0.85 | 0.5 | 0.3 | - |
+| `fraud_concern`: The customer mentions a security or fraud concern. | noul | true / false | 0.85 | 0.5 | - | true_is_action |
+
+Actions (Live and AUTO only):
+
+- `category` = `BILLING`: set_field `Case.Type` = `Billing`
+- `category` = `FRAUD`: set_field `Case.Type` = `Fraud`
+- `category` = `TECHNICAL`: set_field `Case.Type` = `Technical`
+- `category` = `ACCOUNT`: set_field `Case.Type` = `Account`
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_case_triage).
+
+### Gavel_Case_Urgency
+
+Scores real urgency 0 to 4 from the text and recent emails, independent of the priority the customer picked.
+
+- Target object: `Case`
+- Install mode: **Shadow**
+- Daily budget: 5000 calls
+- Provider config: `TypeSafe_Default`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `urgency`: How urgent is this case really, judged from what the customer describes? | score | `L0`, `L1`, `L2`, `L3`, `L4` | 0.85 | 0.5 | - | - |
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_case_urgency).
+
+### Gavel_Closure_Check
+
+Before a Case closes: did the customer confirm the issue is resolved in their last inbound message?
+
+- Target object: `Case`
+- Install mode: **Shadow**
+- Daily budget: 5000 calls
+- Provider config: `TypeSafe_Default`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `customer_confirmed_resolved`: The customer confirmed that the issue is resolved. | noul | true / false | 0.85 | 0.5 | - | true_is_action |
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_closure_check).
+
+### Gavel_KB_Coverage
+
+Checks whether a Knowledge article answers the case. No article, or a weak match, creates a KB gap record.
+
+- Target object: `Case`
+- Install mode: **Shadow**
+- Daily budget: 5000 calls
+- Provider config: `TypeSafe_Default`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `article`: Which candidate article best answers the customer question? | choice | runtime: Gavel_KBCandidates | 0.85 | 0.5 | 0.3 | - |
+| `answers_question`: The selected article answers the customer question. | noul | true / false | 0.85 | 0.5 | - | true_is_action |
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_kb_coverage).
+
+### Gavel_Reply_Check
+
+Checks an outbound draft against the linked Knowledge article: supported, contradicted or unsupported.
+
+- Target object: `EmailMessage`
+- Install mode: **Shadow**
+- Daily budget: 5000 calls
+- Provider config: `TypeSafe_Default`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `support`: Is the reply draft supported by the linked article text? | choice | `supported`, `contradicted`, `unsupported` | 0.85 | 0.5 | 0.3 | - |
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_reply_check).
+
+<!-- generated:end -->
+
+## KB coverage and gaps
+
+`Gavel: Check KB Coverage` (or `Gavel_KBCoverage.check`) asks Gavel_KB_Coverage to pick among the top 20 (max 50) online Knowledge articles found by SOSL on the case subject, plus `none`. A `Gavel_KB_Gap__c` record is created when there is no candidate, when the answer is `none`, or when the article does not answer the question. Gaps are Gavel records, so they are created in Shadow too. Question text on the gap is redacted. Without Knowledge, the run is ledgered as `SKIP knowledge_not_enabled`.
+
+## Real urgency
+
+Gavel_Case_Urgency scores 0 to 4 from the description and recent inbound emails. The customer-selected priority is sent as `customer_priority` so the ledger can show both values, and the prompt tells the model to judge independently of it. Einstein Case Classification can run side by side as the shadow baseline.
+
+## How to run it in Shadow
+
+1. Deploy: `./scripts/deploy.sh --org <org> --packs service --sample-data`.
+2. Review [Data leaving your org](../guides/data-leaving-your-org.md), then set `Gavel_Ops_Config__mdt.Default.Egress_Enabled__c = true`.
+3. Activate the flow template "Case Created: Triage (Async)".
+4. Map baselines: `Gavel_Baseline_Map__mdt` ships `Case.Type` values Billing, Fraud, Technical and Account for Gavel_Case_Triage. Add your own values.
+5. Schedule `Gavel_BaselineCapture` hourly. Read the Shadow comparison in the Gavel Calibration tab. Agreement with today's process is not accuracy.
+
+## How to promote
+
+1. Collect labels: captured baselines and reviewer resolutions. You need at least `Min_Sample__c` (default 200) labeled entries.
+2. Run calibration from the Gavel Calibration tab. Apply a recommended threshold through a deploy that bumps `Version__c` (ADR-012), then `node scripts/hash-definitions.js --write`.
+3. In the Decision Console click "Request Live". The promotion gate refuses without a calibration report from the last 14 days.
+
+No accuracy numbers are claimed for this pack until a reproducible eval is linked here.
