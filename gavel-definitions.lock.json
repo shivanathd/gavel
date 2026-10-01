@@ -1,0 +1,50 @@
+{
+  "Gavel_Action_Risk": {
+    "version": "1",
+    "hash": "7a28b0534deacd4b9a35af286d88bd0bab74da200f1b49f66e5701419d61ef7a"
+  },
+  "Gavel_Case_Triage": {
+    "version": "1",
+    "hash": "262c14d4451d536d93f1101c5e4d012cbf47d37674c57d475072aa61b28eb107"
+  },
+  "Gavel_Case_Urgency": {
+    "version": "1",
+    "hash": "0e91147cbe66febdb557d727ad7d9ddb942ae0ae49ea75d2dfcdf1aeed61dc1f"
+  },
+  "Gavel_Closure_Check": {
+    "version": "1",
+    "hash": "f6441e062d902a8c581ec66d2da72545c56659e74864dd460397ba9fb530487f"
+  },
+  "Gavel_Input_Screen": {
+    "version": "1",
+    "hash": "ebeffd5ccbca975bd4080f85952d2594730e6bb37587d8428e394294937b6160"
+  },
+  "Gavel_KB_Coverage": {
+    "version": "1",
+    "hash": "7b81b539b4c4b369f1cbec8953e837766e35c0fe2ebf2837812b016af86ff4fd"
+  },
+  "Gavel_Lead_Quality": {
+    "version": "1",
+    "hash": "93380c0e0d2fe58d1d3e7c5f6c87f20f56ee7f5e8b19984566130bed78e4aea0"
+  },
+  "Gavel_Opt_Out_Detect": {
+    "version": "1",
+    "hash": "62485d2ce0ad9d9da1fc18a1c538a7091107fcf523d82428335a794de0790562"
+  },
+  "Gavel_Persona": {
+    "version": "1",
+    "hash": "c769bd47825f35ef84ab1c56af3dc9fc2f87c2f646ec7a350504eb45ee4e175c"
+  },
+  "Gavel_Reply_Check": {
+    "version": "1",
+    "hash": "2166fe4c28ebd1367f51c1e6b4e4d68109bfd82a1c259f986fec8b79fb8ec572"
+  },
+  "Gavel_Reply_Intent": {
+    "version": "1",
+    "hash": "9b9cbe73bae396fae7c4f483a63714af6ab5912759b0bea67809410f248449f0"
+  },
+  "Gavel_Stage_Evidence": {
+    "version": "1",
+    "hash": "217dd1ebe157591b41e3021cd30a48ccca02f7bc0632fc03aa317c25aa030be7"
+  }
+}

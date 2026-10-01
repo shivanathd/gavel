@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gavel_Screen_Status__c</fullName>
+    <description>Set by Gavel intake screening (Agentforce Gate pack) when the Input Screen definition is Live.</description>
+    <label>Gavel Screen Status</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Passed</fullName>
+                <default>false</default>
+                <label>Passed</label>
+            </value>
+            <value>
+                <fullName>Review</fullName>
+                <default>false</default>
+                <label>Review</label>
+            </value>
+            <value>
+                <fullName>Blocked</fullName>
+                <default>false</default>
+                <label>Blocked</label>
+            </value>
+            <value>
+                <fullName>Skipped</fullName>
+                <default>false</default>
+                <label>Skipped</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
