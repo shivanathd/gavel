@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gavel_Sample_Label__c</fullName>
+    <description>Expected category for Gavel sample data. Used only by the demo data set.</description>
+    <externalId>false</externalId>
+    <label>Gavel Sample Label</label>
+    <length>40</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

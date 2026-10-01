@@ -1,0 +1,7 @@
+# Not metadata: sample data, LWC Jest tests and editor config
+**/data/**
+**/__tests__/**
+**/jsconfig.json
+**/.eslintrc.json
+**/.gitkeep
+package.xml

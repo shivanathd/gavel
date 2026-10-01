@@ -1,0 +1,230 @@
+{
+  "Gavel_Case_Triage": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "stolen",
+          "unauthorized",
+          "fraud",
+          "phishing",
+          "hacked"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "category": {
+              "probabilities": {
+                "BILLING": 0.02,
+                "FRAUD": 0.92,
+                "TECHNICAL": 0.02,
+                "ACCOUNT": 0.02,
+                "manual_review": 0.02
+              },
+              "confidence": 0.88
+            },
+            "fraud_concern": {
+              "probability": 0.94
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "refund",
+          "charged",
+          "invoice",
+          "billing",
+          "payment",
+          "double charge"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "category": {
+              "probabilities": {
+                "BILLING": 0.92,
+                "FRAUD": 0.02,
+                "TECHNICAL": 0.02,
+                "ACCOUNT": 0.02,
+                "manual_review": 0.02
+              },
+              "confidence": 0.88
+            },
+            "fraud_concern": {
+              "probability": 0.03
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "error",
+          "crash",
+          "login",
+          "password",
+          "outage",
+          "bug",
+          "sso",
+          "saml"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "category": {
+              "probabilities": {
+                "BILLING": 0.02,
+                "FRAUD": 0.02,
+                "TECHNICAL": 0.92,
+                "ACCOUNT": 0.02,
+                "manual_review": 0.02
+              },
+              "confidence": 0.88
+            },
+            "fraud_concern": {
+              "probability": 0.03
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "address",
+          "profile",
+          "cancel my account",
+          "ownership",
+          "contact details"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "category": {
+              "probabilities": {
+                "BILLING": 0.02,
+                "FRAUD": 0.02,
+                "TECHNICAL": 0.02,
+                "ACCOUNT": 0.92,
+                "manual_review": 0.02
+              },
+              "confidence": 0.88
+            },
+            "fraud_concern": {
+              "probability": 0.03
+            }
+          }
+        }
+      }
+    ],
+    "default": {
+      "model": "mock-1.0.0",
+      "answers": {
+        "category": {
+          "probabilities": {
+            "BILLING": 0.3,
+            "FRAUD": 0.05,
+            "TECHNICAL": 0.35,
+            "ACCOUNT": 0.2,
+            "manual_review": 0.1
+          },
+          "confidence": 0.4
+        },
+        "fraud_concern": {
+          "probability": 0.05
+        }
+      }
+    }
+  },
+  "Gavel_Case_Urgency": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "payroll blocked",
+          "production down",
+          "outage",
+          "fourth call",
+          "third call",
+          "resolved today",
+          "cannot operate"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "urgency": {
+              "score": 3.6,
+              "confidence": 0.9
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "just a question",
+          "feedback",
+          "suggestion",
+          "when you get a chance"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "urgency": {
+              "score": 0.4,
+              "confidence": 0.9
+            }
+          }
+        }
+      }
+    ],
+    "default": {
+      "model": "mock-1.0.0",
+      "answers": {
+        "urgency": {
+          "score": 1.6,
+          "confidence": 0.7
+        }
+      }
+    }
+  },
+  "Gavel_Closure_Check": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "resolved",
+          "fixed",
+          "works now",
+          "all good",
+          "you can close"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "customer_confirmed_resolved": {
+              "probability": 0.93
+            }
+          }
+        }
+      }
+    ],
+    "default": {
+      "model": "mock-1.0.0",
+      "answers": {
+        "customer_confirmed_resolved": {
+          "probability": 0.2
+        }
+      }
+    }
+  },
+  "Gavel_Reply_Check": {
+    "default": {
+      "model": "mock-1.0.0",
+      "answers": {
+        "support": {
+          "probabilities": {
+            "supported": 0.8,
+            "contradicted": 0.05,
+            "unsupported": 0.15
+          },
+          "confidence": 0.75
+        }
+      }
+    }
+  }
+}

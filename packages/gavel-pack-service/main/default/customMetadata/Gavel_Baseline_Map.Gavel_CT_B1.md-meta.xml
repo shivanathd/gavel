@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Gavel Case Triage category Billing</label>
+    <protected>false</protected>
+    <values>
+        <field>Decision__c</field>
+        <value xsi:type="xsd:string">Gavel_Case_Triage</value>
+    </values>
+    <values>
+        <field>Question_Key__c</field>
+        <value xsi:type="xsd:string">category</value>
+    </values>
+    <values>
+        <field>Baseline_Field__c</field>
+        <value xsi:type="xsd:string">Case.Type</value>
+    </values>
+    <values>
+        <field>Baseline_Value__c</field>
+        <value xsi:type="xsd:string">Billing</value>
+    </values>
+    <values>
+        <field>Option_Key__c</field>
+        <value xsi:type="xsd:string">BILLING</value>
+    </values>
+</CustomMetadata>
