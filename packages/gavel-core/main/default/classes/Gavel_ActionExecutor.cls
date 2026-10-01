@@ -305,7 +305,7 @@ public with sharing class Gavel_ActionExecutor {
         if (errors == null || errors.isEmpty()) {
             return 'unknown';
         }
-        return String.valueOf(errors[0].getStatusCode()).abbreviate(255);
+        return (String.valueOf(errors[0].getStatusCode()) + ': ' + errors[0].getMessage()).abbreviate(255);
     }
 
     private static Map<String, Id> resolveQueues(List<Step> steps) {

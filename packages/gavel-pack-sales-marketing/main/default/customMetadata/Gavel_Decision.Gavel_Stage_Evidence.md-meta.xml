@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Gavel Stage Evidence</label>
+    <protected>false</protected>
+    <values>
+        <field>Target_Object__c</field>
+        <value xsi:type="xsd:string">Opportunity</value>
+    </values>
+    <values>
+        <field>Version__c</field>
+        <value xsi:type="xsd:double">1</value>
+    </values>
+    <values>
+        <field>Mode__c</field>
+        <value xsi:type="xsd:string">Shadow</value>
+    </values>
+    <values>
+        <field>Provider_Config__c</field>
+        <value xsi:type="xsd:string">TypeSafe_Default</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Checks recent activity for the evidence each stage exit needs. REVIEW sets a helper field a validation rule can use.</value>
+    </values>
+    <values>
+        <field>Owner_Email__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Daily_Budget_Calls__c</field>
+        <value xsi:type="xsd:double">5000</value>
+    </values>
+    <values>
+        <field>Definition_Hash__c</field>
+        <value xsi:type="xsd:string">217dd1ebe157591b41e3021cd30a48ccca02f7bc0632fc03aa317c25aa030be7</value>
+    </values>
+    <values>
+        <field>Pack__c</field>
+        <value xsi:type="xsd:string">sales-marketing</value>
+    </values>
+    <values>
+        <field>Review_Queue__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Auto_Apply__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Timeout_Ms__c</field>
+        <value xsi:type="xsd:double">10000</value>
+    </values>
+</CustomMetadata>
