@@ -1,0 +1,38 @@
+name: release
+
+# PKG-001.5: package versions with code coverage, promoted on a v* tag, install links in the release notes.
+# Human gate (T6.3): OQ-1, OQ-2 and OQ-3 resolved and the live evals run by the maintainer before tagging.
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_SFDX_AUTH_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install --global @salesforce/cli
+      - name: Authenticate Dev Hub
+        run: |
+          echo "$DEVHUB_AUTH_URL" > devhub.url
+          sf org login sfdx-url --sfdx-url-file devhub.url --alias devhub --set-default-dev-hub
+          rm -f devhub.url
+      - name: Definition hashes are current
+        run: node scripts/hash-definitions.js --check
+      - name: Create and promote package versions in dependency order
+        run: |
+          set -euo pipefail
+          : > install-links.md
+          for p in gavel-core gavel-flow gavel-shadow gavel-calibrate gavel-admin gavel-pack-agentforce-gate gavel-pack-service gavel-pack-sales-marketing; do
+            id=$(sf package version create --package "$p" --code-coverage --installation-key-bypass --wait 60 --json | jq -r '.result.SubscriberPackageVersionId')
+            sf package version promote --package "$id" --no-prompt
+            echo "- $p: https://login.salesforce.com/packaging/installPackage.apexp?p0=$id" >> install-links.md
+          done
+      - name: Publish release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --title "Gavel $GITHUB_REF_NAME" --notes-file install-links.md
