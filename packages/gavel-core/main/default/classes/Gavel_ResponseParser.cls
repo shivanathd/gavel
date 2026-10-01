@@ -1,13 +1,13 @@
 /**
  * Turns a provider body into a validated Gavel_JudgmentResponse (CORE-001.5). Never throws.
  *
- * Accepted wire shape (pinned by the live contract test before release, OQ-2):
+ * Wire shape verified against https://docs.typesafe.ai/api and the live contract test (2026-10-01):
  *   { "model": "jev-1.13.0",
  *     "answers" | "results": { "<key>": {...} }  or  [ { "key": "<key>", ... } ],
  *     "usage": {...} }
  *   choice: { "probabilities"|"distribution": {option: p}, "choice"?: key, "confidence"?: c }
  *   score:  { "score"|"value": n, "confidence"?: c, "probabilities"?: {...} }
- *   noul:   { "probability"|"p": p }
+ *   noul:   { "noul": p }   (verified against docs.typesafe.ai/api; "probability" also accepted)
  */
 public with sharing class Gavel_ResponseParser {
     private static final Decimal TOLERANCE = 0.01;
@@ -236,7 +236,8 @@ public with sharing class Gavel_ResponseParser {
         Gavel_Answer a = new Gavel_Answer();
         a.key = q.key;
         a.answerType = Gavel_Question.NOUL;
-        Object v = raw.containsKey('probability') ? raw.get('probability') : raw.get('p');
+        // TypeSafe returns "noul"; "probability" is accepted for older fixtures.
+        Object v = raw.containsKey('noul') ? raw.get('noul') : (raw.containsKey('probability') ? raw.get('probability') : raw.get('p'));
         if (v == null) {
             return Gavel_Answer.invalid(q.key, q.questionType);
         }

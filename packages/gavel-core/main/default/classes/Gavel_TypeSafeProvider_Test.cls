@@ -154,12 +154,44 @@ private class Gavel_TypeSafeProvider_Test {
         Map<String, Object> body = (Map<String, Object>) JSON.deserializeUntyped(Gavel_TypeSafeProvider.body(req));
         Assert.areEqual('jev-1.13.0', body.get('model'));
         Assert.areEqual(2, ((Map<String, Object>) body.get('state')).size());
-        List<Object> qs = (List<Object>) body.get('questions');
+        Map<String, Object> qs = (Map<String, Object>) body.get('questions');
         Assert.areEqual(2, qs.size());
-        Map<String, Object> q0 = (Map<String, Object>) qs[0];
-        Assert.areEqual('choice', q0.get('type'));
-        Assert.areEqual(4, ((List<Object>) q0.get('options')).size());
-        Assert.isTrue(((Map<String, Object>) qs[1]).containsKey('proposition'));
+        Map<String, Object> choice = (Map<String, Object>) qs.get('category');
+        Assert.areEqual('choice', choice.get('type'));
+        Assert.isNotNull(choice.get('instructions'));
+        Assert.areEqual(4, ((Map<String, Object>) choice.get('criteria')).size());
+        Map<String, Object> noul = (Map<String, Object>) qs.get('fraud_concern');
+        Assert.areEqual('noul', noul.get('type'));
+        Assert.isFalse(noul.containsKey('criteria'), 'noul criteria is optional and omitted');
+    }
+
+    @IsTest
+    static void scoreCriteriaAreOrderedByLevel() {
+        Gavel_Question q = new Gavel_Question();
+        q.key = 'urgency';
+        q.questionType = 'score';
+        q.prompt = 'How urgent is this?';
+        q.options = new List<Gavel_Option>();
+        for (Integer i = 2; i >= 0; i--) {
+            Gavel_Option o = new Gavel_Option();
+            o.key = 'L' + i;
+            o.label = 'Level ' + i;
+            o.level = i;
+            q.options.add(o);
+        }
+        Gavel_JudgmentRequest req = request();
+        req.questions = new List<Gavel_Question>{ q };
+        Map<String, Object> body = (Map<String, Object>) JSON.deserializeUntyped(Gavel_TypeSafeProvider.body(req));
+        Map<String, Object> score = (Map<String, Object>) ((Map<String, Object>) body.get('questions')).get('urgency');
+        List<Object> criteria = (List<Object>) score.get('criteria');
+        Assert.areEqual(new List<Object>{ 'Level 0', 'Level 1', 'Level 2' }, criteria);
+    }
+
+    @IsTest
+    static void noulFieldIsRead() {
+        String body = '{"model":"jev-1.13.0","answers":{"category":{"type":"choice","choice":"BILLING","probabilities":{"BILLING":0.9,"FRAUD":0.04,"TECHNICAL":0.03,"ACCOUNT":0.03},"confidence":0.8},"fraud_concern":{"type":"noul","noul":0.2}},"usage":{"input_tokens":10,"output_tokens":5}}';
+        Gavel_JudgmentResponse r = run(request(), new List<Object>{ body });
+        Assert.areEqual('ok', r.status, 'detail: ' + r.errorCode);
     }
 
     @IsTest

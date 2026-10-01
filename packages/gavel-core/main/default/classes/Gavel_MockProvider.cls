@@ -172,7 +172,7 @@ public with sharing class Gavel_MockProvider implements Gavel_JudgmentProvider {
         }
 
         public Body noul(String key, Decimal probability) {
-            answers.put(key, new Map<String, Object>{ 'type' => 'noul', 'probability' => probability });
+            answers.put(key, new Map<String, Object>{ 'type' => 'noul', 'noul' => probability });
             return this;
         }
 

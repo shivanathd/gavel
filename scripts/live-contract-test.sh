@@ -27,8 +27,15 @@ System.assertNotEquals(null, resp.modelVersion, 'versioned model id must be repo
 System.assertNotEquals(null, resp.answers.get('category').confidence, 'choice confidence');
 System.assertNotEquals(null, resp.answers.get('refund').probability, 'noul probability');
 System.assertNotEquals(null, resp.answers.get('urgency').score, 'score value');
-System.debug(LoggingLevel.ERROR, 'GAVEL_CONTRACT_OK model=' + resp.modelVersion);
+System.debug(LoggingLevel.ERROR, 'GAVEL_CONTRACT_OK model=' + resp.modelVersion
+    + ' category=' + resp.answers.get('category').choice + ' confidence=' + resp.answers.get('category').confidence
+    + ' refund=' + resp.answers.get('refund').probability + ' urgency=' + resp.answers.get('urgency').score
+    + ' latencyMs=' + resp.latencyMs + ' end');
 APEXEOF
 out="$(sf apex run --file "$APEX" --target-org "$ORG" --json)"
-echo "$out" | jq -e '.result.success == true' >/dev/null && { echo "live contract holds"; exit 0; }
+if echo "$out" | jq -e '.result.success == true' >/dev/null; then
+  echo "live contract holds"
+  echo "$out" | jq -r '.result.logs // ""' | sed -n 's/.*GAVEL_CONTRACT_OK \(.* end\).*/  \1/p' | sed 's/ end$//' | head -1
+  exit 0
+fi
 echo "live contract broken:"; echo "$out" | jq -r '.result.exceptionMessage // .message'; exit 1

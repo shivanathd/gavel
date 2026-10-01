@@ -11,6 +11,7 @@ Spec: `docs/spec/active/2026-10-01-gavel-v1/`. Evals: `docs/spec/active/2026-10-
 - Phase 4 (T4.1, admin): PASS (LWC Jest 9/9; admin package deployed, Gavel_AdminController_Test 1/1), committed. No acceptance script maps to phase 4.
 - Phase 5 (T5.1-T5.3, packs): ALL PASS in gavel-scratch, committed (T5.3 on attempt 3, see B12). Acceptance F10 3/3, F11 3/3, F12 3/3: PASS.
 - Phase 6 (T6.1-T6.2): T6.1 PASS, T6.2 PASS, committed. Acceptance F13 PASS (deploy.sh --packs service --sample-data into gavel-scratch, 202 Cases, egress false), F14 PASS. T6.3 not attempted (human gate: OQ-1/2/3 + live key).
+- Live contract (user lifted the live-API rule 2026-10-01; key entered by the user in Gavel_TypeSafe_Principal): scripts/live-contract-test.sh PASS against api.typesafe.ai, model jev-1.13.0. Fixes: Named Credential allowMergeFieldsInHeader=true (was 403), questions sent as a keyed map with criteria (was 422), noul answers read from `noul`, 529 retryable. OQ-2 wire shape is pinned (see contracts/provider-contract.md); versioning policy, OQ-1, OQ-3 and the release stay with the maintainer.
 
 ## Order of work when the org exists
 1. `sf org login web --alias devhub --set-default-dev-hub`
