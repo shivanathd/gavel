@@ -1,0 +1,353 @@
+{
+  "project": "GAVEL",
+  "version": "1.0.0",
+  "spec": "docs/spec/active/2026-10-01-gavel-v1",
+  "ship_rule": {
+    "tasks": "all pass",
+    "acceptance": "all pass",
+    "holdout_satisfaction_min": 0.9,
+    "max_iterations": 3,
+    "escalate_on": [
+      "any Critical Security or Compliance acceptance failure"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "T0.1",
+      "title": "Scaffold repo and packages",
+      "script": "evals/tasks/T0.1.sh"
+    },
+    {
+      "id": "T0.2",
+      "title": "CI pipeline",
+      "script": "evals/tasks/T0.2.sh"
+    },
+    {
+      "id": "T1.1",
+      "title": "CMDT types and validator",
+      "script": "evals/tasks/T1.1.sh"
+    },
+    {
+      "id": "T1.2",
+      "title": "Provider",
+      "script": "evals/tasks/T1.2.sh"
+    },
+    {
+      "id": "T1.3",
+      "title": "State builder",
+      "script": "evals/tasks/T1.3.sh"
+    },
+    {
+      "id": "T1.4",
+      "title": "Policy engine",
+      "script": "evals/tasks/T1.4.sh"
+    },
+    {
+      "id": "T1.5",
+      "title": "Ledger",
+      "script": "evals/tasks/T1.5.sh"
+    },
+    {
+      "id": "T1.6",
+      "title": "Ops guardrails",
+      "script": "evals/tasks/T1.6.sh"
+    },
+    {
+      "id": "T2.1",
+      "title": "Invocables and queueable",
+      "script": "evals/tasks/T2.1.sh"
+    },
+    {
+      "id": "T2.2",
+      "title": "Apply outcome",
+      "script": "evals/tasks/T2.2.sh"
+    },
+    {
+      "id": "T3.1",
+      "title": "Shadow",
+      "script": "evals/tasks/T3.1.sh"
+    },
+    {
+      "id": "T3.2",
+      "title": "Calibration",
+      "script": "evals/tasks/T3.2.sh"
+    },
+    {
+      "id": "T3.3",
+      "title": "Promotion gate",
+      "script": "evals/tasks/T3.3.sh"
+    },
+    {
+      "id": "T4.1",
+      "title": "Admin LWC",
+      "script": "evals/tasks/T4.1.sh"
+    },
+    {
+      "id": "T5.1",
+      "title": "Agentforce gate pack",
+      "script": "evals/tasks/T5.1.sh"
+    },
+    {
+      "id": "T5.2",
+      "title": "Service pack",
+      "script": "evals/tasks/T5.2.sh"
+    },
+    {
+      "id": "T5.3",
+      "title": "Sales and marketing pack",
+      "script": "evals/tasks/T5.3.sh"
+    },
+    {
+      "id": "T6.1",
+      "title": "Deploy scripts",
+      "script": "evals/tasks/T6.1.sh"
+    },
+    {
+      "id": "T6.2",
+      "title": "Docs",
+      "script": "evals/tasks/T6.2.sh"
+    },
+    {
+      "id": "T6.3",
+      "title": "Release",
+      "script": "evals/tasks/T6.3.sh"
+    }
+  ],
+  "acceptance": [
+    {
+      "feature": "F1",
+      "req": "REQ-CORE-001",
+      "test_class": "Gavel_TypeSafeProvider_Test",
+      "scenarios": [
+        "AS-1.1 validChoiceResponse",
+        "AS-1.2 unknownOptionIsContractMismatch",
+        "AS-1.3 keyNeverLeaks",
+        "AS-1.4 aliasBlockedWhenLive"
+      ],
+      "script": "evals/acceptance/F1.sh"
+    },
+    {
+      "feature": "F2",
+      "req": "REQ-DEF-001",
+      "test_class": "Gavel_DefinitionValidator_Test",
+      "scenarios": [
+        "AS-2.1 validDefinitionActivates",
+        "AS-2.2 hashMismatchRejected",
+        "AS-2.3 scoreLevelsMustStartAtZero"
+      ],
+      "script": "evals/acceptance/F2.sh"
+    },
+    {
+      "feature": "F3",
+      "req": "REQ-STATE-001",
+      "test_class": "Gavel_StateBuilder_Test",
+      "scenarios": [
+        "AS-3.1 onlyAllowlistedFields",
+        "AS-3.2 cardNumberRedacted",
+        "AS-3.3 flsRespected",
+        "AS-3.4 killSwitch"
+      ],
+      "script": "evals/acceptance/F3.sh"
+    },
+    {
+      "feature": "F4",
+      "req": "REQ-FLOW-001",
+      "test_class": "Gavel_RunDecision_Test",
+      "scenarios": [
+        "AS-4.1 bulk200Async",
+        "AS-4.2 screenFlowSync",
+        "AS-4.3 errorSurfacesAsOutcome"
+      ],
+      "script": "evals/acceptance/F4.sh"
+    },
+    {
+      "feature": "F5",
+      "req": "REQ-POL-001",
+      "test_class": "Gavel_PolicyEngine_Test",
+      "scenarios": [
+        "AS-5.1 marginBlocksAuto",
+        "AS-5.2 escapeOption",
+        "AS-5.3 shadowNeverActs",
+        "AS-5.4 conservativeCombination"
+      ],
+      "script": "evals/acceptance/F5.sh"
+    },
+    {
+      "feature": "F6",
+      "req": "REQ-LEDG-001",
+      "test_class": "Gavel_Ledger_Test",
+      "scenarios": [
+        "AS-6.1 errorStillLedgered",
+        "AS-6.2 adminCannotEdit",
+        "AS-6.3 tamperDetected"
+      ],
+      "script": "evals/acceptance/F6.sh"
+    },
+    {
+      "feature": "F7",
+      "req": "REQ-SHAD-001",
+      "test_class": "Gavel_Shadow_Test",
+      "scenarios": [
+        "AS-7.1 agreementReport",
+        "AS-7.2 promotionBlocked"
+      ],
+      "script": "evals/acceptance/F7.sh"
+    },
+    {
+      "feature": "F8",
+      "req": "REQ-CAL-001",
+      "test_class": "Gavel_Calibration_Test",
+      "scenarios": [
+        "AS-8.1 overrideCaptured",
+        "AS-8.2 recommendationMeetsTarget",
+        "AS-8.3 noAutoChange"
+      ],
+      "script": "evals/acceptance/F8.sh"
+    },
+    {
+      "feature": "F9",
+      "req": "REQ-OPS-001",
+      "test_class": "Gavel_Guardrails_Test",
+      "scenarios": [
+        "AS-9.1 budgetStopsCalls",
+        "AS-9.2 breakerOpensAndCloses"
+      ],
+      "script": "evals/acceptance/F9.sh"
+    },
+    {
+      "feature": "F10",
+      "req": "REQ-AGT-001",
+      "test_class": "Gavel_AgentforceGate_Test",
+      "scenarios": [
+        "AS-10.1 injectionBlocked",
+        "AS-10.2 destructiveHeld",
+        "AS-10.3 providerDownFailsClosed"
+      ],
+      "script": "evals/acceptance/F10.sh"
+    },
+    {
+      "feature": "F11",
+      "req": "REQ-SVC-001",
+      "test_class": "Gavel_ServicePack_Test",
+      "scenarios": [
+        "AS-11.1 installsInShadow",
+        "AS-11.2 kbGapCreated",
+        "AS-11.3 urgencyIndependentOfPriority"
+      ],
+      "script": "evals/acceptance/F11.sh"
+    },
+    {
+      "feature": "F12",
+      "req": "REQ-SM-001",
+      "test_class": "Gavel_SalesMarketingPack_Test",
+      "scenarios": [
+        "AS-12.1 hiddenOptOut",
+        "AS-12.2 optOutNeverReversed",
+        "AS-12.3 junkLeadShadow"
+      ],
+      "script": "evals/acceptance/F12.sh"
+    },
+    {
+      "feature": "F13",
+      "req": "REQ-PKG-001",
+      "test_class": null,
+      "scenarios": [
+        "AS-13.1 sourceDeploy",
+        "AS-13.2 packageInstall"
+      ],
+      "script": "evals/acceptance/F13.sh"
+    },
+    {
+      "feature": "F14",
+      "req": "REQ-DOC-001",
+      "test_class": null,
+      "scenarios": [
+        "AS-14.1 egressPageComplete",
+        "AS-14.2 adrFormat"
+      ],
+      "script": "evals/acceptance/F14.sh"
+    }
+  ],
+  "holdout": [
+    {
+      "id": "S1",
+      "title": "Admin first decision in 15 minutes",
+      "script": "evals/holdout/S1.sh",
+      "mode": "live_manual"
+    },
+    {
+      "id": "S2",
+      "title": "Shadow to Live with evidence",
+      "script": "evals/holdout/S2.sh",
+      "mode": "live_manual"
+    },
+    {
+      "id": "S3",
+      "title": "Hidden unsubscribe caught",
+      "script": "evals/holdout/S3.sh",
+      "mode": "live_manual"
+    },
+    {
+      "id": "S4",
+      "title": "Agent input screened",
+      "script": "evals/holdout/S4.sh",
+      "mode": "live_manual"
+    },
+    {
+      "id": "S5",
+      "title": "Provider outage during data load",
+      "script": "evals/holdout/S5.sh",
+      "mode": "automated"
+    },
+    {
+      "id": "S6",
+      "title": "Daily budget protects the bill",
+      "script": "evals/holdout/S6.sh",
+      "mode": "automated"
+    },
+    {
+      "id": "S7",
+      "title": "Auditor traces a decision",
+      "script": "evals/holdout/S7.sh",
+      "mode": "live_manual"
+    },
+    {
+      "id": "S8",
+      "title": "Live definition edited without version bump",
+      "script": "evals/holdout/S8.sh",
+      "mode": "automated"
+    },
+    {
+      "id": "S9",
+      "title": "Low-access user triggers decision",
+      "script": "evals/holdout/S9.sh",
+      "mode": "automated"
+    },
+    {
+      "id": "S10",
+      "title": "Contributor adds undocumented definition",
+      "script": "evals/holdout/S10.sh",
+      "mode": "automated"
+    }
+  ],
+  "live_evals": [
+    {
+      "id": "LE-1",
+      "name": "Agentforce red team",
+      "fixtures": "evals/holdout/fixtures/injection_100_benign_100.jsonl",
+      "target": "block_or_review>=0.90, benign_block<0.05"
+    },
+    {
+      "id": "LE-2",
+      "name": "Opt-out recall",
+      "fixtures": "evals/holdout/fixtures/optout_150.jsonl",
+      "target": "recall>=0.98 at 0.6"
+    },
+    {
+      "id": "LE-3",
+      "name": "Live provider contract",
+      "script": "scripts/live-contract-test.sh",
+      "target": "all shapes match contracts/provider-contract.md"
+    }
+  ]
+}

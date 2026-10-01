@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -uo pipefail
+ROOT="${PROJECT_ROOT:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
+ORG="${GAVEL_ORG:-gavel-scratch}"
+apex_test(){ sf apex run test --class-names "$1" --target-org "$ORG" --code-coverage --result-format json --wait 20 > /tmp/gavel_$$.json || return 1; [ "$(jq -r '.result.summary.outcome' /tmp/gavel_$$.json)" = "Passed" ]; }
+# T6.3: Release
+[ "${GAVEL_LIVE:-0}" = "1" ] || { echo "MANUAL: requires live key, OQ-1/2/3 resolved"; exit 3; }
+"$ROOT/scripts/live-contract-test.sh"

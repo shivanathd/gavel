@@ -1,0 +1,15 @@
+# Salesforce
+.sf/
+.sfdx/
+.localdevserver/
+**/.vscode/
+deploy-options.json
+# Node
+node_modules/
+coverage/
+npm-debug.log*
+# OS
+.DS_Store
+# Eval run output
+docs/spec/active/2026-10-01-gavel-v1/evals/results/*
+!docs/spec/active/2026-10-01-gavel-v1/evals/results/.gitkeep

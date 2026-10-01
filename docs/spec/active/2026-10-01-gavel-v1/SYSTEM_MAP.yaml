@@ -1,0 +1,50 @@
+system: gavel
+version: 1.0.0
+style: salesforce-unlocked-packages
+components:
+  gavel-core:
+    contains: [Gavel_JudgmentProvider, Gavel_TypeSafeProvider, Gavel_MockProvider, Gavel_StateBuilder, Gavel_PolicyEngine, Gavel_DefinitionValidator, Gavel_Decision_Log__c, Gavel_Review__c, Gavel_Guardrails, "Gavel_*__mdt"]
+    depends_on: []
+    external: [TypeSafe API (https://api.typesafe.ai/v1/systemone)]
+  gavel-flow:
+    contains: [Gavel_RunDecision (invocable), Gavel_RunDecisionAsync (invocable), Gavel_ApplyOutcome (invocable), Gavel_DecisionQueueable, Gavel_PendingSweeper, flow templates]
+    depends_on: [gavel-core]
+  gavel-shadow:
+    contains: [Gavel_Baseline__c, Gavel_Baseline_Map__mdt, Gavel_BaselineCapture (schedulable), Gavel_DisagreementReport, Gavel_PromotionGate]
+    depends_on: [gavel-core, gavel-flow]
+  gavel-calibrate:
+    contains: [Gavel_Feedback__c, Gavel_Calibration_Report__c, Gavel_FeedbackCapture (trigger handler), Gavel_CalibrationJob]
+    depends_on: [gavel-core, gavel-shadow]
+  gavel-admin:
+    contains: [Gavel Lightning app, gavelDecisionConsole LWC, gavelLedgerRelated LWC, gavelCalibrationDashboard LWC, permission sets]
+    depends_on: [gavel-core, gavel-flow, gavel-shadow, gavel-calibrate]
+  gavel-pack-agentforce-gate:
+    contains: [Gavel_Input_Screen definition, Gavel_Action_Risk definition, agent actions, Gavel_Guarded_Action flow, intake flows]
+    depends_on: [gavel-core, gavel-flow]
+  gavel-pack-service:
+    contains: [Gavel_Case_Triage, Gavel_Case_Urgency, Gavel_KB_Coverage, Gavel_Closure_Check, Gavel_Reply_Check, Gavel_KB_Gap__c, sample data]
+    depends_on: [gavel-core, gavel-flow, gavel-shadow]
+  gavel-pack-sales-marketing:
+    contains: [Gavel_Lead_Quality, Gavel_Reply_Intent, Gavel_Opt_Out_Detect, Gavel_Persona, Gavel_Stage_Evidence, sample data]
+    depends_on: [gavel-core, gavel-flow, gavel-shadow, gavel-calibrate]
+boundaries:
+  - from: salesforce-records
+    to: Gavel_StateBuilder
+    contract: contracts/state-contract.md
+  - from: Gavel_StateBuilder
+    to: Gavel_JudgmentProvider
+    contract: contracts/provider-contract.md
+  - from: Gavel_JudgmentProvider
+    to: Gavel_PolicyEngine
+    contract: contracts/policy-contract.md
+  - from: Gavel_PolicyEngine
+    to: Gavel_Decision_Log__c
+    contract: contracts/ledger-contract.md
+  - from: Flow / Agentforce
+    to: gavel-flow invocables
+    contract: contracts/flow-contract.md
+impacted_customer_components:
+  - Record-triggered flows the admin activates (opt-in)
+  - Omni-Channel queues referenced by action maps
+  - Agentforce topics that add Gavel agent actions (opt-in)
+  - HasOptedOutOfEmail on Lead/Contact (Opt-Out Detect only, after admin enables)
