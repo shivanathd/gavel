@@ -1,0 +1,69 @@
+<template>
+    <lightning-card title="Gavel Decision Console" icon-name="custom:custom53">
+        <div class="slds-p-horizontal_small">
+            <template lwc:if={egressOff}>
+                <div class="gavel-egress slds-notify slds-notify_alert slds-alert_warning slds-m-bottom_small" role="alert">
+                    Egress is off: no data leaves this org and every decision is ledgered as SKIP egress_disabled.
+                    Review "Data leaving your org" before turning Egress_Enabled__c on.
+                </div>
+            </template>
+            <template lwc:if={breakerOpen}>
+                <div class="gavel-breaker slds-notify slds-notify_alert slds-alert_error slds-m-bottom_small" role="alert">
+                    The provider circuit breaker is {status.breakerState}. Decisions are skipped until it closes.
+                </div>
+            </template>
+            <template lwc:if={hashProblems}>
+                <div class="gavel-hash slds-notify slds-notify_alert slds-alert_error slds-m-bottom_small" role="alert">
+                    Changed without a version bump (runs will ERROR): {hashProblems}
+                </div>
+            </template>
+            <template lwc:if={error}>
+                <p class="gavel-error slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={hasDefinitions}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col">Definition</th>
+                            <th scope="col">Pack</th>
+                            <th scope="col">Object</th>
+                            <th scope="col">Version</th>
+                            <th scope="col">Mode</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Budget</th>
+                            <th scope="col">Data sent</th>
+                            <th scope="col">Health</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={definitions} for:item="d">
+                            <tr key={d.key} class="gavel-row">
+                                <td>{d.apiName}</td>
+                                <td>{d.pack}</td>
+                                <td>{d.targetObject}</td>
+                                <td>{d.version}</td>
+                                <td class="gavel-mode">{d.mode}</td>
+                                <td>{d.model}</td>
+                                <td>{d.budgetLabel}</td>
+                                <td class="slds-cell-wrap">{d.fields}</td>
+                                <td class={d.healthClass}>{d.healthLabel}</td>
+                                <td>
+                                    <template lwc:if={d.isShadow}>
+                                        <lightning-button class="gavel-promote" label="Request Live" data-name={d.apiName} data-mode="Live" onclick={handleMode} disabled={busy}></lightning-button>
+                                    </template>
+                                    <template lwc:if={d.isLive}>
+                                        <lightning-button class="gavel-demote" label="Back to Shadow" data-name={d.apiName} data-mode="Shadow" onclick={handleMode} disabled={busy}></lightning-button>
+                                    </template>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+            <template lwc:else>
+                <p class="gavel-empty slds-text-color_weak">No definitions installed. Deploy a pack to get started.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

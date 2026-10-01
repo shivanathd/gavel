@@ -1,0 +1,16 @@
+{
+  "name": "gavel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Governed AI judgments for Salesforce. Works with TypeSafe Jev.",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test:unit": "sfdx-lwc-jest",
+    "test:unit:coverage": "sfdx-lwc-jest --coverage",
+    "hash:check": "node scripts/hash-definitions.js --check",
+    "hash:write": "node scripts/hash-definitions.js --write"
+  },
+  "devDependencies": {
+    "@salesforce/sfdx-lwc-jest": "^7.0.0"
+  }
+}

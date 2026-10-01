@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Gavel Calibration" icon-name="custom:custom62">
+        <lightning-button slot="actions" class="gavel-run" label="Run calibration" onclick={handleRun}></lightning-button>
+        <div class="slds-p-horizontal_small">
+            <lightning-combobox class="gavel-picker" label="Definition" value={definitionApiName} options={options} onchange={handleChange}></lightning-combobox>
+            <template lwc:if={loading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            <template lwc:if={error}>
+                <p class="gavel-error slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={hasReport}>
+                <div class="gavel-report slds-box slds-m-top_small">
+                    <p class="slds-text-heading_small">Recommendation for {report.question}: <span class="gavel-status">{report.status}</span></p>
+                    <template lwc:if={report.meetsTarget}>
+                        <p class="gavel-recommended">Auto accept at {report.recommended}: precision {report.precision} (95% interval {report.interval}), coverage {report.coverage}.</p>
+                    </template>
+                    <p class="slds-text-body_small">Labeled entries: {report.labeled}. A human applies this through a deploy that bumps the version; Gavel never changes thresholds itself.</p>
+                    <table class="gavel-bins slds-table slds-table_bordered slds-m-top_x-small">
+                        <thead><tr><th>Confidence</th><th>Labels</th><th>Observed correct</th><th></th></tr></thead>
+                        <tbody>
+                            <template for:each={report.bins} for:item="b">
+                                <tr key={b.key}><td>{b.range}</td><td>{b.n}</td><td>{b.observed}</td><td>{b.flag}</td></tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+            <template lwc:else>
+                <p class="gavel-noreport slds-m-top_small slds-text-color_weak">No calibration report yet for this definition.</p>
+            </template>
+            <template lwc:if={shadow}>
+                <template lwc:if={shadow.hasQuestions}>
+                    <div class="gavel-shadow slds-box slds-m-top_small">
+                        <p class="slds-text-heading_small">Shadow comparison (agreement with today's process is not accuracy)</p>
+                        <template for:each={shadow.questions} for:item="q">
+                            <p key={q.key} class="gavel-shadow-row">{q.key}: {q.sample} entries, agreement {q.agreement}, would have been AUTO {q.wouldAuto}, missing {q.missing}, unmapped {q.unmapped}. {q.pairs}</p>
+                        </template>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

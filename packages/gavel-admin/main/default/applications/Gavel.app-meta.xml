@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#1B2A4A</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Governed AI judgments for Salesforce. Works with TypeSafe Jev.</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Gavel</label>
+    <navType>Standard</navType>
+    <tabs>Gavel_Decision_Console</tabs>
+    <tabs>Gavel_Review__c</tabs>
+    <tabs>Gavel_Decision_Log__c</tabs>
+    <tabs>Gavel_Calibration</tabs>
+    <tabs>Gavel_Calibration_Report__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

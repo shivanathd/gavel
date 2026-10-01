@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Gavel Decisions</masterLabel>
+    <description>Ledger of Gavel decisions for the current record.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="limitSize" type="Integer" default="50" label="Rows to show" min="1" max="200"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
