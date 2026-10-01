@@ -35,9 +35,9 @@ private class Gavel_StateBuilder_Test {
         d.stateFields[1].redactionProfile = 'strict';
         Gavel_StateBuilder.StateResult r = Gavel_StateBuilder.build(c.Id, d);
         String descText = (String) r.state.get('description');
-        Assert.isTrue(descText.contains('[REDACTED:payment]'), descText);
+        Assert.isTrue(descText.contains('[REDACTED:payment]'), '' + descText);
         Assert.isFalse(r.stateJson.contains('4111'), 'card digits never leave');
-        Assert.isTrue(r.redactionsApplied.contains('payment:1'), String.valueOf(r.redactionsApplied));
+        Assert.isTrue(r.redactionsApplied.contains('payment:1'), '' + String.valueOf(r.redactionsApplied));
         Assert.areEqual('payment:1', r.redactionSummary());
     }
 
@@ -55,7 +55,7 @@ private class Gavel_StateBuilder_Test {
         System.runAs(minimal) {
             r = Gavel_StateBuilder.build(c.Id, subjectAndDescription(true));
         }
-        Assert.isTrue(r.missingRequired.contains('description'), String.valueOf(r.missingRequired));
+        Assert.isTrue(r.missingRequired.contains('description'), '' + String.valueOf(r.missingRequired));
         Assert.areEqual('insufficient_state', r.blockedReason);
         Assert.isFalse(r.stateJson.contains('Only admins'), 'unreadable field never sent');
     }
@@ -72,6 +72,15 @@ private class Gavel_StateBuilder_Test {
         Assert.isTrue(r.state.isEmpty());
         Assert.areEqual(queriesBefore, Limits.getQueries(), 'nothing is even read when egress is off');
 
+        // Any decision run: no callout, SKIP egress_disabled, still ledgered.
+        Gavel_Definition d = Gavel_TestFactory.triage('Test_KillSwitch');
+        d.mode = Gavel_Definition.MODE_LIVE;
+        Gavel_TestFactory.register(d);
+        Gavel_Runtime.RunResult run = Gavel_Runtime.run(c.Id, 'Test_KillSwitch');
+        Assert.areEqual('SKIP', run.outcome);
+        Assert.areEqual('egress_disabled', run.reason);
+        Assert.isNotNull(run.ledgerId);
+        Assert.areEqual(0, Gavel_MockProvider.callCount, 'no provider call, mock included');
     }
 
     @IsTest
@@ -107,7 +116,7 @@ private class Gavel_StateBuilder_Test {
         Gavel_StateBuilder.StateResult r = Gavel_StateBuilder.build(c.Id, d);
         Assert.areEqual('Banking', r.state.get('industry'));
         Assert.isFalse(r.state.containsKey('employees'), '0 omitted unless zero is meaningful');
-        Assert.isTrue((Decimal) r.state.get('revenue') == 1000, String.valueOf(r.state));
+        Assert.isTrue((Decimal) r.state.get('revenue') == 1000, '' + String.valueOf(r.state));
         d.stateFields[1].zeroIsMeaningful = true;
         Assert.isTrue((Decimal) Gavel_StateBuilder.build(c.Id, d).state.get('employees') == 0);
     }
@@ -153,7 +162,7 @@ private class Gavel_StateBuilder_Test {
         d.stateFields.add(missingSource);
         Gavel_StateBuilder.StateResult r = Gavel_StateBuilder.build(c.Id, d);
         String body = (String) r.state.get('recent_emails');
-        Assert.isTrue(body.contains('payroll blocked'), body);
+        Assert.isTrue(body.contains('payroll blocked'), '' + body);
         Assert.isFalse(body.contains('old quoted text'), 'quoted chain stripped');
         Assert.isFalse(body.contains('We are looking'), 'outbound excluded');
         Assert.isFalse(r.state.containsKey('nothing'));
@@ -197,7 +206,7 @@ private class Gavel_StateBuilder_Test {
         ctx.recordId = o.Id;
         ctx.arg = '10';
         String text = (String) new Gavel_StateSources.RecentActivity().resolve(ctx);
-        Assert.isTrue(text.contains('CFO confirmed budget'), text);
+        Assert.isTrue(text.contains('CFO confirmed budget'), '' + text);
         ctx.recordId = null;
         Assert.isNull(new Gavel_StateSources.RecentActivity().resolve(ctx));
         Assert.isNull(new Gavel_StateSources.InboundEmails().resolve(ctx));

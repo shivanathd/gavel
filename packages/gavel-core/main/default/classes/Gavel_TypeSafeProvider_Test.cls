@@ -106,6 +106,24 @@ private class Gavel_TypeSafeProvider_Test {
         Assert.isFalse(JSON.serialize(r2).contains(fakeSecret));
         Assert.areEqual(401, r2.httpStatus);
 
+        // Through the runtime: nothing token-shaped reaches any ledger field.
+        Gavel_TestFactory.ops(true);
+        Gavel_Definition d = Gavel_TestFactory.triage('Leak_Check');
+        d.providerClass = 'Gavel_TypeSafeProvider';
+        d.namedCredential = 'Gavel_TypeSafe';
+        d.endpointPath = '/v1/systemone';
+        Gavel_TestFactory.register(d);
+        Test.setMock(HttpCalloutMock.class, new Sequence(new List<Object>{ 'THROW:Unauthorized: ' + echoed }));
+        Case c = Gavel_TestFactory.newCase('Help', 'Login fails');
+        insert c;
+        Test.startTest(); // callouts cannot follow the test's own uncommitted DML
+        Gavel_Runtime.RunResult run = Gavel_Runtime.run(c.Id, 'Leak_Check');
+        Test.stopTest();
+        Assert.areEqual('ERROR', run.outcome);
+        String ledgerText = JSON.serialize([SELECT Name, Outcome__c, Reason__c, Answers_JSON__c, Provider_Status__c, Action_Taken__c,
+            Redaction_Summary__c, Model_Version__c, State_JSON__c FROM Gavel_Decision_Log__c WHERE Id = :run.ledgerId]);
+        Assert.isFalse(ledgerText.contains(fakeSecret), 'no secret in the ledger');
+        Assert.isFalse(ledgerText.containsIgnoreCase('bearer'), 'no auth header value in the ledger');
     }
 
     // AS-1.4 Alias blocked when Live

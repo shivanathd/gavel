@@ -79,6 +79,28 @@ private class Gavel_PolicyEngine_Test {
         Assert.isTrue(o.actionSuppressed);
         Assert.areEqual('action_suppressed_shadow', o.suppressReason);
 
+        // End to end: Apply Outcome on a Shadow AUTO entry changes nothing.
+        Gavel_TestFactory.ops(true);
+        Gavel_Definition live = Gavel_TestFactory.triage('Shadow_Acts');
+        live.actionMaps.add(new Gavel_Definition.ActionMap('category', 'BILLING', 'set_field', 'Case.Subject', 'ROUTED TO BILLING'));
+        Gavel_TestFactory.register(live); // factory default mode is Shadow
+        Gavel_MockProvider.respondWith('Shadow_Acts', new Gavel_MockProvider.Body()
+            .choice('category', new Map<String, Decimal>{ 'BILLING' => 0.95, 'FRAUD' => 0.02, 'TECHNICAL' => 0.02, 'ACCOUNT' => 0.01 }, 0.9)
+            .noul('fraud_concern', 0.02).json());
+        Case c = Gavel_TestFactory.newCase('Original subject', 'Charged twice for my plan');
+        insert c;
+        Gavel_Runtime.RunRequest req = new Gavel_Runtime.RunRequest(c.Id, 'Shadow_Acts');
+        req.applyActions = false;
+        Gavel_Runtime.RunResult run = Gavel_Runtime.run(req);
+        Assert.areEqual('AUTO', run.outcome);
+        List<Gavel_Runtime.ApplyResult> applied = Gavel_Runtime.applyOutcome(new List<Id>{ run.ledgerId });
+        Assert.isFalse(applied[0].applied);
+        Assert.areEqual('action_suppressed_shadow', applied[0].actions);
+        Assert.areEqual('Original subject', [SELECT Subject FROM Case WHERE Id = :c.Id].Subject, 'zero field updates');
+        Gavel_Decision_Log__c e = [SELECT Action_Taken__c, Action_Suppressed__c FROM Gavel_Decision_Log__c WHERE Id = :run.ledgerId];
+        Assert.areEqual('action_suppressed_shadow', e.Action_Taken__c);
+        Assert.isTrue(e.Action_Suppressed__c);
+        Assert.areEqual(0, [SELECT COUNT() FROM Gavel_Review__c], 'shadow creates no work items');
     }
 
     // AS-5.4 Conservative combination
@@ -203,7 +225,7 @@ private class Gavel_PolicyEngine_Test {
         Gavel_Definition d = oneChoice(0.85, 0.5, 0.3, FOUR);
         for (String status : new List<String>{ 'timeout', 'http_error', 'invalid_response', 'contract_mismatch', 'circuit_open', 'budget_exceeded', 'invalid_request' }) {
             Gavel_Outcome o = Gavel_PolicyEngine.evaluate(d, Gavel_JudgmentResponse.failure(status, 500, null));
-            Assert.areEqual('ERROR', o.outcome, status);
+            Assert.areEqual('ERROR', o.outcome, '' + status);
             Assert.areEqual(status, o.reason);
         }
         Assert.areEqual('ERROR', Gavel_PolicyEngine.evaluate(d, null).outcome);

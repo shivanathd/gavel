@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Carries a ledger entry whose insert failed; the subscriber retries it (LEDG-001.7).</description>
+    <eventType>HighVolume</eventType>
+    <label>Gavel Ledger Fallback</label>
+    <pluralLabel>Gavel Ledger Fallbacks</pluralLabel>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
+</CustomObject>

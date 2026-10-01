@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>State_JSON__c</fullName>
+    <description>Redacted state. Only populated when Gavel_Ops_Config__mdt.Store_State__c is true.</description>
+    <label>State JSON</label>
+    <length>131072</length>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

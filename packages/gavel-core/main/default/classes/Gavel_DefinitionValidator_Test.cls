@@ -36,6 +36,23 @@ private class Gavel_DefinitionValidator_Test {
         Assert.areEqual('definition_hash_mismatch', r.firstError());
         Assert.areEqual(3, d.version, 'version unchanged');
 
+        // Runtime: every run is rejected and each rejection is ledgered as ERROR.
+        Gavel_TestFactory.ops(true);
+        d.apiName = 'Test_Stale';
+        Gavel_DefinitionRepo.registerForTest(d); // registered with the stale hash on purpose
+        Case c1 = Gavel_TestFactory.newCase('A', 'first');
+        Case c2 = Gavel_TestFactory.newCase('B', 'second');
+        insert new List<Case>{ c1, c2 };
+        List<Gavel_Runtime.RunResult> runs = Gavel_Runtime.runAll(new List<Gavel_Runtime.RunRequest>{
+            new Gavel_Runtime.RunRequest(c1.Id, 'Test_Stale'), new Gavel_Runtime.RunRequest(c2.Id, 'Test_Stale')
+        });
+        for (Gavel_Runtime.RunResult run : runs) {
+            Assert.areEqual('ERROR', run.outcome);
+            Assert.areEqual('definition_hash_mismatch', run.reason);
+        }
+        Assert.areEqual(2, [SELECT COUNT() FROM Gavel_Decision_Log__c WHERE Definition__c = 'Test_Stale' AND Outcome__c = 'ERROR' AND Reason__c = 'definition_hash_mismatch']);
+        Assert.areEqual(0, Gavel_MockProvider.callCount, 'no provider call for a stale definition');
+        Assert.isTrue(Gavel_Alerts.wasRaised('definition_hash_mismatch'));
     }
 
     // AS-2.3 Invalid score levels
@@ -47,7 +64,7 @@ private class Gavel_DefinitionValidator_Test {
         Gavel_TestFactory.seal(d);
         Gavel_DefinitionValidator.Result r = Gavel_DefinitionValidator.validate(d);
         Assert.isFalse(r.valid);
-        Assert.isTrue(r.errors.contains('score_levels_must_start_at_zero'), String.valueOf(r.errors));
+        Assert.isTrue(r.errors.contains('score_levels_must_start_at_zero'), '' + String.valueOf(r.errors));
     }
 
     @IsTest
@@ -56,7 +73,7 @@ private class Gavel_DefinitionValidator_Test {
         d.questions.add(Gavel_TestFactory.score('urgency', 0, 4));
         d.policies.add(Gavel_TestFactory.policy('urgency', 0.85, 0.5, null));
         Gavel_TestFactory.seal(d);
-        Assert.isTrue(Gavel_DefinitionValidator.validate(d).valid, String.valueOf(Gavel_DefinitionValidator.validate(d).errors));
+        Assert.isTrue(Gavel_DefinitionValidator.validate(d).valid, '' + String.valueOf(Gavel_DefinitionValidator.validate(d).errors));
     }
 
     @IsTest
@@ -81,8 +98,8 @@ private class Gavel_DefinitionValidator_Test {
         d.questions.add(Gavel_TestFactory.score('big', 0, 10));
         Gavel_TestFactory.seal(d);
         List<String> errors = Gavel_DefinitionValidator.validate(d).errors;
-        Assert.isTrue(errors.contains('choice_option_count_out_of_range'), String.valueOf(errors));
-        Assert.isTrue(errors.contains('score_level_count_out_of_range'), String.valueOf(errors));
+        Assert.isTrue(errors.contains('choice_option_count_out_of_range'), '' + String.valueOf(errors));
+        Assert.isTrue(errors.contains('score_level_count_out_of_range'), '' + String.valueOf(errors));
     }
 
     @IsTest
