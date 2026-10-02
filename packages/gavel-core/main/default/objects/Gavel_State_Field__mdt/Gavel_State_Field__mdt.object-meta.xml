@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Allowlisted field sent to the provider for a definition.</description>
+    <label>Gavel State Field</label>
+    <pluralLabel>Gavel State Fields</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

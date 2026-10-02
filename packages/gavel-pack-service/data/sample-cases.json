@@ -1,0 +1,2404 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase1"
+      },
+      "Subject": "Suspicious login (sample 1)",
+      "Description": "We got a login alert from another country. Someone may have hacked our admin account. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase2"
+      },
+      "Subject": "Refund request (sample 2)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10002.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase3"
+      },
+      "Subject": "Login error after update (sample 3)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 22. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase4"
+      },
+      "Subject": "Transfer account ownership (sample 4)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase5"
+      },
+      "Subject": "Refund request (sample 5)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10005. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase6"
+      },
+      "Subject": "Change company address (sample 6)",
+      "Description": "Please update our billing and shipping address to Austin. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase7"
+      },
+      "Subject": "Transfer account ownership (sample 7)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase8"
+      },
+      "Subject": "Change company address (sample 8)",
+      "Description": "Please update our billing and shipping address to Austin. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase9"
+      },
+      "Subject": "Cancel my account (sample 9)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. When you get a chance.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase10"
+      },
+      "Subject": "Export keeps crashing (sample 10)",
+      "Description": "The CSV export crashes every time for reports above 65 rows. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase11"
+      },
+      "Subject": "Refund request (sample 11)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10011. Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase12"
+      },
+      "Subject": "SAML certificate rotation (sample 12)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase13"
+      },
+      "Subject": "API returns 500 (sample 13)",
+      "Description": "The orders API returns 500 for about 9% of calls since yesterday.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase14"
+      },
+      "Subject": "Refund request (sample 14)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10014. Just a question, no rush.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase15"
+      },
+      "Subject": "Login error after update (sample 15)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 25. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase16"
+      },
+      "Subject": "SAML certificate rotation (sample 16)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change?",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase17"
+      },
+      "Subject": "Export keeps crashing (sample 17)",
+      "Description": "The CSV export crashes every time for reports above 48 rows. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase18"
+      },
+      "Subject": "SAML certificate rotation (sample 18)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change?",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase19"
+      },
+      "Subject": "Charged twice this month (sample 19)",
+      "Description": "I was charged twice for my Enterprise subscription on the 11. Please refund the duplicate payment. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase20"
+      },
+      "Subject": "Refund request (sample 20)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10020. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase21"
+      },
+      "Subject": "Change company address (sample 21)",
+      "Description": "Please update our billing and shipping address to Toronto. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase22"
+      },
+      "Subject": "API returns 500 (sample 22)",
+      "Description": "The orders API returns 500 for about 15% of calls since yesterday. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase23"
+      },
+      "Subject": "Invoice total looks wrong (sample 23)",
+      "Description": "Invoice INV-10023 shows 3 seats but we only have 26. Can you correct the billing? Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase24"
+      },
+      "Subject": "Login error after update (sample 24)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 58. Just a question, no rush.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase25"
+      },
+      "Subject": "Export keeps crashing (sample 25)",
+      "Description": "The CSV export crashes every time for reports above 21 rows. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase26"
+      },
+      "Subject": "API returns 500 (sample 26)",
+      "Description": "The orders API returns 500 for about 4% of calls since yesterday.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase27"
+      },
+      "Subject": "Update payment method (sample 27)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase28"
+      },
+      "Subject": "Export keeps crashing (sample 28)",
+      "Description": "The CSV export crashes every time for reports above 45 rows. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase29"
+      },
+      "Subject": "Charged twice this month (sample 29)",
+      "Description": "I was charged twice for my Enterprise subscription on the 24. Please refund the duplicate payment. Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase30"
+      },
+      "Subject": "API returns 500 (sample 30)",
+      "Description": "The orders API returns 500 for about 9% of calls since yesterday. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase31"
+      },
+      "Subject": "SAML certificate rotation (sample 31)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? When you get a chance.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase32"
+      },
+      "Subject": "Charged twice this month (sample 32)",
+      "Description": "I was charged twice for my Team subscription on the 12. Please refund the duplicate payment. Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase33"
+      },
+      "Subject": "Invoice total looks wrong (sample 33)",
+      "Description": "Invoice INV-10033 shows 13 seats but we only have 21. Can you correct the billing? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase34"
+      },
+      "Subject": "Cancel my account (sample 34)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. Just a question, no rush.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase35"
+      },
+      "Subject": "Login error after update (sample 35)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 16. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase36"
+      },
+      "Subject": "Export keeps crashing (sample 36)",
+      "Description": "The CSV export crashes every time for reports above 71 rows. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase37"
+      },
+      "Subject": "Cancel my account (sample 37)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase38"
+      },
+      "Subject": "Charged twice this month (sample 38)",
+      "Description": "I was charged twice for my Enterprise subscription on the 3. Please refund the duplicate payment. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase39"
+      },
+      "Subject": "Unauthorized charge (sample 39)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase40"
+      },
+      "Subject": "Transfer account ownership (sample 40)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase41"
+      },
+      "Subject": "Invoice total looks wrong (sample 41)",
+      "Description": "Invoice INV-10041 shows 65 seats but we only have 18. Can you correct the billing? Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase42"
+      },
+      "Subject": "Transfer account ownership (sample 42)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase43"
+      },
+      "Subject": "Refund request (sample 43)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10043.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase44"
+      },
+      "Subject": "Change company address (sample 44)",
+      "Description": "Please update our billing and shipping address to Austin. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase45"
+      },
+      "Subject": "Phishing email using your brand (sample 45)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details. When you get a chance.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase46"
+      },
+      "Subject": "Unauthorized charge (sample 46)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase47"
+      },
+      "Subject": "Invoice total looks wrong (sample 47)",
+      "Description": "Invoice INV-10047 shows 89 seats but we only have 24. Can you correct the billing? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase48"
+      },
+      "Subject": "Login error after update (sample 48)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 73.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase49"
+      },
+      "Subject": "API returns 500 (sample 49)",
+      "Description": "The orders API returns 500 for about 40% of calls since yesterday.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase50"
+      },
+      "Subject": "Export keeps crashing (sample 50)",
+      "Description": "The CSV export crashes every time for reports above 16 rows.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase51"
+      },
+      "Subject": "Cancel my account (sample 51)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase52"
+      },
+      "Subject": "Charged twice this month (sample 52)",
+      "Description": "I was charged twice for my Team subscription on the 15. Please refund the duplicate payment. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase53"
+      },
+      "Subject": "Charged twice this month (sample 53)",
+      "Description": "I was charged twice for my Enterprise subscription on the 15. Please refund the duplicate payment. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase54"
+      },
+      "Subject": "Login error after update (sample 54)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 81. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase55"
+      },
+      "Subject": "API returns 500 (sample 55)",
+      "Description": "The orders API returns 500 for about 30% of calls since yesterday. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase56"
+      },
+      "Subject": "SAML certificate rotation (sample 56)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase57"
+      },
+      "Subject": "Login error after update (sample 57)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 76. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase58"
+      },
+      "Subject": "Cancel my account (sample 58)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase59"
+      },
+      "Subject": "Phishing email using your brand (sample 59)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase60"
+      },
+      "Subject": "Suspicious login (sample 60)",
+      "Description": "We got a login alert from another country. Someone may have hacked our admin account. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase61"
+      },
+      "Subject": "Unauthorized charge (sample 61)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase62"
+      },
+      "Subject": "Refund request (sample 62)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10062. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase63"
+      },
+      "Subject": "Update payment method (sample 63)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice? When you get a chance.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase64"
+      },
+      "Subject": "Update payment method (sample 64)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase65"
+      },
+      "Subject": "SAML certificate rotation (sample 65)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? When you get a chance.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase66"
+      },
+      "Subject": "Phishing email using your brand (sample 66)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details. Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase67"
+      },
+      "Subject": "Login error after update (sample 67)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 70.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase68"
+      },
+      "Subject": "Refund request (sample 68)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10068. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase69"
+      },
+      "Subject": "Update payment method (sample 69)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice? When you get a chance.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase70"
+      },
+      "Subject": "Charged twice this month (sample 70)",
+      "Description": "I was charged twice for my Enterprise subscription on the 24. Please refund the duplicate payment.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase71"
+      },
+      "Subject": "Invoice total looks wrong (sample 71)",
+      "Description": "Invoice INV-10071 shows 47 seats but we only have 22. Can you correct the billing? When you get a chance.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase72"
+      },
+      "Subject": "Unauthorized charge (sample 72)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase73"
+      },
+      "Subject": "SAML certificate rotation (sample 73)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase74"
+      },
+      "Subject": "Login error after update (sample 74)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 86. Just a question, no rush.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase75"
+      },
+      "Subject": "SAML certificate rotation (sample 75)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase76"
+      },
+      "Subject": "API returns 500 (sample 76)",
+      "Description": "The orders API returns 500 for about 38% of calls since yesterday. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase77"
+      },
+      "Subject": "Change company address (sample 77)",
+      "Description": "Please update our billing and shipping address to Austin. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase78"
+      },
+      "Subject": "Phishing email using your brand (sample 78)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase79"
+      },
+      "Subject": "SAML certificate rotation (sample 79)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase80"
+      },
+      "Subject": "Invoice total looks wrong (sample 80)",
+      "Description": "Invoice INV-10080 shows 38 seats but we only have 10. Can you correct the billing? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase81"
+      },
+      "Subject": "API returns 500 (sample 81)",
+      "Description": "The orders API returns 500 for about 13% of calls since yesterday. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase82"
+      },
+      "Subject": "Export keeps crashing (sample 82)",
+      "Description": "The CSV export crashes every time for reports above 79 rows. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase83"
+      },
+      "Subject": "Update payment method (sample 83)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice? Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase84"
+      },
+      "Subject": "Export keeps crashing (sample 84)",
+      "Description": "The CSV export crashes every time for reports above 14 rows. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase85"
+      },
+      "Subject": "Unauthorized charge (sample 85)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase86"
+      },
+      "Subject": "Change company address (sample 86)",
+      "Description": "Please update our billing and shipping address to Pune.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase87"
+      },
+      "Subject": "SAML certificate rotation (sample 87)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change?",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase88"
+      },
+      "Subject": "Invoice total looks wrong (sample 88)",
+      "Description": "Invoice INV-10088 shows 20 seats but we only have 4. Can you correct the billing?",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase89"
+      },
+      "Subject": "Invoice total looks wrong (sample 89)",
+      "Description": "Invoice INV-10089 shows 55 seats but we only have 24. Can you correct the billing? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase90"
+      },
+      "Subject": "Transfer account ownership (sample 90)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase91"
+      },
+      "Subject": "Suspicious login (sample 91)",
+      "Description": "We got a login alert from another country. Someone may have hacked our admin account. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase92"
+      },
+      "Subject": "Suspicious login (sample 92)",
+      "Description": "We got a login alert from another country. Someone may have hacked our admin account. Just a question, no rush.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase93"
+      },
+      "Subject": "Update payment method (sample 93)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice? Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase94"
+      },
+      "Subject": "API returns 500 (sample 94)",
+      "Description": "The orders API returns 500 for about 11% of calls since yesterday. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase95"
+      },
+      "Subject": "Refund request (sample 95)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10095. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase96"
+      },
+      "Subject": "Charged twice this month (sample 96)",
+      "Description": "I was charged twice for my Starter subscription on the 12. Please refund the duplicate payment. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase97"
+      },
+      "Subject": "Cancel my account (sample 97)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase98"
+      },
+      "Subject": "Suspicious login (sample 98)",
+      "Description": "We got a login alert from another country. Someone may have hacked our admin account. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase99"
+      },
+      "Subject": "Suspicious login (sample 99)",
+      "Description": "We got a login alert from another country. Someone may have hacked our admin account. When you get a chance.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase100"
+      },
+      "Subject": "Refund request (sample 100)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10100. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase101"
+      },
+      "Subject": "Phishing email using your brand (sample 101)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase102"
+      },
+      "Subject": "API returns 500 (sample 102)",
+      "Description": "The orders API returns 500 for about 32% of calls since yesterday.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase103"
+      },
+      "Subject": "Update payment method (sample 103)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice?",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase104"
+      },
+      "Subject": "Export keeps crashing (sample 104)",
+      "Description": "The CSV export crashes every time for reports above 77 rows. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase105"
+      },
+      "Subject": "SAML certificate rotation (sample 105)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change?",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase106"
+      },
+      "Subject": "API returns 500 (sample 106)",
+      "Description": "The orders API returns 500 for about 20% of calls since yesterday. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase107"
+      },
+      "Subject": "Phishing email using your brand (sample 107)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase108"
+      },
+      "Subject": "Update payment method (sample 108)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice? Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase109"
+      },
+      "Subject": "Cancel my account (sample 109)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase110"
+      },
+      "Subject": "Change company address (sample 110)",
+      "Description": "Please update our billing and shipping address to Pune. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase111"
+      },
+      "Subject": "API returns 500 (sample 111)",
+      "Description": "The orders API returns 500 for about 38% of calls since yesterday. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase112"
+      },
+      "Subject": "Login error after update (sample 112)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 84. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase113"
+      },
+      "Subject": "Transfer account ownership (sample 113)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase114"
+      },
+      "Subject": "Phishing email using your brand (sample 114)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details. When you get a chance.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase115"
+      },
+      "Subject": "API returns 500 (sample 115)",
+      "Description": "The orders API returns 500 for about 28% of calls since yesterday. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase116"
+      },
+      "Subject": "Change company address (sample 116)",
+      "Description": "Please update our billing and shipping address to Austin. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase117"
+      },
+      "Subject": "Invoice total looks wrong (sample 117)",
+      "Description": "Invoice INV-10117 shows 37 seats but we only have 32. Can you correct the billing? Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase118"
+      },
+      "Subject": "Invoice total looks wrong (sample 118)",
+      "Description": "Invoice INV-10118 shows 62 seats but we only have 4. Can you correct the billing? Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase119"
+      },
+      "Subject": "Login error after update (sample 119)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 5. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase120"
+      },
+      "Subject": "Export keeps crashing (sample 120)",
+      "Description": "The CSV export crashes every time for reports above 75 rows. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase121"
+      },
+      "Subject": "Transfer account ownership (sample 121)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase122"
+      },
+      "Subject": "Refund request (sample 122)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10122. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase123"
+      },
+      "Subject": "Cancel my account (sample 123)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase124"
+      },
+      "Subject": "Cancel my account (sample 124)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase125"
+      },
+      "Subject": "Charged twice this month (sample 125)",
+      "Description": "I was charged twice for my Enterprise subscription on the 21. Please refund the duplicate payment. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase126"
+      },
+      "Subject": "Update payment method (sample 126)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice?",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase127"
+      },
+      "Subject": "Cancel my account (sample 127)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase128"
+      },
+      "Subject": "SAML certificate rotation (sample 128)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? When you get a chance.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase129"
+      },
+      "Subject": "Transfer account ownership (sample 129)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase130"
+      },
+      "Subject": "Update payment method (sample 130)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice?",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase131"
+      },
+      "Subject": "Invoice total looks wrong (sample 131)",
+      "Description": "Invoice INV-10131 shows 21 seats but we only have 22. Can you correct the billing? Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase132"
+      },
+      "Subject": "Unauthorized charge (sample 132)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase133"
+      },
+      "Subject": "Refund request (sample 133)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10133. Just a question, no rush.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase134"
+      },
+      "Subject": "Transfer account ownership (sample 134)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. Just a question, no rush.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase135"
+      },
+      "Subject": "Invoice total looks wrong (sample 135)",
+      "Description": "Invoice INV-10135 shows 10 seats but we only have 14. Can you correct the billing? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase136"
+      },
+      "Subject": "Phishing email using your brand (sample 136)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details. Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase137"
+      },
+      "Subject": "API returns 500 (sample 137)",
+      "Description": "The orders API returns 500 for about 8% of calls since yesterday. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase138"
+      },
+      "Subject": "Unauthorized charge (sample 138)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase139"
+      },
+      "Subject": "Transfer account ownership (sample 139)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase140"
+      },
+      "Subject": "Cancel my account (sample 140)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase141"
+      },
+      "Subject": "API returns 500 (sample 141)",
+      "Description": "The orders API returns 500 for about 4% of calls since yesterday. Just a question, no rush.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase142"
+      },
+      "Subject": "API returns 500 (sample 142)",
+      "Description": "The orders API returns 500 for about 4% of calls since yesterday. When you get a chance.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase143"
+      },
+      "Subject": "Charged twice this month (sample 143)",
+      "Description": "I was charged twice for my Starter subscription on the 16. Please refund the duplicate payment. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase144"
+      },
+      "Subject": "Login error after update (sample 144)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 5.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase145"
+      },
+      "Subject": "Cancel my account (sample 145)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase146"
+      },
+      "Subject": "Invoice total looks wrong (sample 146)",
+      "Description": "Invoice INV-10146 shows 50 seats but we only have 4. Can you correct the billing? Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase147"
+      },
+      "Subject": "API returns 500 (sample 147)",
+      "Description": "The orders API returns 500 for about 28% of calls since yesterday. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase148"
+      },
+      "Subject": "Transfer account ownership (sample 148)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase149"
+      },
+      "Subject": "Cancel my account (sample 149)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase150"
+      },
+      "Subject": "Login error after update (sample 150)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 42.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase151"
+      },
+      "Subject": "Invoice total looks wrong (sample 151)",
+      "Description": "Invoice INV-10151 shows 49 seats but we only have 36. Can you correct the billing? Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase152"
+      },
+      "Subject": "Phishing email using your brand (sample 152)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase153"
+      },
+      "Subject": "SAML certificate rotation (sample 153)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase154"
+      },
+      "Subject": "Refund request (sample 154)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10154. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase155"
+      },
+      "Subject": "Phishing email using your brand (sample 155)",
+      "Description": "A customer forwarded a phishing email that pretends to be from you asking for payment details. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase156"
+      },
+      "Subject": "SAML certificate rotation (sample 156)",
+      "Description": "Our identity provider rotates its SAML certificate next week. What do we need to change? Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase157"
+      },
+      "Subject": "Change company address (sample 157)",
+      "Description": "Please update our billing and shipping address to Austin. Just a question, no rush.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase158"
+      },
+      "Subject": "Suspicious login (sample 158)",
+      "Description": "We got a login alert from another country. Someone may have hacked our admin account.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase159"
+      },
+      "Subject": "Transfer account ownership (sample 159)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. When you get a chance.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase160"
+      },
+      "Subject": "Refund request (sample 160)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10160. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase161"
+      },
+      "Subject": "API returns 500 (sample 161)",
+      "Description": "The orders API returns 500 for about 13% of calls since yesterday. Just a question, no rush.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase162"
+      },
+      "Subject": "Login error after update (sample 162)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 33. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase163"
+      },
+      "Subject": "Unauthorized charge (sample 163)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase164"
+      },
+      "Subject": "Unauthorized charge (sample 164)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase165"
+      },
+      "Subject": "Login error after update (sample 165)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 51.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase166"
+      },
+      "Subject": "API returns 500 (sample 166)",
+      "Description": "The orders API returns 500 for about 26% of calls since yesterday. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase167"
+      },
+      "Subject": "API returns 500 (sample 167)",
+      "Description": "The orders API returns 500 for about 6% of calls since yesterday. Production down for the whole team.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase168"
+      },
+      "Subject": "API returns 500 (sample 168)",
+      "Description": "The orders API returns 500 for about 32% of calls since yesterday. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase169"
+      },
+      "Subject": "Cancel my account (sample 169)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase170"
+      },
+      "Subject": "Charged twice this month (sample 170)",
+      "Description": "I was charged twice for my Starter subscription on the 13. Please refund the duplicate payment. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase171"
+      },
+      "Subject": "Charged twice this month (sample 171)",
+      "Description": "I was charged twice for my Starter subscription on the 22. Please refund the duplicate payment. Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase172"
+      },
+      "Subject": "Export keeps crashing (sample 172)",
+      "Description": "The CSV export crashes every time for reports above 24 rows. Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase173"
+      },
+      "Subject": "Update payment method (sample 173)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice? This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase174"
+      },
+      "Subject": "Suspicious login (sample 174)",
+      "Description": "We got a login alert from another country. Someone may have hacked our admin account.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase175"
+      },
+      "Subject": "Login error after update (sample 175)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 41. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase176"
+      },
+      "Subject": "Login error after update (sample 176)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 58. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase177"
+      },
+      "Subject": "Transfer account ownership (sample 177)",
+      "Description": "Our admin left the company. Please transfer ownership to a new admin. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase178"
+      },
+      "Subject": "Update payment method (sample 178)",
+      "Description": "Our card expires next week. How do we change the payment method before the next invoice? When you get a chance.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase179"
+      },
+      "Subject": "Export keeps crashing (sample 179)",
+      "Description": "The CSV export crashes every time for reports above 29 rows.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase180"
+      },
+      "Subject": "Invoice total looks wrong (sample 180)",
+      "Description": "Invoice INV-10180 shows 12 seats but we only have 23. Can you correct the billing? Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase181"
+      },
+      "Subject": "Login error after update (sample 181)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 33. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase182"
+      },
+      "Subject": "Login error after update (sample 182)",
+      "Description": "Since this morning users get an error when they try to log in. SSO redirect fails with code 3. Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase183"
+      },
+      "Subject": "Invoice total looks wrong (sample 183)",
+      "Description": "Invoice INV-10183 shows 58 seats but we only have 7. Can you correct the billing? Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase184"
+      },
+      "Subject": "Invoice total looks wrong (sample 184)",
+      "Description": "Invoice INV-10184 shows 24 seats but we only have 20. Can you correct the billing?",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase185"
+      },
+      "Subject": "Charged twice this month (sample 185)",
+      "Description": "I was charged twice for my Starter subscription on the 11. Please refund the duplicate payment. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase186"
+      },
+      "Subject": "Unauthorized charge (sample 186)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase187"
+      },
+      "Subject": "Refund request (sample 187)",
+      "Description": "We cancelled within the trial but still got charged. Requesting a refund for order INV-10187.",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase188"
+      },
+      "Subject": "Suspicious login (sample 188)",
+      "Description": "We got a login alert from another country. Someone may have hacked our admin account. Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase189"
+      },
+      "Subject": "Invoice total looks wrong (sample 189)",
+      "Description": "Invoice INV-10189 shows 35 seats but we only have 8. Can you correct the billing? When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase190"
+      },
+      "Subject": "Invoice total looks wrong (sample 190)",
+      "Description": "Invoice INV-10190 shows 68 seats but we only have 16. Can you correct the billing? Just a question, no rush.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase191"
+      },
+      "Subject": "Change company address (sample 191)",
+      "Description": "Please update our billing and shipping address to Leeds. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase192"
+      },
+      "Subject": "Invoice total looks wrong (sample 192)",
+      "Description": "Invoice INV-10192 shows 19 seats but we only have 29. Can you correct the billing?",
+      "Origin": "Phone",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "BILLING"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase193"
+      },
+      "Subject": "Export keeps crashing (sample 193)",
+      "Description": "The CSV export crashes every time for reports above 59 rows. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase194"
+      },
+      "Subject": "Cancel my account (sample 194)",
+      "Description": "We are moving to another tool. Please cancel my account at the end of the term. Production down for the whole team.",
+      "Origin": "Email",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase195"
+      },
+      "Subject": "Unauthorized charge (sample 195)",
+      "Description": "There is a charge on our account we did not make. I think our card was stolen. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Email",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "FRAUD"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase196"
+      },
+      "Subject": "Change company address (sample 196)",
+      "Description": "Please update our billing and shipping address to Leeds. Production down for the whole team.",
+      "Origin": "Phone",
+      "Priority": "Medium",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase197"
+      },
+      "Subject": "Change company address (sample 197)",
+      "Description": "Please update our billing and shipping address to Leeds.",
+      "Origin": "Web",
+      "Priority": "Low",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "ACCOUNT"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase198"
+      },
+      "Subject": "Export keeps crashing (sample 198)",
+      "Description": "The CSV export crashes every time for reports above 52 rows. When you get a chance.",
+      "Origin": "Phone",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase199"
+      },
+      "Subject": "Export keeps crashing (sample 199)",
+      "Description": "The CSV export crashes every time for reports above 69 rows. This is the fourth call about this, payroll blocked and we need this resolved today.",
+      "Origin": "Web",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    },
+    {
+      "attributes": {
+        "type": "Case",
+        "referenceId": "GavelCase200"
+      },
+      "Subject": "Export keeps crashing (sample 200)",
+      "Description": "The CSV export crashes every time for reports above 39 rows. When you get a chance.",
+      "Origin": "Email",
+      "Priority": "High",
+      "Status": "New",
+      "Gavel_Sample_Label__c": "TECHNICAL"
+    }
+  ]
+}

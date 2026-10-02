@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>What to do when a question is AUTO with a given answer (Live only).</description>
+    <label>Gavel Action Map</label>
+    <pluralLabel>Gavel Action Maps</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

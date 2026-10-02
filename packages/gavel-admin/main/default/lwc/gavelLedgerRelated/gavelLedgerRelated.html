@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title={title} icon-name="custom:custom18">
+        <div class="slds-p-horizontal_small">
+            <template lwc:if={error}>
+                <p class="gavel-error slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={hasPending}>
+                <p class="gavel-pending slds-text-body_small slds-m-bottom_x-small">{pendingCount} decision(s) still running.</p>
+            </template>
+            <template lwc:if={hasRows}>
+                <lightning-datatable key-field="Id" data={rows} columns={columns} hide-checkbox-column></lightning-datatable>
+            </template>
+            <template lwc:else>
+                <p class="gavel-empty slds-text-body_regular slds-text-color_weak">No Gavel decisions for this record yet.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

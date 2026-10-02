@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>Gavel_ActionRiskAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Gavel_GuardedAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Gavel_IntakeScreening</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Gavel_ScreenInputAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Run the Agentforce Gate actions and see screening status on Cases and Leads.</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Gavel_Screen_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Gavel_Screen_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Gavel Agentforce Gate</label>
+</PermissionSet>

@@ -15,7 +15,17 @@
 | timeoutMs | Integer | no | default 10000, max 60000 |
 
 ## Wire (TypeSafe)
-`POST https://api.typesafe.ai/v1/systemone`, header `Authorization: Bearer <key>` injected by the External Credential. Body carries `model`, `state` and `questions`. Exact question object field names are [UNVERIFIED] (OQ-2) and get pinned by the live contract test before release.
+`POST https://api.typesafe.ai/v1/systemone`, header `Authorization: Bearer <key>` injected by the External Credential. Body carries `model`, `state` and `questions`. Shape verified on 2026-10-01 against docs.typesafe.ai/api and the live contract test (model `jev-1.13.0`):
+
+```json
+{"model": "jev-1.13.0", "state": {...},
+ "questions": {
+   "<key>": {"type": "choice", "instructions": "<prompt>", "criteria": {"<option key>": "<description or label>"}},
+   "<key>": {"type": "score",  "instructions": "<prompt>", "criteria": ["<level 0>", "<level 1>", "..."]},
+   "<key>": {"type": "noul",   "instructions": "<prompt>"}}}
+```
+
+`instructions` becomes `{"question": prompt, "rules": instructions}` when the question has rules. Answers come back under the same keys: choice `{choice, probabilities, confidence}`, score `{score, legend, probabilities, confidence}` (probability keys are level indices), noul `{noul}`. Errors: 401 bad key, 422 validation, 429 rate limit, 529 overloaded (429/503/529 retried once in async). The versioning policy is still open (OQ-2).
 
 ## Response guarantees (after provider validation)
 | Field | Guarantee |

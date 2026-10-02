@@ -1,0 +1,133 @@
+{
+  "Gavel_Input_Screen": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "ignore your previous instructions",
+          "ignore previous instructions",
+          "ignore all previous",
+          "disregard your instructions",
+          "you are now",
+          "system prompt",
+          "reveal your instructions",
+          "as an ai agent you must"
+        ],
+        "response": {
+          "answers": {
+            "agent_instructions": {
+              "probability": 0.93
+            },
+            "has_substance": {
+              "probability": 0.9
+            },
+            "task_relevant": {
+              "probability": 0.4
+            }
+          },
+          "model": "mock-1.0.0"
+        }
+      },
+      {
+        "whenStateContains": [
+          "asdfgh",
+          "lorem ipsum",
+          "test test"
+        ],
+        "response": {
+          "answers": {
+            "agent_instructions": {
+              "probability": 0.02
+            },
+            "has_substance": {
+              "probability": 0.05
+            },
+            "task_relevant": {
+              "probability": 0.2
+            }
+          },
+          "model": "mock-1.0.0"
+        }
+      }
+    ],
+    "default": {
+      "answers": {
+        "agent_instructions": {
+          "probability": 0.03
+        },
+        "has_substance": {
+          "probability": 0.95
+        },
+        "task_relevant": {
+          "probability": 0.92
+        }
+      },
+      "model": "mock-1.0.0"
+    }
+  },
+  "Gavel_Action_Risk": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "delete",
+          "purge",
+          "remove all",
+          "refund all",
+          "drop ",
+          "wipe",
+          "mass update"
+        ],
+        "response": {
+          "answers": {
+            "risk": {
+              "probabilities": {
+                "read_only": 0.02,
+                "reversible": 0.04,
+                "destructive": 0.92,
+                "manual_review": 0.02
+              },
+              "confidence": 0.9
+            }
+          },
+          "model": "mock-1.0.0"
+        }
+      },
+      {
+        "whenStateContains": [
+          "update",
+          "change",
+          "reassign",
+          "close the case",
+          "set status"
+        ],
+        "response": {
+          "answers": {
+            "risk": {
+              "probabilities": {
+                "read_only": 0.04,
+                "reversible": 0.9,
+                "destructive": 0.04,
+                "manual_review": 0.02
+              },
+              "confidence": 0.9
+            }
+          },
+          "model": "mock-1.0.0"
+        }
+      }
+    ],
+    "default": {
+      "answers": {
+        "risk": {
+          "probabilities": {
+            "read_only": 0.9,
+            "reversible": 0.06,
+            "destructive": 0.02,
+            "manual_review": 0.02
+          },
+          "confidence": 0.9
+        }
+      },
+      "model": "mock-1.0.0"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  EVALS: docs/spec/active/2026-10-01-gavel-v1/evals
+  # Dev Hub auth comes from repository secrets only. Never commit auth URLs or keys.
+  DEVHUB_AUTH_URL: ${{ secrets.DEVHUB_SFDX_AUTH_URL }}
+  ORG_AUTH_KEY: ${{ secrets.CI_ORG_AUTH_KEY }}
+
+jobs:
+  # Repo-only checks: no org needed.
+  egress-check:
+    name: egress-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Data leaving your org page lists every state field
+        run: ./scripts/docs-egress-check.sh
+      - name: Definition hashes match and versions were bumped
+        run: node scripts/hash-definitions.js --check
+      - name: ADR headings
+        run: bash "$EVALS/tasks/T6.2.sh"
+
+  lwc-jest:
+    name: lwc-jest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: npx sfdx-lwc-jest --ci --coverage
+
+  code-analyzer:
+    name: code-analyzer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install --global @salesforce/cli
+      - run: sf plugins install code-analyzer
+      - name: Fail on high-severity findings (M6)
+        run: sf code-analyzer run --workspace packages --severity-threshold 2 --output-file code-analyzer.html
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: code-analyzer-report, path: code-analyzer.html }
+
+  # Org pipeline: scratch -> deploy -> apex-tests -> evals-offline
+  scratch:
+    name: scratch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install --global @salesforce/cli
+      - name: Authenticate Dev Hub
+        run: |
+          echo "$DEVHUB_AUTH_URL" > devhub.url
+          sf org login sfdx-url --sfdx-url-file devhub.url --alias devhub --set-default-dev-hub
+          rm -f devhub.url
+      - name: Create scratch org
+        run: sf org create scratch -d -a gavel-scratch -f config/project-scratch-def.json -v devhub --duration-days 1 --wait 20
+      - name: Hand the org to later jobs (encrypted)
+        run: |
+          sf org display --target-org gavel-scratch --verbose --json | jq -r '.result.sfdxAuthUrl' \
+            | openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:ORG_AUTH_KEY -out org.auth.enc
+      - uses: actions/upload-artifact@v4
+        with: { name: scratch-org, path: org.auth.enc, retention-days: 1 }
+
+  deploy:
+    name: deploy
+    needs: scratch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install --global @salesforce/cli
+      - uses: actions/download-artifact@v4
+        with: { name: scratch-org }
+      - name: Login to scratch org
+        run: |
+          openssl enc -d -aes-256-cbc -pbkdf2 -pass env:ORG_AUTH_KEY -in org.auth.enc -out org.url
+          sf org login sfdx-url --sfdx-url-file org.url --alias gavel-scratch
+          rm -f org.url
+      - name: Deploy all packages in dependency order
+        run: ./scripts/deploy.sh --org gavel-scratch --packs service,sales-marketing,agentforce-gate --sample-data
+
+  apex-tests:
+    name: apex-tests
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install --global @salesforce/cli
+      - uses: actions/download-artifact@v4
+        with: { name: scratch-org }
+      - name: Login to scratch org
+        run: |
+          openssl enc -d -aes-256-cbc -pbkdf2 -pass env:ORG_AUTH_KEY -in org.auth.enc -out org.url
+          sf org login sfdx-url --sfdx-url-file org.url --alias gavel-scratch
+          rm -f org.url
+      - name: Run Apex tests with coverage (M5 target 90%)
+        run: sf apex run test --target-org gavel-scratch --test-level RunLocalTests --code-coverage --result-format human --wait 60
+
+  evals-offline:
+    name: evals-offline
+    needs: apex-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm install --global @salesforce/cli && npm ci
+      - uses: actions/download-artifact@v4
+        with: { name: scratch-org }
+      - name: Login to scratch org
+        run: |
+          openssl enc -d -aes-256-cbc -pbkdf2 -pass env:ORG_AUTH_KEY -in org.auth.enc -out org.url
+          sf org login sfdx-url --sfdx-url-file org.url --alias gavel-scratch
+          rm -f org.url
+      - name: Convergence runner (mock provider only)
+        run: GAVEL_ORG=gavel-scratch "$EVALS/run-all.sh" --offline
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: eval-results, path: "${{ env.EVALS }}/results" }
+
+  cleanup:
+    name: cleanup
+    needs: [evals-offline]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install --global @salesforce/cli
+      - uses: actions/download-artifact@v4
+        with: { name: scratch-org }
+        continue-on-error: true
+      - name: Delete scratch org
+        continue-on-error: true
+        run: |
+          openssl enc -d -aes-256-cbc -pbkdf2 -pass env:ORG_AUTH_KEY -in org.auth.enc -out org.url
+          sf org login sfdx-url --sfdx-url-file org.url --alias gavel-scratch
+          rm -f org.url
+          sf org delete scratch --target-org gavel-scratch --no-prompt

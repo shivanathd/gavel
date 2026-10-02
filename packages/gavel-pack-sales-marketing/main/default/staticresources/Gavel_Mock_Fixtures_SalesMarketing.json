@@ -1,0 +1,487 @@
+{
+  "Gavel_Lead_Quality": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "asdf",
+          "qwerty",
+          "mailinator.com",
+          "guerrillamail",
+          "10minutemail",
+          "test test"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "quality": {
+              "probabilities": {
+                "real_buyer": 0.014286,
+                "student": 0.014286,
+                "job_seeker": 0.014286,
+                "vendor": 0.014286,
+                "competitor": 0.014286,
+                "spam": 0.9,
+                "test_data": 0.014286,
+                "manual_review": 0.014284
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "student",
+          "university",
+          "thesis",
+          "homework"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "quality": {
+              "probabilities": {
+                "real_buyer": 0.014286,
+                "student": 0.9,
+                "job_seeker": 0.014286,
+                "vendor": 0.014286,
+                "competitor": 0.014286,
+                "spam": 0.014286,
+                "test_data": 0.014286,
+                "manual_review": 0.014284
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "job",
+          "internship",
+          "resume",
+          "career"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "quality": {
+              "probabilities": {
+                "real_buyer": 0.014286,
+                "student": 0.014286,
+                "job_seeker": 0.9,
+                "vendor": 0.014286,
+                "competitor": 0.014286,
+                "spam": 0.014286,
+                "test_data": 0.014286,
+                "manual_review": 0.014284
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "partnership opportunity",
+          "we offer",
+          "our agency"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "quality": {
+              "probabilities": {
+                "real_buyer": 0.014286,
+                "student": 0.014286,
+                "job_seeker": 0.014286,
+                "vendor": 0.9,
+                "competitor": 0.014286,
+                "spam": 0.014286,
+                "test_data": 0.014286,
+                "manual_review": 0.014284
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      }
+    ],
+    "default": {
+      "model": "mock-1.0.0",
+      "answers": {
+        "quality": {
+          "probabilities": {
+            "real_buyer": 0.8,
+            "student": 0.028571,
+            "job_seeker": 0.028571,
+            "vendor": 0.028571,
+            "competitor": 0.028571,
+            "spam": 0.028571,
+            "test_data": 0.028571,
+            "manual_review": 0.028574
+          },
+          "confidence": 0.7
+        }
+      }
+    }
+  },
+  "Gavel_Reply_Intent": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "take me off",
+          "unsubscribe",
+          "stop emailing",
+          "remove me"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "intent": {
+              "probabilities": {
+                "interested": 0.016667,
+                "not_now": 0.016667,
+                "wrong_person": 0.016667,
+                "referral": 0.016667,
+                "out_of_office": 0.016667,
+                "unsubscribe": 0.9,
+                "other": 0.016665
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "out of office",
+          "on leave",
+          "auto-reply",
+          "no longer work"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "intent": {
+              "probabilities": {
+                "interested": 0.025,
+                "not_now": 0.025,
+                "wrong_person": 0.85,
+                "referral": 0.025,
+                "out_of_office": 0.025,
+                "unsubscribe": 0.025,
+                "other": 0.025
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "interested",
+          "demo",
+          "pricing",
+          "next steps"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "intent": {
+              "probabilities": {
+                "interested": 0.9,
+                "not_now": 0.016667,
+                "wrong_person": 0.016667,
+                "referral": 0.016667,
+                "out_of_office": 0.016667,
+                "unsubscribe": 0.016667,
+                "other": 0.016665
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "next quarter",
+          "not right now",
+          "circle back"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "intent": {
+              "probabilities": {
+                "interested": 0.016667,
+                "not_now": 0.9,
+                "wrong_person": 0.016667,
+                "referral": 0.016667,
+                "out_of_office": 0.016667,
+                "unsubscribe": 0.016667,
+                "other": 0.016665
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      }
+    ],
+    "default": {
+      "model": "mock-1.0.0",
+      "answers": {
+        "intent": {
+          "probabilities": {
+            "interested": 0.066667,
+            "not_now": 0.066667,
+            "wrong_person": 0.066667,
+            "referral": 0.066667,
+            "out_of_office": 0.066667,
+            "unsubscribe": 0.066665,
+            "other": 0.6
+          },
+          "confidence": 0.5
+        }
+      }
+    }
+  },
+  "Gavel_Opt_Out_Detect": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "take me off",
+          "unsubscribe",
+          "stop emailing",
+          "remove me",
+          "do not contact",
+          "don't contact",
+          "opt out",
+          "opt-out",
+          "no more emails"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "asks_not_to_be_contacted": {
+              "probability": 0.97
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "newsletter but keep",
+          "only product updates"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "asks_not_to_be_contacted": {
+              "probability": 0.5
+            }
+          }
+        }
+      }
+    ],
+    "default": {
+      "model": "mock-1.0.0",
+      "answers": {
+        "asks_not_to_be_contacted": {
+          "probability": 0.03
+        }
+      }
+    }
+  },
+  "Gavel_Persona": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "chief",
+          "ceo",
+          "cfo",
+          "cto",
+          "vp ",
+          "vice president"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "persona": {
+              "probabilities": {
+                "executive": 0.9,
+                "manager": 0.025,
+                "practitioner": 0.025,
+                "technical": 0.025,
+                "manual_review": 0.025
+              },
+              "confidence": 0.88
+            },
+            "seniority": {
+              "probabilities": {
+                "c_level": 0.86,
+                "vp": 0.028,
+                "director": 0.028,
+                "manager": 0.028,
+                "individual": 0.028,
+                "unknown": 0.028
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "manager",
+          "head of",
+          "lead"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "persona": {
+              "probabilities": {
+                "executive": 0.025,
+                "manager": 0.9,
+                "practitioner": 0.025,
+                "technical": 0.025,
+                "manual_review": 0.025
+              },
+              "confidence": 0.88
+            },
+            "seniority": {
+              "probabilities": {
+                "c_level": 0.02,
+                "vp": 0.02,
+                "director": 0.02,
+                "manager": 0.9,
+                "individual": 0.02,
+                "unknown": 0.02
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "engineer",
+          "architect",
+          "developer",
+          "security"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "persona": {
+              "probabilities": {
+                "executive": 0.025,
+                "manager": 0.025,
+                "practitioner": 0.025,
+                "technical": 0.9,
+                "manual_review": 0.025
+              },
+              "confidence": 0.88
+            },
+            "seniority": {
+              "probabilities": {
+                "c_level": 0.02,
+                "vp": 0.02,
+                "director": 0.02,
+                "manager": 0.02,
+                "individual": 0.9,
+                "unknown": 0.02
+              },
+              "confidence": 0.88
+            }
+          }
+        }
+      }
+    ],
+    "default": {
+      "model": "mock-1.0.0",
+      "answers": {
+        "persona": {
+          "probabilities": {
+            "executive": 0.075,
+            "manager": 0.075,
+            "practitioner": 0.7,
+            "technical": 0.075,
+            "manual_review": 0.075
+          },
+          "confidence": 0.6
+        },
+        "seniority": {
+          "probabilities": {
+            "c_level": 0.06,
+            "vp": 0.06,
+            "director": 0.06,
+            "manager": 0.06,
+            "individual": 0.7,
+            "unknown": 0.06
+          },
+          "confidence": 0.6
+        }
+      }
+    }
+  },
+  "Gavel_Stage_Evidence": {
+    "rules": [
+      {
+        "whenStateContains": [
+          "cfo approved budget",
+          "signed off on budget"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "economic_buyer_identified": {
+              "probability": 0.93
+            },
+            "budget_confirmed": {
+              "probability": 0.95
+            },
+            "decision_process_known": {
+              "probability": 0.9
+            }
+          }
+        }
+      },
+      {
+        "whenStateContains": [
+          "no budget",
+          "budget not confirmed"
+        ],
+        "response": {
+          "model": "mock-1.0.0",
+          "answers": {
+            "economic_buyer_identified": {
+              "probability": 0.9
+            },
+            "budget_confirmed": {
+              "probability": 0.05
+            },
+            "decision_process_known": {
+              "probability": 0.88
+            }
+          }
+        }
+      }
+    ],
+    "default": {
+      "model": "mock-1.0.0",
+      "answers": {
+        "economic_buyer_identified": {
+          "probability": 0.5
+        },
+        "budget_confirmed": {
+          "probability": 0.5
+        },
+        "decision_process_known": {
+          "probability": 0.5
+        }
+      }
+    }
+  }
+}

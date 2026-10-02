@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Top_Confidence__c</fullName>
+    <externalId>false</externalId>
+    <label>Top Confidence</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>4</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

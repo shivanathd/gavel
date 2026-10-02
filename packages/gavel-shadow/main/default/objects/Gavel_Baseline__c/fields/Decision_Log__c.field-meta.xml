@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Decision_Log__c</fullName>
+    <label>Decision Log</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Gavel_Decision_Log__c</referenceTo>
+    <relationshipLabel>Baselines</relationshipLabel>
+    <relationshipName>Baselines</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

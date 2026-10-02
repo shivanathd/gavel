@@ -1,0 +1,18 @@
+site_name: Gavel
+site_description: Governed AI judgments for Salesforce. Works with TypeSafe Jev.
+repo_url: https://github.com/shivanathd/gavel
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Guides:
+      - Data leaving your org: guides/data-leaving-your-org.md
+      - Write your own definition: guides/write-your-own-definition.md
+      - From Shadow to Live: guides/shadow-to-live.md
+  - Packs:
+      - Service: packs/service.md
+      - Sales and Marketing: packs/sales-marketing.md
+      - Agentforce Gate: packs/agentforce-gate.md
+  - Decisions: adr/
+exclude_docs: |
+  spec/
