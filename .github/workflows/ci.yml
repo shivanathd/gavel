@@ -67,8 +67,8 @@ jobs:
       - id: devhub
         name: Dev Hub secret present
         run: |
-          if [ -n "$DEVHUB_AUTH_URL" ]; then echo ready=true >> "$GITHUB_OUTPUT"
-          else echo "::notice::DEVHUB_SFDX_AUTH_URL is not set, so the org pipeline is skipped."; echo ready=false >> "$GITHUB_OUTPUT"; fi
+          if [ -n "$DEVHUB_AUTH_URL" ] && [ -n "$ORG_AUTH_KEY" ]; then echo ready=true >> "$GITHUB_OUTPUT"
+          else echo "::notice::DEVHUB_SFDX_AUTH_URL or CI_ORG_AUTH_KEY is not set, so the org pipeline is skipped."; echo ready=false >> "$GITHUB_OUTPUT"; fi
       - uses: actions/checkout@v4
         if: steps.devhub.outputs.ready == 'true'
       - uses: actions/setup-node@v4
@@ -87,9 +87,12 @@ jobs:
         run: sf org create scratch -d -a gavel-scratch -f config/project-scratch-def.json -v devhub --duration-days 1 --wait 20
       - name: Hand the org to later jobs (encrypted)
         if: steps.devhub.outputs.ready == 'true'
+        # The artifact is downloadable on a public repo: never encrypt an empty or failed value.
         run: |
-          sf org auth show-sfdx-auth-url --target-org gavel-scratch --json | jq -r '.result.sfdxAuthUrl' \
-            | openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:ORG_AUTH_KEY -out org.auth.enc
+          set -o pipefail
+          url=$(sf org auth show-sfdx-auth-url --target-org gavel-scratch --json | jq -r '.result.sfdxAuthUrl // empty')
+          case "$url" in force://*) ;; *) echo "::error::no scratch org auth URL"; exit 1 ;; esac
+          printf %s "$url" | openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:ORG_AUTH_KEY -out org.auth.enc
       - uses: actions/upload-artifact@v4
         if: steps.devhub.outputs.ready == 'true'
         with: { name: scratch-org, path: org.auth.enc, retention-days: 1 }
