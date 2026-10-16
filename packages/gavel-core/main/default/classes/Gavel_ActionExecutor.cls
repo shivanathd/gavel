@@ -319,7 +319,7 @@ public with sharing class Gavel_ActionExecutor {
         if (names.isEmpty()) {
             return result;
         }
-        for (Group g : [SELECT Id, DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName IN :names]) {
+        for (Group g : [SELECT Id, DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName IN :names WITH SYSTEM_MODE]) {
             result.put(g.DeveloperName, g.Id);
         }
         return result;
@@ -349,7 +349,7 @@ public with sharing class Gavel_ActionExecutor {
                 SELECT EmailMessageId, RelationId, RelationType
                 FROM EmailMessageRelation
                 WHERE EmailMessageId IN :emailIds AND RelationId != NULL
-                ORDER BY RelationType
+                WITH SYSTEM_MODE ORDER BY RelationType
             ]) {
                 Schema.SObjectType rt = r.RelationId.getSObjectType();
                 Boolean person = rt == Lead.SObjectType || rt == Contact.SObjectType;
@@ -357,7 +357,7 @@ public with sharing class Gavel_ActionExecutor {
                     result.put(r.EmailMessageId, r.RelationId);
                 }
             }
-            for (EmailMessage e : [SELECT Id, ActivityId, RelatedToId FROM EmailMessage WHERE Id IN :emailIds]) {
+            for (EmailMessage e : [SELECT Id, ActivityId, RelatedToId FROM EmailMessage WHERE Id IN :emailIds WITH SYSTEM_MODE]) {
                 if (!result.containsKey(e.Id) && e.RelatedToId != null) {
                     Schema.SObjectType rt = e.RelatedToId.getSObjectType();
                     if (rt == Lead.SObjectType || rt == Contact.SObjectType) {
@@ -372,7 +372,7 @@ public with sharing class Gavel_ActionExecutor {
         }
         if (!taskIds.isEmpty()) {
             Map<Id, Id> whoByTask = new Map<Id, Id>();
-            for (Task t : [SELECT Id, WhoId FROM Task WHERE Id IN :taskIds]) {
+            for (Task t : [SELECT Id, WhoId FROM Task WHERE Id IN :taskIds WITH SYSTEM_MODE]) {
                 whoByTask.put(t.Id, t.WhoId);
             }
             for (Id tid : taskIds) {

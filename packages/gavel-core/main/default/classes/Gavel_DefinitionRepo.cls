@@ -60,7 +60,7 @@ public with sharing class Gavel_DefinitionRepo {
     /** Every shipped definition API name (CMDT plus test overrides). */
     public static Set<String> allApiNames() {
         Set<String> names = new Set<String>(overrides.keySet());
-        for (Gavel_Decision__mdt d : [SELECT DeveloperName FROM Gavel_Decision__mdt]) {
+        for (Gavel_Decision__mdt d : [SELECT DeveloperName FROM Gavel_Decision__mdt WITH SYSTEM_MODE]) {
             names.add(d.DeveloperName);
         }
         return names;
@@ -74,7 +74,7 @@ public with sharing class Gavel_DefinitionRepo {
                 names.add(d.apiName);
             }
         }
-        for (Gavel_Decision__mdt d : [SELECT DeveloperName FROM Gavel_Decision__mdt WHERE Target_Object__c = :sobjectName]) {
+        for (Gavel_Decision__mdt d : [SELECT DeveloperName FROM Gavel_Decision__mdt WHERE Target_Object__c = :sobjectName WITH SYSTEM_MODE]) {
             names.add(d.DeveloperName);
         }
         return names.isEmpty() ? new List<Gavel_Definition>() : getAll(names).values();
@@ -88,7 +88,7 @@ public with sharing class Gavel_DefinitionRepo {
                 Owner_Email__c, Daily_Budget_Calls__c, Definition_Hash__c, Pack__c, Review_Queue__c, Auto_Apply__c,
                 Timeout_Ms__c
             FROM Gavel_Decision__mdt
-            WHERE DeveloperName IN :names
+            WHERE DeveloperName IN :names WITH SYSTEM_MODE
         ];
         if (rows.isEmpty()) {
             return defs;
@@ -119,7 +119,7 @@ public with sharing class Gavel_DefinitionRepo {
             SELECT DeveloperName, Decision__c, Key__c, Type__c, Prompt__c, Instructions__c, Order__c,
                 Required_For_Action__c, Stage__c, Option_Source__c
             FROM Gavel_Question__mdt
-            WHERE Decision__c IN :names
+            WHERE Decision__c IN :names WITH SYSTEM_MODE
         ]) {
             Gavel_Definition d = defs.get(r.Decision__c);
             if (d == null) {
@@ -141,7 +141,7 @@ public with sharing class Gavel_DefinitionRepo {
             for (Gavel_Option__mdt r : [
                 SELECT Question__c, Key__c, Label__c, Description__c, Level__c, Is_Escape__c, Order__c
                 FROM Gavel_Option__mdt
-                WHERE Question__c IN :qNames
+                WHERE Question__c IN :qNames WITH SYSTEM_MODE
             ]) {
                 Gavel_Question q = questionsByDevName.get(r.Question__c);
                 if (q == null) {
@@ -160,7 +160,7 @@ public with sharing class Gavel_DefinitionRepo {
             SELECT Decision__c, Field_Path__c, State_Key__c, Required__c, Max_Chars__c, Redaction_Profile__c,
                 Zero_Is_Meaningful__c, Source__c, Order__c
             FROM Gavel_State_Field__mdt
-            WHERE Decision__c IN :names
+            WHERE Decision__c IN :names WITH SYSTEM_MODE
         ]) {
             Gavel_Definition d = defs.get(r.Decision__c);
             if (d == null) {
@@ -179,7 +179,7 @@ public with sharing class Gavel_DefinitionRepo {
             SELECT Decision__c, Question_Key__c, Auto_Accept__c, Review_At__c, Min_Margin__c, Noul_Direction__c,
                 Asymmetric_Reason__c
             FROM Gavel_Policy__mdt
-            WHERE Decision__c IN :names
+            WHERE Decision__c IN :names WITH SYSTEM_MODE
         ]) {
             Gavel_Definition d = defs.get(r.Decision__c);
             if (d == null) {
@@ -194,7 +194,7 @@ public with sharing class Gavel_DefinitionRepo {
         for (Gavel_Action_Map__mdt r : [
             SELECT Decision__c, Question_Key__c, Answer_Value__c, Action_Type__c, Action_Target__c, Action_Value__c
             FROM Gavel_Action_Map__mdt
-            WHERE Decision__c IN :names
+            WHERE Decision__c IN :names WITH SYSTEM_MODE
         ]) {
             Gavel_Definition d = defs.get(r.Decision__c);
             if (d == null) {
@@ -208,7 +208,7 @@ public with sharing class Gavel_DefinitionRepo {
             for (Gavel_Provider_Config__mdt c : [
                 SELECT DeveloperName, Provider_Class__c, Model__c, Named_Credential__c, Endpoint_Path__c, Timeout_Ms__c
                 FROM Gavel_Provider_Config__mdt
-                WHERE DeveloperName IN :configNames
+                WHERE DeveloperName IN :configNames WITH SYSTEM_MODE
             ]) {
                 configs.put(c.DeveloperName, c);
             }

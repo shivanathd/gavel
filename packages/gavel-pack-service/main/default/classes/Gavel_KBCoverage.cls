@@ -64,7 +64,7 @@ public with sharing class Gavel_KBCoverage {
             out.add(r);
         }
         if (!gaps.isEmpty()) {
-            insert gaps;
+            insert as system gaps;
         }
         return out;
     }

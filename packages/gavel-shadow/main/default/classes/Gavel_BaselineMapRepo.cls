@@ -44,7 +44,7 @@ public with sharing class Gavel_BaselineMapRepo {
             cache = new Map<String, List<Entry>>();
             for (Gavel_Baseline_Map__mdt r : [
                 SELECT Decision__c, Question_Key__c, Baseline_Field__c, Baseline_Value__c, Option_Key__c
-                FROM Gavel_Baseline_Map__mdt
+                FROM Gavel_Baseline_Map__mdt WITH SYSTEM_MODE
             ]) {
                 if (!cache.containsKey(r.Decision__c)) {
                     cache.put(r.Decision__c, new List<Entry>());

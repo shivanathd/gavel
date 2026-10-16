@@ -93,7 +93,7 @@ public without sharing class Gavel_Ledger {
         Set<String> found = new Set<String>();
         for (Gavel_Decision_Log__c e : [
             SELECT Idempotency_Key__c FROM Gavel_Decision_Log__c
-            WHERE Idempotency_Key__c IN :keys AND CreatedDate >= :since
+            WHERE Idempotency_Key__c IN :keys AND CreatedDate >= :since WITH SYSTEM_MODE
         ]) {
             found.add(e.Idempotency_Key__c);
         }
@@ -107,7 +107,7 @@ public without sharing class Gavel_Ledger {
                 Answers_Truncated__c, Action_Taken__c, Action_Suppressed__c, Run_At__c, Case__c, Lead__c,
                 Contact__c, Opportunity__c, Top_Choice__c, Top_Confidence__c
             FROM Gavel_Decision_Log__c
-            WHERE Id IN :ids
+            WHERE Id IN :ids WITH SYSTEM_MODE
         ]);
     }
 
@@ -115,7 +115,7 @@ public without sharing class Gavel_Ledger {
         Set<Id> result = new Set<Id>();
         for (Gavel_Action_Log__c l : [
             SELECT Decision_Log__c FROM Gavel_Action_Log__c
-            WHERE Decision_Log__c IN :ledgerIds AND Status__c = 'applied'
+            WHERE Decision_Log__c IN :ledgerIds AND Status__c = 'applied' WITH SYSTEM_MODE
         ]) {
             result.add(l.Decision_Log__c);
         }
@@ -126,7 +126,7 @@ public without sharing class Gavel_Ledger {
     public static void insertActionLogs(List<Gavel_Action_Log__c> logs) {
         runtimeInsert = true;
         try {
-            Database.insert(logs, false);
+            Database.insert(logs, false, AccessLevel.SYSTEM_MODE);
         } finally {
             runtimeInsert = false;
         }
@@ -142,7 +142,7 @@ public without sharing class Gavel_Ledger {
         }
         runtimeInsert = true;
         try {
-            insert entries;
+            insert as system entries;
         } finally {
             runtimeInsert = false;
         }
@@ -160,7 +160,7 @@ public without sharing class Gavel_Ledger {
             ids.add(e.Id);
         }
         Set<Id> stillPending = new Map<Id, Gavel_Decision_Log__c>([
-            SELECT Id FROM Gavel_Decision_Log__c WHERE Id IN :ids AND Outcome__c = 'PENDING'
+            SELECT Id FROM Gavel_Decision_Log__c WHERE Id IN :ids AND Outcome__c = 'PENDING' WITH SYSTEM_MODE
         ]).keySet();
         List<Gavel_Decision_Log__c> finalizable = new List<Gavel_Decision_Log__c>();
         for (Gavel_Decision_Log__c e : entries) {
@@ -175,7 +175,7 @@ public without sharing class Gavel_Ledger {
         chain(entries);
         bypass = BYPASS_FINALIZE;
         try {
-            Database.update(entries, false);
+            Database.update(entries, false, AccessLevel.SYSTEM_MODE);
         } finally {
             bypass = null;
         }
@@ -202,11 +202,11 @@ public without sharing class Gavel_Ledger {
         );
         bypass = BYPASS_RETENTION;
         try {
-            delete entries;
+            delete as system entries;
         } finally {
             bypass = null;
         }
-        insert summary;
+        insert as system summary;
         return summary;
     }
 
@@ -217,7 +217,7 @@ public without sharing class Gavel_Ledger {
         e.put(field, value);
         bypass = BYPASS_RETENTION;
         try {
-            update e;
+            update as system e;
         } finally {
             bypass = null;
         }
@@ -283,7 +283,7 @@ public without sharing class Gavel_Ledger {
             keys.add(CHAIN_PREFIX + e.Definition__c);
         }
         Map<String, Gavel_Counter__c> heads = new Map<String, Gavel_Counter__c>();
-        for (Gavel_Counter__c c : [SELECT Id, Key__c, Count__c, Value__c FROM Gavel_Counter__c WHERE Key__c IN :keys FOR UPDATE]) {
+        for (Gavel_Counter__c c : [SELECT Id, Key__c, Count__c, Value__c FROM Gavel_Counter__c WHERE Key__c IN :keys WITH SYSTEM_MODE FOR UPDATE]) {
             heads.put(c.Key__c, c);
         }
         for (String k : keys) {

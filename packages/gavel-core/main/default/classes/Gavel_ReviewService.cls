@@ -38,7 +38,7 @@ public without sharing class Gavel_ReviewService {
             }
         }
         Map<String, Id> queues = new Map<String, Id>();
-        for (Group g : [SELECT Id, DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName IN :queueNames]) {
+        for (Group g : [SELECT Id, DeveloperName FROM Group WHERE Type = 'Queue' AND DeveloperName IN :queueNames WITH SYSTEM_MODE]) {
             queues.put(g.DeveloperName, g.Id);
         }
         List<Gavel_Review__c> rows = new List<Gavel_Review__c>();
@@ -68,7 +68,7 @@ public without sharing class Gavel_ReviewService {
             rows.add(r);
         }
         if (!rows.isEmpty()) {
-            Database.insert(rows, false);
+            Database.insert(rows, false, AccessLevel.SYSTEM_MODE);
             for (Gavel_Review__c r : rows) {
                 if (r.Id != null) {
                     byEntry.put(r.Decision_Log__c, r);

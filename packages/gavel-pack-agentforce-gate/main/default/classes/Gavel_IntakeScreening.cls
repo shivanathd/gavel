@@ -67,7 +67,7 @@ public with sharing class Gavel_IntakeScreening {
             if (!updates.isEmpty()) {
                 Gavel_ActionExecutor.applying = true;
                 try {
-                    Database.update(updates, false);
+                    Database.update(updates, false, AccessLevel.SYSTEM_MODE);
                 } finally {
                     Gavel_ActionExecutor.applying = false;
                 }
@@ -85,7 +85,7 @@ public with sharing class Gavel_IntakeScreening {
     }
 
     private static Id queueId() {
-        List<Group> q = [SELECT Id FROM Group WHERE Type = 'Queue' AND DeveloperName = :HUMAN_QUEUE LIMIT 1];
+        List<Group> q = [SELECT Id FROM Group WHERE Type = 'Queue' AND DeveloperName = :HUMAN_QUEUE WITH SYSTEM_MODE LIMIT 1];
         return q.isEmpty() ? null : q[0].Id;
     }
 

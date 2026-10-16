@@ -63,7 +63,7 @@ public with sharing class Gavel_PromotionGate {
         for (Gavel_Baseline__c b : [
             SELECT Decision_Log__c FROM Gavel_Baseline__c
             WHERE Definition__c = :definition AND Definition_Version__c = :version AND Status__c = 'captured'
-            LIMIT 50000
+            WITH SYSTEM_MODE LIMIT 50000
         ]) {
             labeled.add(b.Decision_Log__c);
         }

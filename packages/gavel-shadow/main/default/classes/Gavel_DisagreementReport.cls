@@ -60,9 +60,9 @@ public with sharing class Gavel_DisagreementReport {
         r.version = version;
         List<Gavel_Baseline__c> rows = version == null
             ? [SELECT Question_Key__c, Status__c, Agrees__c, Mapped_Option__c, Baseline_Value__c, Gavel_Value__c, Calibration_Value__c, Would_Auto__c
-               FROM Gavel_Baseline__c WHERE Definition__c = :definition LIMIT 50000]
+               FROM Gavel_Baseline__c WHERE Definition__c = :definition WITH SYSTEM_MODE LIMIT 50000]
             : [SELECT Question_Key__c, Status__c, Agrees__c, Mapped_Option__c, Baseline_Value__c, Gavel_Value__c, Calibration_Value__c, Would_Auto__c
-               FROM Gavel_Baseline__c WHERE Definition__c = :definition AND Definition_Version__c = :version LIMIT 50000];
+               FROM Gavel_Baseline__c WHERE Definition__c = :definition AND Definition_Version__c = :version WITH SYSTEM_MODE LIMIT 50000];
         Map<String, Map<String, Pair>> pairs = new Map<String, Map<String, Pair>>();
         for (Gavel_Baseline__c b : rows) {
             QuestionReport q = r.questions.get(b.Question_Key__c);

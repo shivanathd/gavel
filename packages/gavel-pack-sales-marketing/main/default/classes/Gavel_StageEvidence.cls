@@ -55,7 +55,7 @@ public with sharing class Gavel_StageEvidence {
         if (!updates.isEmpty()) {
             Gavel_ActionExecutor.applying = true;
             try {
-                Database.update(updates, false); // Gavel-managed helper field
+                Database.update(updates, false, AccessLevel.SYSTEM_MODE); // Gavel-managed helper field
             } finally {
                 Gavel_ActionExecutor.applying = false;
             }

@@ -101,7 +101,7 @@ public without sharing class Gavel_FeedbackCapture {
             SELECT Id, Record_Id__c, Definition__c, Version__c, Outcome__c, Answers_JSON__c, Answers_Truncated__c
             FROM Gavel_Decision_Log__c
             WHERE Record_Id__c IN :recordIds AND Definition__c IN :defs AND Outcome__c IN :FEEDBACK_OUTCOMES AND Run_At__c >= :since
-            ORDER BY Run_At__c DESC, Chain_Seq__c DESC
+            WITH SYSTEM_MODE ORDER BY Run_At__c DESC, Chain_Seq__c DESC
         ]) {
             String k = e.Record_Id__c + '|' + e.Definition__c;
             if (!latest.containsKey(k)) {
@@ -147,7 +147,7 @@ public without sharing class Gavel_FeedbackCapture {
             }
         }
         if (!rows.isEmpty()) {
-            insert rows;
+            insert as system rows;
         }
     }
 
@@ -169,7 +169,7 @@ public without sharing class Gavel_FeedbackCapture {
             return;
         }
         Map<Id, Gavel_Decision_Log__c> logs = new Map<Id, Gavel_Decision_Log__c>([
-            SELECT Id, Definition__c, Version__c, Answers_JSON__c, Answers_Truncated__c FROM Gavel_Decision_Log__c WHERE Id IN :logIds
+            SELECT Id, Definition__c, Version__c, Answers_JSON__c, Answers_Truncated__c FROM Gavel_Decision_Log__c WHERE Id IN :logIds WITH SYSTEM_MODE
         ]);
         List<Gavel_Feedback__c> rows = new List<Gavel_Feedback__c>();
         for (Gavel_Review__c r : resolved) {
@@ -201,7 +201,7 @@ public without sharing class Gavel_FeedbackCapture {
             ));
         }
         if (!rows.isEmpty()) {
-            insert rows;
+            insert as system rows;
         }
     }
 
