@@ -108,7 +108,7 @@ trap 'rm -f "$LOG"' EXIT
 
 for d in "${DIRS[@]}"; do
   echo "Deploying packages/$d ..."
-  sf project deploy start --source-dir "$ROOT/packages/$d" --target-org "$ORG" --wait 60 --json > "$LOG" 2>/dev/null
+  sf project deploy start --source-dir "$ROOT/packages/$d" --target-org "$ORG" --ignore-conflicts --wait 60 --json > "$LOG" 2>/dev/null
   status="$(jq -r '.status // 1' "$LOG" 2>/dev/null)"
   if [ "$status" != "0" ]; then
     echo "deploy.sh: deploy of packages/$d failed:" >&2
