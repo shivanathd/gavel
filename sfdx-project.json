@@ -19,7 +19,7 @@
       "dependencies": [
         {
           "package": "gavel-core",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         }
       ],
       "definitionFile": "config/project-scratch-def.json"
@@ -34,11 +34,11 @@
       "dependencies": [
         {
           "package": "gavel-core",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-flow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         }
       ],
       "definitionFile": "config/project-scratch-def.json"
@@ -53,15 +53,15 @@
       "dependencies": [
         {
           "package": "gavel-core",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-flow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-shadow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         }
       ],
       "definitionFile": "config/project-scratch-def.json"
@@ -76,19 +76,19 @@
       "dependencies": [
         {
           "package": "gavel-core",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-flow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-shadow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-calibrate",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         }
       ],
       "definitionFile": "config/project-scratch-def.json"
@@ -103,11 +103,11 @@
       "dependencies": [
         {
           "package": "gavel-core",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-flow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         }
       ],
       "definitionFile": "config/project-scratch-def.json"
@@ -122,15 +122,15 @@
       "dependencies": [
         {
           "package": "gavel-core",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-flow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-shadow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         }
       ],
       "definitionFile": "config/project-scratch-def.json"
@@ -145,19 +145,19 @@
       "dependencies": [
         {
           "package": "gavel-core",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-flow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-shadow",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         },
         {
           "package": "gavel-calibrate",
-          "versionNumber": "1.0.0.LATEST"
+          "versionNumber": "1.0.0.RELEASED"
         }
       ],
       "definitionFile": "config/project-scratch-def.json"

@@ -85,7 +85,7 @@ sf org login web --alias devhub --set-default-dev-hub
 ./scripts/deploy.sh --org gavel-scratch --packs service,sales-marketing,agentforce-gate --sample-data
 ```
 
-This deploys core, flow, shadow, calibrate, admin and then the packs you chose. It assigns `Gavel_Admin`, `Gavel_Runtime`, `Gavel_Callout` and the pack permission sets to you, and loads sample data (200 Cases, 50 Leads). Use `--dry-run` to see the plan first. Or install the released unlocked packages in the same order from the [v1.0.0 release](https://github.com/shivanathd/gavel/releases/tag/v1.0.0) (`sf package install --package <04t id> --wait 20`).
+This deploys core, flow, shadow, calibrate, admin and then the packs you chose. It assigns `Gavel_Admin`, `Gavel_Runtime`, `Gavel_Callout` and the pack permission sets to you, and loads sample data (200 Cases, 50 Leads). Use `--dry-run` to see the plan first. Or install the released unlocked packages in the same order from the [v1.0.0 release](https://github.com/shivanathd/gavel/releases/tag/v1.0.0) (`sf package install --package YOUR_PACKAGE_VERSION_ID --wait 20`, replacing `YOUR_PACKAGE_VERSION_ID` with the 04t ID from the release notes).
 
 After deploy, no flow is active and egress is off. In this state nothing leaves the org, and every run is recorded as `SKIP egress_disabled`.
 
