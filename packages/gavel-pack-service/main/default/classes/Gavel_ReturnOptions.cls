@@ -29,7 +29,7 @@ public with sharing class Gavel_ReturnOptions implements Gavel_OptionSource {
             }
         }
         Boolean outsideWindow = purchased != null && purchased.daysBetween(Date.today()) > windowDays;
-        Boolean photoFlagged = recordId != null && PhotoCheck.flagged(recordId);
+        Boolean photoFlagged = recordId != null && new PhotoCheck().isFlagged(recordId);
 
         List<Gavel_Option> result = new List<Gavel_Option>();
         for (Gavel_Option o : question.options) {
@@ -48,7 +48,7 @@ public with sharing class Gavel_ReturnOptions implements Gavel_OptionSource {
 
     /** Ledger rows are private to Gavel, so they are read without sharing, as Gavel_Ledger does. */
     private without sharing class PhotoCheck {
-        private Boolean isFlagged(Id caseId) {
+        public Boolean isFlagged(Id caseId) {
             List<Gavel_Decision_Log__c> rows = [
                 SELECT Answers_JSON__c FROM Gavel_Decision_Log__c
                 WHERE Case__c = :caseId AND Definition__c = 'Gavel_Return_Photo_Check' AND Provider_Status__c = 'ok'
@@ -71,10 +71,6 @@ public with sharing class Gavel_ReturnOptions implements Gavel_OptionSource {
                 }
             }
             return false;
-        }
-
-        static Boolean flagged(Id caseId) {
-            return new PhotoCheck().isFlagged(caseId);
         }
     }
 }
