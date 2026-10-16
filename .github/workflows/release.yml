@@ -6,6 +6,10 @@ on:
   push:
     tags: ['v*']
 
+# gh release create needs write access to repository contents.
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest

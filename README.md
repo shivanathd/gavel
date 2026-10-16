@@ -6,7 +6,7 @@ The model judges. Your org's policy decides. Gavel keeps a record of both.
 
 Gavel is a set of Salesforce packages you can deploy. It runs typed, calibrated judgments (Choice, Score, Noul) from Flow, Apex and Agentforce. Every judgment passes through a policy you set and lands in an immutable ledger. Every decision runs in Shadow mode first and is calibrated against what your people actually do.
 
-> **Status:** v1 is implemented and verified in a scratch org. All task and acceptance evals pass, and the live contract test passes against `api.typesafe.ai` with `jev-1.13.0`. v1 is not released yet: release waits on open questions OQ-1 and OQ-3 and on the OQ-2 versioning policy. Build status and design calls are in [PROGRESS.md](PROGRESS.md). The spec is in [docs/spec/active/2026-10-01-gavel-v1/](docs/spec/active/2026-10-01-gavel-v1/).
+> **Status:** v1 is implemented and verified in a scratch org. All task and acceptance evals pass, and the live contract test passes against `api.typesafe.ai` with `jev-1.13.0`. v1.0.0 is released as unlocked packages: install links are on the [v1.0.0 release](https://github.com/shivanathd/gavel/releases/tag/v1.0.0). Build status and design calls are in [PROGRESS.md](PROGRESS.md). The spec is in [docs/spec/active/2026-10-01-gavel-v1/](docs/spec/active/2026-10-01-gavel-v1/).
 
 ## Contents
 
@@ -85,7 +85,7 @@ sf org login web --alias devhub --set-default-dev-hub
 ./scripts/deploy.sh --org gavel-scratch --packs service,sales-marketing,agentforce-gate --sample-data
 ```
 
-This deploys core, flow, shadow, calibrate, admin and then the packs you chose. It assigns `Gavel_Admin`, `Gavel_Runtime`, `Gavel_Callout` and the pack permission sets to you, and loads sample data (200 Cases, 50 Leads). Use `--dry-run` to see the plan first. Once released, unlocked packages can be installed in the same order instead (`sf package install --package gavel-core@1.0.0 ...`).
+This deploys core, flow, shadow, calibrate, admin and then the packs you chose. It assigns `Gavel_Admin`, `Gavel_Runtime`, `Gavel_Callout` and the pack permission sets to you, and loads sample data (200 Cases, 50 Leads). Use `--dry-run` to see the plan first. Or install the released unlocked packages in the same order from the [v1.0.0 release](https://github.com/shivanathd/gavel/releases/tag/v1.0.0) (`sf package install --package <04t id> --wait 20`).
 
 After deploy, no flow is active and egress is off. In this state nothing leaves the org, and every run is recorded as `SKIP egress_disabled`.
 
