@@ -63,7 +63,7 @@ export default class GavelCalibrationDashboard extends LightningElement {
                 observed: pct(b.observed),
                 flag: b.lowSample ? 'low sample' : ''
             })) : [];
-        } catch (e) {
+        } catch {
             bins = [];
         }
         return {
