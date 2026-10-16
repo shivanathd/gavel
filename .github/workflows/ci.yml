@@ -174,6 +174,10 @@ jobs:
       - name: Delete scratch org
         continue-on-error: true
         run: |
+          # Deleting a scratch org needs its Dev Hub; without this login the delete fails and orgs leak.
+          echo "$DEVHUB_AUTH_URL" > devhub.url
+          sf org login sfdx-url --sfdx-url-file devhub.url --alias devhub --set-default-dev-hub
+          rm -f devhub.url
           openssl enc -d -aes-256-cbc -pbkdf2 -pass env:ORG_AUTH_KEY -in org.auth.enc -out org.url
           sf org login sfdx-url --sfdx-url-file org.url --alias gavel-scratch
           rm -f org.url
