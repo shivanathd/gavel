@@ -32,6 +32,25 @@ public class Gavel_TestFactory {
         return new Gavel_Question(key, Gavel_Question.NOUL, 'It is true that ' + key + '.');
     }
 
+    /** Box question (Jev 1.14): never required for action. */
+    public static Gavel_Question box(String key) {
+        Gavel_Question q = new Gavel_Question(key, Gavel_Question.BOX, 'Where is the ' + key + '?');
+        q.requiredForAction = false;
+        return q;
+    }
+
+    /** A valid 1x1 PNG. */
+    public static Blob png() {
+        return EncodingUtil.base64Decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
+    }
+
+    /** Attaches an image file to a record, the way a user upload or Email-to-Case does. */
+    public static ContentVersion attachImage(Id recordId, String fileName, Blob data) {
+        ContentVersion cv = new ContentVersion(Title = fileName, PathOnClient = fileName, VersionData = data, FirstPublishLocationId = recordId);
+        insert cv;
+        return cv;
+    }
+
     public static Gavel_Definition.Policy policy(String key, Decimal autoAccept, Decimal reviewAt, Decimal minMargin) {
         return new Gavel_Definition.Policy(key, autoAccept, reviewAt, minMargin);
     }

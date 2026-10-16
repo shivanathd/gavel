@@ -18,6 +18,12 @@ public with sharing class Gavel_JudgmentRequest {
     public Boolean allowRetry = false;
     public String namedCredential;
     public String endpointPath;
+    /** Images whose references appear in state; sent as multipart parts (Jev 1.14 and later). */
+    public List<Gavel_ImageAsset> assets = new List<Gavel_ImageAsset>();
+
+    public Boolean hasImages() {
+        return assets != null && !assets.isEmpty();
+    }
 
     public Integer effectiveTimeoutMs() {
         if (timeoutMs == null) {

@@ -13,6 +13,8 @@ public with sharing class Gavel_Answer {
     public Decimal probability;
     public Decimal confidence;
     public Map<String, Decimal> probabilities;
+    /** Box answers: top, bottom, left, right as fractions of the image height and width. */
+    public Map<String, Decimal> box;
 
     public Boolean isValid() {
         return status == OK;

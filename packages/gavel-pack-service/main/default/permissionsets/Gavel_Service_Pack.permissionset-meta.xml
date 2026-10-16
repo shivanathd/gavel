@@ -7,6 +7,11 @@
     <description>Work KB gaps and run KB coverage checks.</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Gavel_Return_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Gavel_Sample_Label__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -5,6 +5,8 @@
  *  - redaction before serialization, default profile strict (STATE-001.3/.4)
  *  - truncation at Max_Chars__c (default 2,000) with a [truncated] marker (STATE-001.7)
  *  - canonical JSON keyed by State_Key__c; stateHash = SHA-256 hex (STATE-001.5/.6)
+ *  - images (Gavel_ImageAsset) appear in state as content-addressed references; their bytes go only in the
+ *    request, never into the ledger, and cannot be redacted
  */
 public with sharing class Gavel_StateBuilder {
     public static final Integer DEFAULT_MAX_CHARS = 2000;
@@ -25,6 +27,8 @@ public with sharing class Gavel_StateBuilder {
         /** Set when the run must not call the provider: egress_disabled | record_not_found | bad_field_path | insufficient_state. */
         public String blockedReason;
         public List<String> badPaths = new List<String>();
+        /** Images from state sources; state holds their references, the request sends the bytes. */
+        public List<Gavel_ImageAsset> assets = new List<Gavel_ImageAsset>();
 
         public String redactionSummary() {
             return String.join(redactionsApplied, ',');
@@ -121,10 +125,13 @@ public with sharing class Gavel_StateBuilder {
                 values.put(ref.sf.stateKey, v);
             }
         }
+        String sourceSkip = null;
         for (Gavel_Definition.StateField sf : sourced) {
             Object raw = null;
             try {
                 raw = runSource(sf, recordId, def.targetObject, inputs);
+            } catch (Gavel_SkipException e) {
+                sourceSkip = sourceSkip == null ? e.getMessage() : sourceSkip; // e.g. image_too_large
             } catch (Exception e) {
                 raw = null; // fail closed: drop the field
             }
@@ -147,7 +154,7 @@ public with sharing class Gavel_StateBuilder {
         result.stateJson = Gavel_Json.canonical(values);
         result.stateHash = Gavel_Json.sha256Hex(result.stateJson);
         if (!result.missingRequired.isEmpty()) {
-            result.blockedReason = INSUFFICIENT_STATE;
+            result.blockedReason = sourceSkip == null ? INSUFFICIENT_STATE : sourceSkip;
         }
         return result;
     }
@@ -180,6 +187,17 @@ public with sharing class Gavel_StateBuilder {
         Map<String, Integer> counts, StateResult result) {
         if (raw == null) {
             return null;
+        }
+        if (raw instanceof Gavel_ImageAsset) {
+            Gavel_ImageAsset img = (Gavel_ImageAsset) raw;
+            Boolean seen = false;
+            for (Gavel_ImageAsset a : result.assets) {
+                seen = seen || a.reference == img.reference;
+            }
+            if (!seen) {
+                result.assets.add(img);
+            }
+            return img.reference;
         }
         if (raw instanceof Decimal || raw instanceof Integer || raw instanceof Long || raw instanceof Double) {
             Decimal d = raw instanceof Decimal ? (Decimal) raw : Decimal.valueOf(String.valueOf(raw));

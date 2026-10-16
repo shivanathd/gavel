@@ -311,4 +311,34 @@ private class Gavel_PolicyEngine_Test {
             Assert.areEqual(best, qr.answerValue, 'never picks the runner-up');
         }
     }
+
+    // Box (Jev 1.14): banded on confidence, answer recorded as top,bottom,left,right
+    @IsTest
+    static void boxBandsOnConfidence() {
+        Gavel_Question q = Gavel_TestFactory.box('damage_area');
+        Gavel_Definition.Policy p = Gavel_TestFactory.policy('damage_area', 0.8, 0.5, null);
+        Map<Decimal, String> expected = new Map<Decimal, String>{ 0.9 => 'AUTO', 0.6 => 'REVIEW', 0.3 => 'ESCALATE' };
+        for (Decimal c : expected.keySet()) {
+            Gavel_Answer a = new Gavel_Answer();
+            a.key = 'damage_area';
+            a.answerType = 'box';
+            a.box = new Map<String, Decimal>{ 'top' => 0.10, 'bottom' => 0.5, 'left' => 0, 'right' => 1.0 };
+            a.confidence = c;
+            Gavel_JudgmentResponse r = new Gavel_JudgmentResponse();
+            r.status = 'ok';
+            r.answers = new Map<String, Gavel_Answer>{ 'damage_area' => a };
+            Gavel_Outcome.QuestionResult qr = Gavel_PolicyEngine.evaluateQuestion(q, r, p);
+            Assert.areEqual(expected.get(c), qr.outcome, 'confidence ' + c);
+            Assert.areEqual('0.1,0.5,0,1', qr.answerValue);
+            Assert.areEqual(c, qr.policyValue);
+        }
+        Gavel_Answer unknown = new Gavel_Answer();
+        unknown.key = 'damage_area';
+        unknown.answerType = 'box';
+        unknown.box = new Map<String, Decimal>{ 'top' => 0, 'bottom' => 1, 'left' => 0, 'right' => 1 };
+        Gavel_JudgmentResponse r = new Gavel_JudgmentResponse();
+        r.status = 'ok';
+        r.answers = new Map<String, Gavel_Answer>{ 'damage_area' => unknown };
+        Assert.areEqual('REVIEW', Gavel_PolicyEngine.evaluateQuestion(q, r, p).outcome, 'no confidence: review');
+    }
 }

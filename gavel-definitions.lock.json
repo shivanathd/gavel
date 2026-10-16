@@ -43,6 +43,14 @@
     "version": "1",
     "hash": "9b9cbe73bae396fae7c4f483a63714af6ab5912759b0bea67809410f248449f0"
   },
+  "Gavel_Return_Photo_Check": {
+    "version": "1",
+    "hash": "b23f5da9fd508a69e502eeceaf4370831331869ee02a803113251c69358decf0"
+  },
+  "Gavel_Return_Triage": {
+    "version": "1",
+    "hash": "a7890990cb1e62e12abf99b2ff01c467cd3c0a154c933689ec553325e35df9b6"
+  },
   "Gavel_Stage_Evidence": {
     "version": "1",
     "hash": "217dd1ebe157591b41e3021cd30a48ccca02f7bc0632fc03aa317c25aa030be7"

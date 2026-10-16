@@ -23,6 +23,7 @@ Gavel is a set of Salesforce packages you can deploy. It runs typed, calibrated 
 
 **For any process you define**
 - **Ask typed questions about a record:** pick one option (Choice), rate on a scale (Score), or answer yes or no (Noul). Answers come back with probabilities and a confidence value instead of generated text.
+- **Send a photo with the question (Jev 1.14):** a definition pinned to `jev-1.14.0` can include the latest image on the record, and can ask Box questions that locate something in it for the reviewer. Images are never redacted, so see [Data leaving your org](docs/guides/data-leaving-your-org.md).
 - **Decide the outcome with your own policy:** thresholds you set turn every answer into AUTO, REVIEW, ESCALATE, SKIP or ERROR. The model never owns the action.
 - **Keep an audit trail:** every run, including skips and errors, lands in an insert-only, hash-chained ledger (`Gavel_Decision_Log__c`). The ledger can be verified, and edits are blocked for admins too.
 - **Send only what's allowed:** only allowlisted fields leave the org. They're read in user mode, with field-level security enforced, and redacted (email, phone, card, SSN profiles) before the call.
@@ -39,6 +40,8 @@ Gavel is a set of Salesforce packages you can deploy. It runs typed, calibrated 
 | Service | `Gavel_KB_Coverage` | Checks whether a Knowledge article answers the Case; creates a KB gap record if not | Shadow |
 | Service | `Gavel_Closure_Check` | Before closing: did the customer confirm the fix? | Shadow |
 | Service | `Gavel_Reply_Check` | Checks an outbound draft against the linked article: supported, contradicted or unsupported | Shadow |
+| Service | `Gavel_Return_Triage` | Refund, replace, repair, reject or a person for a return Case. The return window and refund limit are enforced in code | Shadow |
+| Service | `Gavel_Return_Photo_Check` | Reads the customer's photo (`jev-1.14.0`): damage visible, matches the claim, and a box around it | Shadow |
 | Sales & Marketing | `Gavel_Lead_Quality` | Separates real buyers from students, job seekers, vendors, competitors, spam and test data | Shadow |
 | Sales & Marketing | `Gavel_Reply_Intent` | Reads the intent of an inbound reply to outreach | Shadow |
 | Sales & Marketing | `Gavel_Opt_Out_Detect` | Finds opt-out requests hidden in replies. It only ever sets Email Opt Out, never clears it | Live, review only |
@@ -195,7 +198,7 @@ A decision is one `Gavel_Decision__mdt` record plus child records:
 |---|---|
 | `Gavel_Decision__mdt` | Target object, `Mode__c` (Draft, Shadow, Live or Retired), `Auto_Apply__c`, `Provider_Config__c`, `Daily_Budget_Calls__c`, `Timeout_Ms__c`, `Review_Queue__c`, `Version__c` and `Definition_Hash__c` |
 | `Gavel_State_Field__mdt` | The allowlist: field path, state key, max characters, redaction profile, required |
-| `Gavel_Question__mdt` | Key, type (choice, score or noul), prompt, instructions, required for action |
+| `Gavel_Question__mdt` | Key, type (choice, score, noul or box), prompt, instructions, required for action |
 | `Gavel_Option__mdt` | Choice options (key, label, description, escape option) or score levels (0 to n) |
 | `Gavel_Policy__mdt` | Per question: `Auto_Accept__c`, `Review_At__c`, `Min_Margin__c`, Noul direction |
 | `Gavel_Action_Map__mdt` | What an AUTO answer does on Live: set a field, assign a queue, and so on |

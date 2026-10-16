@@ -224,4 +224,40 @@ private class Gavel_DefinitionValidator_Test {
         Gavel_TestFactory.ops(true);
         Assert.isTrue(Gavel_Config.ops().egressEnabled);
     }
+
+    // Box questions locate, never decide
+    @IsTest
+    static void boxRules() {
+        Gavel_Definition ok = validTwoQuestion();
+        ok.questions.add(Gavel_TestFactory.box('damage_area'));
+        ok.policies.add(Gavel_TestFactory.policy('damage_area', 0.8, 0.5, null));
+        Gavel_TestFactory.seal(ok);
+        Gavel_DefinitionValidator.Result valid = Gavel_DefinitionValidator.validate(ok);
+        Assert.isTrue(valid.valid, 'a box with a policy and no options is valid: ' + valid.errors);
+
+        Gavel_Definition driving = validTwoQuestion();
+        Gavel_Question q = Gavel_TestFactory.box('damage_area');
+        q.requiredForAction = true;
+        driving.questions.add(q);
+        driving.policies.add(Gavel_TestFactory.policy('damage_area', 0.8, 0.5, null));
+        Assert.isTrue(Gavel_DefinitionValidator.validate(Gavel_TestFactory.seal(driving)).errors.contains('box_cannot_drive_action'));
+
+        Gavel_Definition withOptions = validTwoQuestion();
+        Gavel_Question qo = Gavel_TestFactory.box('damage_area');
+        qo.options.add(new Gavel_Option('left_half', 'Left half'));
+        withOptions.questions.add(qo);
+        withOptions.policies.add(Gavel_TestFactory.policy('damage_area', 0.8, 0.5, null));
+        Assert.isTrue(Gavel_DefinitionValidator.validate(Gavel_TestFactory.seal(withOptions)).errors.contains('box_options_not_allowed'));
+
+        Gavel_Definition withAction = validTwoQuestion();
+        withAction.questions.add(Gavel_TestFactory.box('damage_area'));
+        withAction.policies.add(Gavel_TestFactory.policy('damage_area', 0.8, 0.5, null));
+        Gavel_Definition.ActionMap a = new Gavel_Definition.ActionMap();
+        a.questionKey = 'damage_area';
+        a.actionType = 'set_field';
+        a.actionTarget = 'Case.Subject';
+        a.actionValue = 'x';
+        withAction.actionMaps.add(a);
+        Assert.isTrue(Gavel_DefinitionValidator.validate(Gavel_TestFactory.seal(withAction)).errors.contains('action_on_box_question'));
+    }
 }

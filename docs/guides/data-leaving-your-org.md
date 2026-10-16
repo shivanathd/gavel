@@ -9,6 +9,7 @@ How sending works:
 - Text is redacted before it is serialized: matches become `[REDACTED:<type>]` and the ledger records only `type:count`. Redaction is best-effort pattern matching, not DLP.
 - Text is cut at the listed maximum with a `[truncated]` marker.
 - The ledger stores a SHA-256 hash of what was sent, not the text, unless an admin turns on `Store_State__c`.
+- Images (only definitions pinned to jev-1.14.0 or later) are sent as files with the TypeSafe image opt-in header. They are not redacted or truncated. The ledger keeps only their SHA-256 digest, never the bytes.
 - Labels and feedback are never sent to the provider.
 - TypeSafe data retention and processing terms are not yet verified (OQ-1). Treat egress as sending data to a third-party processor until that is resolved.
 
@@ -137,3 +138,27 @@ Checks an outbound draft against the linked Knowledge article: supported, contra
 |---|---|---|---|---|---|
 | `EmailMessage.TextBody` | draft | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | body of this email, quoted reply chains removed |
 | `Knowledge__kav.Summary` | article | no | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | Summary of the Knowledge article attached to the email case |
+
+## Gavel_Return_Photo_Check
+
+Reads the customer's photo on a return Case (jev-1.14.0): is damage visible, does it match the claim, and where is it. Skips when the Case has no photo. Run async for photos over about 1.5 MB. Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
+
+| Field path | State key | Required | Max chars | Redaction | Notes |
+|---|---|---|---|---|---|
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org |
+| `Description` | claim | no | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+| `Asset.Name` | product | no | 120 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+
+## Gavel_Return_Triage
+
+Decides how to handle a return request: refund, replace, repair, reject under policy, or a person. The return window and refund limit are enforced in code (Gavel_ReturnOptions). Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
+
+| Field path | State key | Required | Max chars | Redaction | Notes |
+|---|---|---|---|---|---|
+| `Subject` | subject | no | 500 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+| `Description` | request | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+| `Reason` | reason | no | 80 | none | field value |
+| `Asset.Name` | product | no | 120 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+| `Asset.PurchaseDate` | purchase_date | no | 20 | none | field value |
+| `Asset.Price` | item_price | no | 20 | none | field value |
+| `EmailMessage.TextBody` | recent_emails | no | 4000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | last inbound email bodies on the record, quoted reply chains removed, 2,000 characters each |

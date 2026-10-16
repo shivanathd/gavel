@@ -182,6 +182,7 @@ public with sharing class Gavel_Runtime {
         jr.model = def.model;
         jr.state = r.state.state;
         jr.stateJson = r.state.stateJson;
+        jr.assets = r.state.assets;
         jr.timeoutMs = def.timeoutMs;
         jr.live = def.isLive();
         jr.allowRetry = r.req.isAsync == true;
@@ -246,7 +247,8 @@ public with sharing class Gavel_Runtime {
 
     private static List<Gavel_Option> runtimeOptions(RunState r, Gavel_Question q) {
         try {
-            Type t = Type.forName(q.optionSource);
+            // "Class" or "Class:args"; the source reads its own args from question.optionSource.
+            Type t = Type.forName(q.optionSource.substringBefore(':').trim());
             Object instance = t == null ? null : t.newInstance();
             if (!(instance instanceof Gavel_OptionSource)) {
                 return null;

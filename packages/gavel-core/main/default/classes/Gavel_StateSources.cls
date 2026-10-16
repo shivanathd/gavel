@@ -131,6 +131,52 @@ public with sharing class Gavel_StateSources {
         }
     }
 
+    /**
+     * Latest PNG or JPEG file on the record or on its inbound emails (Email-to-Case attachments), as an image for
+     * Jev 1.14 and later. Use with a pinned jev-1.14.0 provider and redaction profile none: images are not redacted.
+     * No file -> null. A file over Gavel_ImageAsset.maxBytes() ends the run as SKIP image_too_large; run the
+     * decision async (Run Decision Async), where the heap allows larger images.
+     */
+    public class RecordImage implements Gavel_StateSource {
+        public Object resolve(Gavel_StateContext ctx) {
+            if (ctx.recordId == null) {
+                return null;
+            }
+            Id rid = ctx.recordId;
+            Set<Id> owners = new Set<Id>{ rid };
+            try {
+                for (EmailMessage e : [SELECT Id FROM EmailMessage WHERE (ParentId = :rid OR RelatedToId = :rid) AND Incoming = TRUE WITH USER_MODE LIMIT 50]) {
+                    owners.add(e.Id);
+                }
+            } catch (Exception e) {
+                owners = new Set<Id>{ rid }; // no email access: the record's own files only
+            }
+            Set<Id> docs = new Set<Id>();
+            for (ContentDocumentLink l : [SELECT ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId IN :owners WITH USER_MODE]) {
+                docs.add(l.ContentDocumentId);
+            }
+            if (docs.isEmpty()) {
+                return null;
+            }
+            List<ContentVersion> files = [
+                SELECT Id, FileType, ContentSize FROM ContentVersion
+                WHERE ContentDocumentId IN :docs AND IsLatest = TRUE AND FileType IN ('PNG', 'JPG', 'JPEG')
+                WITH USER_MODE
+                ORDER BY CreatedDate DESC
+                LIMIT 1
+            ];
+            if (files.isEmpty()) {
+                return null;
+            }
+            if (files[0].ContentSize > Gavel_ImageAsset.maxBytes()) {
+                throw new Gavel_SkipException('image_too_large');
+            }
+            Id versionId = files[0].Id;
+            Blob data = [SELECT VersionData FROM ContentVersion WHERE Id = :versionId WITH USER_MODE].VersionData;
+            return new Gavel_ImageAsset(data, files[0].FileType == 'PNG' ? 'image/png' : 'image/jpeg');
+        }
+    }
+
     /** Last N Task/Event descriptions and EmailMessage bodies on the record within 90 days (Stage Evidence). */
     public class RecentActivity implements Gavel_StateSource {
         public Object resolve(Gavel_StateContext ctx) {
