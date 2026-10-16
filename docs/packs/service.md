@@ -113,7 +113,7 @@ Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_
 
 ### Gavel_Return_Triage
 
-Decides how to handle a return request: refund, replace, repair, reject under policy, or a person. The return window and refund limit are enforced in code (Gavel_ReturnOptions). Installs in Shadow.
+Decides how to handle a return request: refund, replace, repair, reject under policy, or a person. The return window, refund limit and a failed photo check are enforced in code (Gavel_ReturnOptions). Installs in Shadow.
 
 - Target object: `Case`
 - Install mode: **Shadow**

@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>Description__c</field>
-        <value xsi:type="xsd:string">Decides how to handle a return request: refund, replace, repair, reject under policy, or a person. The return window and refund limit are enforced in code (Gavel_ReturnOptions). Installs in Shadow.</value>
+        <value xsi:type="xsd:string">Decides how to handle a return request: refund, replace, repair, reject under policy, or a person. The return window, refund limit and a failed photo check are enforced in code (Gavel_ReturnOptions). Installs in Shadow.</value>
     </values>
     <values>
         <field>Owner_Email__c</field>

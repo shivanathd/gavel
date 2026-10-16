@@ -151,7 +151,7 @@ Reads the customer's photo on a return Case (jev-1.14.0): is damage visible, doe
 
 ## Gavel_Return_Triage
 
-Decides how to handle a return request: refund, replace, repair, reject under policy, or a person. The return window and refund limit are enforced in code (Gavel_ReturnOptions). Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
+Decides how to handle a return request: refund, replace, repair, reject under policy, or a person. The return window, refund limit and a failed photo check are enforced in code (Gavel_ReturnOptions). Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
 
 | Field path | State key | Required | Max chars | Redaction | Notes |
 |---|---|---|---|---|---|

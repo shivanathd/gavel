@@ -250,4 +250,29 @@ private class Gavel_ServicePack_Test {
         Assert.areEqual('SKIP', skipped.outcome);
         Assert.areEqual('insufficient_state', skipped.reason);
     }
+
+    // A photo that does not match the claim sends a confident refund or replace to a person
+    @IsTest
+    static void photoMismatchSendsMoneyOutcomesToReview() {
+        Gavel_TestFactory.ops(true);
+        withMock('Gavel_Return_Photo_Check');
+        withMock('Gavel_Return_Triage');
+        Case c = returnCase(10, 120, 'The headband arrived cracked, photo attached.');
+        Gavel_TestFactory.attachImage(c.Id, 'photo.png', Gavel_TestFactory.png());
+        Gavel_MockProvider.respondWith('Gavel_Return_Photo_Check', new Gavel_MockProvider.Body().withModel('jev-1.14.0')
+            .noul('damage_visible', 0.22)
+            .noul('matches_claim', 0.05)
+            .box('damage_area', 0.54, 0.95, 0.05, 0.22, 0.02)
+            .json());
+        Gavel_Runtime.RunResult photo = Gavel_Runtime.run(c.Id, 'Gavel_Return_Photo_Check');
+        Assert.areEqual('false', photo.answerValues.get('matches_claim'));
+
+        Gavel_MockProvider.respondWith('Gavel_Return_Triage', new Gavel_MockProvider.Body()
+            .choice('outcome', new Map<String, Decimal>{ 'refund' => 0, 'replace' => 0.95, 'repair' => 0, 'reject_policy' => 0.01, 'human_review' => 0.04 }, 0.94)
+            .noul('customer_caused', 0.03)
+            .json());
+        Gavel_Runtime.RunResult triage = Gavel_Runtime.run(c.Id, 'Gavel_Return_Triage');
+        Assert.areEqual('REVIEW', triage.outcome, 'the text alone says replace; the photo says otherwise');
+        Assert.areEqual('escape_selected', triage.reason);
+    }
 }
