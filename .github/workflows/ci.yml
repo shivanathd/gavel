@@ -88,7 +88,7 @@ jobs:
       - name: Hand the org to later jobs (encrypted)
         if: steps.devhub.outputs.ready == 'true'
         run: |
-          sf org display --target-org gavel-scratch --verbose --json | jq -r '.result.sfdxAuthUrl' \
+          sf org auth show-sfdx-auth-url --target-org gavel-scratch --json | jq -r '.result.sfdxAuthUrl' \
             | openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:ORG_AUTH_KEY -out org.auth.enc
       - uses: actions/upload-artifact@v4
         if: steps.devhub.outputs.ready == 'true'

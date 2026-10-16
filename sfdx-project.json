@@ -1,103 +1,90 @@
 {
   "packageDirectories": [
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "packages/gavel-core",
+      "default": false,
       "package": "gavel-core",
-      "versionName": "v1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Provider interface, TypeSafe and mock providers, state builder, policy engine, decision ledger, guardrails. Works with TypeSafe Jev.",
-      "default": true
+      "versionDescription": "",
+      "definitionFile": "config/project-scratch-def.json"
     },
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "packages/gavel-flow",
+      "default": true,
       "package": "gavel-flow",
-      "versionName": "v1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Flow actions (Run Decision, Run Decision Async, Apply Outcome), queueable runner and flow templates.",
-      "default": false,
-      "dependencies": [{ "package": "gavel-core", "versionNumber": "1.0.0.LATEST" }]
+      "versionDescription": "",
+      "definitionFile": "config/project-scratch-def.json"
     },
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "packages/gavel-shadow",
+      "default": false,
       "package": "gavel-shadow",
-      "versionName": "v1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Shadow mode, baseline capture, disagreement report and promotion gate.",
-      "default": false,
-      "dependencies": [
-        { "package": "gavel-core", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-flow", "versionNumber": "1.0.0.LATEST" }
-      ]
+      "versionDescription": "",
+      "definitionFile": "config/project-scratch-def.json"
     },
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "packages/gavel-calibrate",
+      "default": false,
       "package": "gavel-calibrate",
-      "versionName": "v1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Override capture, reliability tables and threshold recommendations.",
-      "default": false,
-      "dependencies": [
-        { "package": "gavel-core", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-flow", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-shadow", "versionNumber": "1.0.0.LATEST" }
-      ]
+      "versionDescription": "",
+      "definitionFile": "config/project-scratch-def.json"
     },
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "packages/gavel-admin",
+      "default": false,
       "package": "gavel-admin",
-      "versionName": "v1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Lightning app, Decision Console, ledger viewer, calibration dashboard and permission sets.",
-      "default": false,
-      "dependencies": [
-        { "package": "gavel-core", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-flow", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-shadow", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-calibrate", "versionNumber": "1.0.0.LATEST" }
-      ]
+      "versionDescription": "",
+      "definitionFile": "config/project-scratch-def.json"
     },
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "packages/gavel-pack-agentforce-gate",
+      "default": false,
       "package": "gavel-pack-agentforce-gate",
-      "versionName": "v1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Input screening, action risk labels, guarded action wrapper and intake screening.",
-      "default": false,
-      "dependencies": [
-        { "package": "gavel-core", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-flow", "versionNumber": "1.0.0.LATEST" }
-      ]
+      "versionDescription": "",
+      "definitionFile": "config/project-scratch-def.json"
     },
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "packages/gavel-pack-service",
-      "package": "gavel-pack-service",
-      "versionName": "v1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Case triage, real urgency, KB coverage and gap detection, closure check, reply check.",
       "default": false,
-      "dependencies": [
-        { "package": "gavel-core", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-flow", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-shadow", "versionNumber": "1.0.0.LATEST" }
-      ]
+      "package": "gavel-pack-service",
+      "versionDescription": "",
+      "definitionFile": "config/project-scratch-def.json"
     },
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "packages/gavel-pack-sales-marketing",
-      "package": "gavel-pack-sales-marketing",
-      "versionName": "v1.0",
-      "versionNumber": "1.0.0.NEXT",
-      "versionDescription": "Lead quality, reply intent, hidden opt-out detection, persona and stage evidence.",
       "default": false,
-      "dependencies": [
-        { "package": "gavel-core", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-flow", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-shadow", "versionNumber": "1.0.0.LATEST" },
-        { "package": "gavel-calibrate", "versionNumber": "1.0.0.LATEST" }
-      ]
+      "package": "gavel-pack-sales-marketing",
+      "versionDescription": "",
+      "definitionFile": "config/project-scratch-def.json"
     }
   ],
   "name": "gavel",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "64.0"
+  "sourceApiVersion": "64.0",
+  "packageAliases": {
+    "gavel-core": "0Hobm0000008KeHCAU",
+    "gavel-flow": "0Hobm0000008KftCAE",
+    "gavel-shadow": "0Hobm0000008KhVCAU",
+    "gavel-calibrate": "0Hobm0000008Kj7CAE",
+    "gavel-admin": "0Hobm0000008KkjCAE",
+    "gavel-pack-agentforce-gate": "0Hobm0000008KmLCAU",
+    "gavel-pack-service": "0Hobm0000008KnxCAE",
+    "gavel-pack-sales-marketing": "0Hobm0000008KpZCAU"
+  }
 }

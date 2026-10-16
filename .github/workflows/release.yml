@@ -24,15 +24,27 @@ jobs:
       - name: Definition hashes are current
         run: node scripts/hash-definitions.js --check
       - name: Create and promote package versions in dependency order
+        # Resumable: a package that already has a released version for its versionNumber is reused, so a
+        # run stopped by the Dev Hub daily Package2VersionCreates limit can be re-run the next day.
         run: |
           set -euo pipefail
           : > install-links.md
           for p in gavel-core gavel-flow gavel-shadow gavel-calibrate gavel-admin gavel-pack-agentforce-gate gavel-pack-service gavel-pack-sales-marketing; do
-            id=$(sf package version create --package "$p" --code-coverage --installation-key-bypass --wait 60 --json | jq -r '.result.SubscriberPackageVersionId')
-            sf package version promote --package "$id" --no-prompt
+            ver=$(jq -r --arg p "$p" '.packageDirectories[] | select(.package == $p) | .versionNumber' sfdx-project.json | sed 's/\.NEXT$//')
+            id=$(sf package version list --packages "$p" --released --json | jq -r --arg v "$ver." '[.result[] | select(.Version | startswith($v))] | sort_by(.Version) | last | .SubscriberPackageVersionId // empty')
+            if [ -z "$id" ]; then
+              id=$(sf package version create --package "$p" --code-coverage --installation-key-bypass --wait 90 --json | jq -r '.result.SubscriberPackageVersionId // empty')
+              [ -n "$id" ] || { echo "::error::version create failed for $p"; exit 1; }
+              sf package version promote --package "$id" --no-prompt
+            else
+              echo "$p $ver already released: $id"
+            fi
             echo "- $p: https://login.salesforce.com/packaging/installPackage.apexp?p0=$id" >> install-links.md
           done
       - name: Publish release notes
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" --title "Gavel $GITHUB_REF_NAME" --notes-file install-links.md
+        run: |
+          { echo "Install in this order. Each link is the promoted unlocked package version."; echo; cat install-links.md; } > notes.md
+          gh release create "$GITHUB_REF_NAME" --title "Gavel $GITHUB_REF_NAME" --notes-file notes.md \
+            || gh release edit "$GITHUB_REF_NAME" --notes-file notes.md
