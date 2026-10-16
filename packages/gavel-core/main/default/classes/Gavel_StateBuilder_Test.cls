@@ -239,7 +239,7 @@ private class Gavel_StateBuilder_Test {
         Assert.areEqual(1, r.assets.size(), 'the PDF is ignored');
         Gavel_ImageAsset img = r.assets[0];
         Assert.areEqual('image/png', img.contentType);
-        Assert.areEqual(Gavel_TestFactory.png(), img.data);
+        Assert.areEqual(EncodingUtil.base64Encode(Gavel_TestFactory.png()), EncodingUtil.base64Encode(img.data), 'the file bytes');
         Assert.areEqual(img.reference, r.state.get('photo'));
         Assert.isTrue(r.stateJson.contains(img.reference.substringBetween(':', '>')), 'the state hash covers the image digest');
         Assert.isFalse(r.stateJson.contains(EncodingUtil.base64Encode(img.data)), 'image bytes never enter state or the ledger');
