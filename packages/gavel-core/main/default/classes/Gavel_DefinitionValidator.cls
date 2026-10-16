@@ -6,7 +6,7 @@ public with sharing class Gavel_DefinitionValidator {
     public static final Pattern KEY_PATTERN = Pattern.compile('^[A-Za-z0-9_]{1,80}$');
     private static final Pattern VERSIONED_MODEL = Pattern.compile('.*\\d+\\.\\d+.*');
     private static final Set<String> MODES = new Set<String>{ 'Draft', 'Shadow', 'Live', 'Retired' };
-    private static final Set<String> TYPES = new Set<String>{ 'choice', 'score', 'noul' };
+    private static final Set<String> TYPES = new Set<String>{ 'choice', 'score', 'noul', 'box' };
     private static final Set<String> PROFILES = new Set<String>{ 'none', 'pii_basic', 'payment', 'gov_id', 'strict' };
     private static final Set<String> DIRECTIONS = new Set<String>{ 'true_is_action', 'false_is_action' };
     private static final Set<String> ACTION_TYPES = new Set<String>{ 'set_field', 'assign_queue', 'create_task', 'publish_event', 'invoke_flow', 'none' };
@@ -106,6 +106,10 @@ public with sharing class Gavel_DefinitionValidator {
             if (String.isBlank(q.prompt)) {
                 r.add('empty_prompt');
             }
+            // A box only locates something for a reviewer; it may not decide or trigger anything.
+            if (q.isBox() && q.requiredForAction == true) {
+                r.add('box_cannot_drive_action');
+            }
             validateOptions(q, r);
         }
     }
@@ -124,7 +128,11 @@ public with sharing class Gavel_DefinitionValidator {
                 optKeys.add(o.key);
             }
         }
-        if (q.isChoice()) {
+        if (q.isBox()) {
+            if (!opts.isEmpty() || dynamic) {
+                r.add('box_options_not_allowed');
+            }
+        } else if (q.isChoice()) {
             if (!dynamic && (opts.size() < 2 || opts.size() > 255)) {
                 r.add('choice_option_count_out_of_range');
             }
@@ -209,8 +217,11 @@ public with sharing class Gavel_DefinitionValidator {
 
     private static void validateActions(Gavel_Definition d, Result r) {
         for (Gavel_Definition.ActionMap a : d.actionMaps) {
-            if (d.question(a.questionKey) == null) {
+            Gavel_Question q = d.question(a.questionKey);
+            if (q == null) {
                 r.add('action_unknown_question');
+            } else if (q.isBox()) {
+                r.add('action_on_box_question');
             }
             if (a.actionType == null || !ACTION_TYPES.contains(a.actionType)) {
                 r.add('invalid_action_type');

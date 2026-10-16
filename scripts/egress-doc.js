@@ -17,6 +17,7 @@ const SOURCE_NOTE = {
   'Gavel_StateSources.RecentActivity': 'last Task and Event descriptions and email bodies on the record within 90 days',
   'Gavel_StateSources.Input': 'text passed to the action by the caller',
   'Gavel_ServiceSources.LinkedArticle': 'Summary of the Knowledge article attached to the email case',
+  'Gavel_StateSources.RecordImage': 'the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org',
 };
 const out = [];
 out.push('# Data leaving your org', '');
@@ -27,6 +28,7 @@ out.push('- Only the fields below are read, with the running user\'s sharing and
 out.push('- Text is redacted before it is serialized: matches become `[REDACTED:<type>]` and the ledger records only `type:count`. Redaction is best-effort pattern matching, not DLP.');
 out.push('- Text is cut at the listed maximum with a `[truncated]` marker.');
 out.push('- The ledger stores a SHA-256 hash of what was sent, not the text, unless an admin turns on `Store_State__c`.');
+out.push('- Images (only definitions pinned to jev-1.14.0 or later) are sent as files with the TypeSafe image opt-in header. They are not redacted or truncated. The ledger keeps only their SHA-256 digest, never the bytes.');
 out.push('- Labels and feedback are never sent to the provider.');
 out.push('- TypeSafe data retention and processing terms are not yet verified (OQ-1). Treat egress as sending data to a third-party processor until that is resolved.', '');
 let pack = null;

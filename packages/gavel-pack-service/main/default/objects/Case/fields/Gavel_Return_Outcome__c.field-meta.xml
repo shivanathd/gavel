@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gavel_Return_Outcome__c</fullName>
+    <description>Set by Gavel Return Triage when it is Live and confident: refund, replace, repair or reject_policy. Gavel never moves money; process the return from this field.</description>
+    <externalId>false</externalId>
+    <label>Gavel Return Outcome</label>
+    <length>40</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

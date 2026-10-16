@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Gavel Return Triage outcome</label>
+    <protected>false</protected>
+    <values>
+        <field>Decision__c</field>
+        <value xsi:type="xsd:string">Gavel_Return_Triage</value>
+    </values>
+    <values>
+        <field>Question_Key__c</field>
+        <value xsi:type="xsd:string">outcome</value>
+    </values>
+    <values>
+        <field>Answer_Value__c</field>
+        <value xsi:type="xsd:string">refund</value>
+    </values>
+    <values>
+        <field>Action_Type__c</field>
+        <value xsi:type="xsd:string">set_field</value>
+    </values>
+    <values>
+        <field>Action_Target__c</field>
+        <value xsi:type="xsd:string">Case.Gavel_Return_Outcome__c</value>
+    </values>
+    <values>
+        <field>Action_Value__c</field>
+        <value xsi:type="xsd:string">refund</value>
+    </values>
+</CustomMetadata>

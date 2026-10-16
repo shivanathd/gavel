@@ -8,6 +8,7 @@
  *   choice: { "probabilities"|"distribution": {option: p}, "choice"?: key, "confidence"?: c }
  *   score:  { "score"|"value": n, "confidence"?: c, "probabilities"?: {...} }
  *   noul:   { "noul": p }   (verified against docs.typesafe.ai/api; "probability" also accepted)
+ *   box:    { "box": {"top", "bottom", "left", "right"}, "confidence"?: c }   (jev-1.14.0, verified live 2026-10-17)
  */
 public with sharing class Gavel_ResponseParser {
     private static final Decimal TOLERANCE = 0.01;
@@ -66,6 +67,8 @@ public with sharing class Gavel_ResponseParser {
                     a = parseChoice(q, raw);
                 } else if (q.isScore()) {
                     a = parseScore(q, raw);
+                } else if (q.isBox()) {
+                    a = parseBox(q, raw);
                 } else {
                     a = parseNoul(q, raw);
                 }
@@ -242,6 +245,29 @@ public with sharing class Gavel_ResponseParser {
             return Gavel_Answer.invalid(q.key, q.questionType);
         }
         a.probability = unit(v, 'probability_out_of_range');
+        return a;
+    }
+
+    private static Gavel_Answer parseBox(Gavel_Question q, Map<String, Object> raw) {
+        Object b = raw.get('box');
+        if (b == null) {
+            return Gavel_Answer.invalid(q.key, q.questionType);
+        }
+        if (!(b instanceof Map<String, Object>)) {
+            throw new MismatchException('box_not_object');
+        }
+        Map<String, Object> edges = (Map<String, Object>) b;
+        Gavel_Answer a = new Gavel_Answer();
+        a.key = q.key;
+        a.answerType = Gavel_Question.BOX;
+        a.box = new Map<String, Decimal>();
+        for (String side : new List<String>{ 'top', 'bottom', 'left', 'right' }) {
+            a.box.put(side, unit(edges.get(side), 'box_out_of_range'));
+        }
+        if (a.box.get('top') > a.box.get('bottom') || a.box.get('left') > a.box.get('right')) {
+            throw new MismatchException('box_inverted');
+        }
+        a.confidence = optionalUnit(raw.get('confidence'));
         return a;
     }
 

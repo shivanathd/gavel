@@ -116,7 +116,7 @@ public with sharing class Gavel_MockProvider implements Gavel_JudgmentProvider {
         return fixtures;
     }
 
-    /** Shape-derived answer: first non-escape option at 0.9, score 0, noul 0.1. */
+    /** Shape-derived answer: first non-escape option at 0.9, score 0, noul 0.1, box over the centre. */
     private static String generic(Gavel_JudgmentRequest req) {
         Body b = new Body();
         for (Gavel_Question q : req.questions) {
@@ -144,6 +144,8 @@ public with sharing class Gavel_MockProvider implements Gavel_JudgmentProvider {
                 b.choice(q.key, probs, 0.8);
             } else if (q.isScore()) {
                 b.score(q.key, 0, 0.8);
+            } else if (q.isBox()) {
+                b.box(q.key, 0.25, 0.75, 0.25, 0.75, 0.8);
             } else {
                 b.noul(q.key, 0.1);
             }
@@ -173,6 +175,12 @@ public with sharing class Gavel_MockProvider implements Gavel_JudgmentProvider {
 
         public Body noul(String key, Decimal probability) {
             answers.put(key, new Map<String, Object>{ 'type' => 'noul', 'noul' => probability });
+            return this;
+        }
+
+        public Body box(String key, Decimal top, Decimal bottom, Decimal left, Decimal right, Decimal confidence) {
+            Map<String, Object> edges = new Map<String, Object>{ 'top' => top, 'bottom' => bottom, 'left' => left, 'right' => right };
+            answers.put(key, new Map<String, Object>{ 'type' => 'box', 'box' => edges, 'confidence' => confidence });
             return this;
         }
 

@@ -92,6 +92,48 @@ Checks an outbound draft against the linked Knowledge article: supported, contra
 
 Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_reply_check).
 
+### Gavel_Return_Photo_Check
+
+Reads the customer's photo on a return Case (jev-1.14.0): is damage visible, does it match the claim, and where is it. Skips when the Case has no photo. Run async for photos over about 1.5 MB. Installs in Shadow.
+
+- Target object: `Case`
+- Install mode: **Shadow**
+- Daily budget: 2000 calls
+- Provider config: `TypeSafe_Jev_1_14`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `damage_visible`: The photo in the state shows visible damage or a defect on the product. | noul | true / false | 0.85 | 0.5 | - | true_is_action |
+| `matches_claim`: The photo is consistent with the damage or fault the customer describes in the claim. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `damage_area`: The damaged or defective area of the product in the photo. | box | true / false | 0.8 | 0.5 | - | - |
+
+Asymmetric policy on `matches_claim`: A photo that does not match the claim is the case to flag.
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_return_photo_check).
+
+### Gavel_Return_Triage
+
+Decides how to handle a return request: refund, replace, repair, reject under policy, or a person. The return window, refund limit and a failed photo check are enforced in code (Gavel_ReturnOptions). Installs in Shadow.
+
+- Target object: `Case`
+- Install mode: **Shadow**
+- Daily budget: 5000 calls
+- Provider config: `TypeSafe_Default`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `outcome`: How should this return request be handled? | choice | runtime: Gavel_ReturnOptions:30:500 | 0.85 | 0.5 | 0.3 | - |
+| `customer_caused`: The customer describes damage that they or someone in their household caused. | noul | true / false | 0.85 | 0.5 | - | true_is_action |
+
+Actions (Live and AUTO only):
+
+- `outcome` = `refund`: set_field `Case.Gavel_Return_Outcome__c` = `refund`
+- `outcome` = `replace`: set_field `Case.Gavel_Return_Outcome__c` = `replace`
+- `outcome` = `repair`: set_field `Case.Gavel_Return_Outcome__c` = `repair`
+- `outcome` = `reject_policy`: set_field `Case.Gavel_Return_Outcome__c` = `reject_policy`
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_return_triage).
+
 <!-- generated:end -->
 
 ## KB coverage and gaps

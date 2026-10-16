@@ -24,6 +24,11 @@
                 <default>false</default>
                 <label>noul</label>
             </value>
+            <value>
+                <fullName>box</fullName>
+                <default>false</default>
+                <label>box</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -1,11 +1,12 @@
 /**
- * One typed ask inside a definition: choice, score or noul.
+ * One typed ask inside a definition: choice, score, noul or box (Jev 1.14: locate something in an image).
  * Shared by definitions (CMDT) and provider requests (contracts/provider-contract.md).
  */
 public with sharing class Gavel_Question {
     public static final String CHOICE = 'choice';
     public static final String SCORE = 'score';
     public static final String NOUL = 'noul';
+    public static final String BOX = 'box';
 
     public String key;
     public String questionType;
@@ -39,6 +40,10 @@ public with sharing class Gavel_Question {
 
     public Boolean isNoul() {
         return questionType == NOUL;
+    }
+
+    public Boolean isBox() {
+        return questionType == BOX;
     }
 
     public Gavel_Option findOption(String optionKey) {

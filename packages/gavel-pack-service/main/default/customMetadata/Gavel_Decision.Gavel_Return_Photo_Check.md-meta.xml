@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Gavel Return Photo Check</label>
+    <protected>false</protected>
+    <values>
+        <field>Target_Object__c</field>
+        <value xsi:type="xsd:string">Case</value>
+    </values>
+    <values>
+        <field>Version__c</field>
+        <value xsi:type="xsd:double">1</value>
+    </values>
+    <values>
+        <field>Mode__c</field>
+        <value xsi:type="xsd:string">Shadow</value>
+    </values>
+    <values>
+        <field>Provider_Config__c</field>
+        <value xsi:type="xsd:string">TypeSafe_Jev_1_14</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Reads the customer's photo on a return Case (jev-1.14.0): is damage visible, does it match the claim, and where is it. Skips when the Case has no photo. Run async for photos over about 1.5 MB. Installs in Shadow.</value>
+    </values>
+    <values>
+        <field>Owner_Email__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Daily_Budget_Calls__c</field>
+        <value xsi:type="xsd:double">2000</value>
+    </values>
+    <values>
+        <field>Pack__c</field>
+        <value xsi:type="xsd:string">service</value>
+    </values>
+    <values>
+        <field>Review_Queue__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Auto_Apply__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Timeout_Ms__c</field>
+        <value xsi:type="xsd:double">20000</value>
+    </values>
+    <values>
+        <field>Definition_Hash__c</field>
+        <value xsi:type="xsd:string">d8cb6b999a9d686616b035b17f3f672ce9cb4638c7209ae00b38b80ec7ef83d6</value>
+    </values>
+</CustomMetadata>

@@ -213,4 +213,67 @@ private class Gavel_StateBuilder_Test {
         Assert.isNull(new Gavel_StateSources.EmailBody().resolve(ctx));
         Assert.isNull(new Gavel_StateSources.EmailDomain().resolve(ctx));
     }
+
+    private static Gavel_Definition photoDefinition() {
+        Gavel_Definition d = Gavel_TestFactory.definition('Test_Photo_State', 'Case');
+        d.model = 'jev-1.14.0';
+        d.questions.add(Gavel_TestFactory.noul('damage_visible'));
+        Gavel_Definition.StateField photo = new Gavel_Definition.StateField('ContentVersion.VersionData', 'photo', true);
+        photo.source = 'Gavel_StateSources.RecordImage';
+        photo.redactionProfile = 'none';
+        d.stateFields.add(photo);
+        d.stateFields.add(new Gavel_Definition.StateField('Description', 'claim', false));
+        return d;
+    }
+
+    // Jev 1.14: a photo on the record travels as a content-addressed reference; bytes only in the request
+    @IsTest
+    static void recordImageBecomesReference() {
+        Gavel_TestFactory.ops(true);
+        Case c = Gavel_TestFactory.newCase('Return', 'Screen cracked on arrival');
+        insert c;
+        Gavel_TestFactory.attachImage(c.Id, 'manual.pdf', Blob.valueOf('%PDF-1.4 not an image'));
+        Gavel_TestFactory.attachImage(c.Id, 'photo.png', Gavel_TestFactory.png());
+        Gavel_StateBuilder.StateResult r = Gavel_StateBuilder.build(c.Id, photoDefinition());
+        Assert.isNull(r.blockedReason, 'missing: ' + r.missingRequired);
+        Assert.areEqual(1, r.assets.size(), 'the PDF is ignored');
+        Gavel_ImageAsset img = r.assets[0];
+        Assert.areEqual('image/png', img.contentType);
+        Assert.areEqual(EncodingUtil.base64Encode(Gavel_TestFactory.png()), EncodingUtil.base64Encode(img.data), 'the file bytes');
+        Assert.areEqual(img.reference, r.state.get('photo'));
+        Assert.isTrue(r.stateJson.contains(img.reference.substringBetween(':', '>')), 'the state hash covers the image digest');
+        Assert.isFalse(r.stateJson.contains(EncodingUtil.base64Encode(img.data)), 'image bytes never enter state or the ledger');
+    }
+
+    @IsTest
+    static void emailAttachmentImageIsFound() {
+        Gavel_TestFactory.ops(true);
+        Case c = Gavel_TestFactory.newCase('Return', 'Photo attached to my email');
+        insert c;
+        EmailMessage e = new EmailMessage(ParentId = c.Id, Incoming = true, Subject = 'Return', TextBody = 'See photo', FromAddress = 'customer@example.com');
+        insert e;
+        ContentVersion cv = new ContentVersion(Title = 'scan.jpg', PathOnClient = 'scan.jpg', VersionData = Gavel_TestFactory.png());
+        insert cv;
+        Id docId = [SELECT ContentDocumentId FROM ContentVersion WHERE Id = :cv.Id].ContentDocumentId;
+        insert new ContentDocumentLink(LinkedEntityId = e.Id, ContentDocumentId = docId, ShareType = 'V');
+        Gavel_StateBuilder.StateResult r = Gavel_StateBuilder.build(c.Id, photoDefinition());
+        Assert.isNull(r.blockedReason, 'missing: ' + r.missingRequired);
+        Assert.areEqual('image/jpeg', r.assets[0].contentType);
+    }
+
+    @IsTest
+    static void missingOrOversizedImageSkips() {
+        Gavel_TestFactory.ops(true);
+        Case c = Gavel_TestFactory.newCase('Return', 'No photo yet');
+        insert c;
+        Gavel_StateBuilder.StateResult none = Gavel_StateBuilder.build(c.Id, photoDefinition());
+        Assert.areEqual(Gavel_StateBuilder.INSUFFICIENT_STATE, none.blockedReason);
+        Assert.isTrue(none.assets.isEmpty());
+
+        Gavel_TestFactory.attachImage(c.Id, 'photo.png', Gavel_TestFactory.png());
+        Gavel_ImageAsset.testMaxBytes = 10;
+        Gavel_StateBuilder.StateResult big = Gavel_StateBuilder.build(c.Id, photoDefinition());
+        Assert.areEqual('image_too_large', big.blockedReason, 'the skip reason names the cause');
+        Assert.isTrue(big.assets.isEmpty());
+    }
 }

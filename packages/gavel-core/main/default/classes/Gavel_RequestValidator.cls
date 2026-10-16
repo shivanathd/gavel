@@ -26,6 +26,14 @@ public with sharing class Gavel_RequestValidator {
         if (req.canonicalState().length() > MAX_STATE_CHARS) {
             return 'state_too_large';
         }
+        if (req.hasImages()) {
+            for (Gavel_ImageAsset img : req.assets) {
+                // Match the digest: JSON may escape the reference's angle brackets.
+                if (img == null || img.data == null || img.data.size() == 0 || !req.canonicalState().contains(img.reference.substringBetween(':', '>'))) {
+                    return 'image_not_referenced';
+                }
+            }
+        }
         if (req.timeoutMs != null && (req.timeoutMs < 1 || req.timeoutMs > 60000)) {
             return 'timeout_out_of_range';
         }
@@ -41,7 +49,7 @@ public with sharing class Gavel_RequestValidator {
                 return 'duplicate_question_key';
             }
             keys.add(q.key);
-            if (!q.isChoice() && !q.isScore() && !q.isNoul()) {
+            if (!q.isChoice() && !q.isScore() && !q.isNoul() && !q.isBox()) {
                 return 'invalid_question_type';
             }
             if (String.isBlank(q.prompt)) {

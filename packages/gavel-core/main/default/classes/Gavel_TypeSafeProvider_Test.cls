@@ -329,4 +329,92 @@ private class Gavel_TypeSafeProvider_Test {
         req.timeoutMs = null;
         Assert.areEqual(10000, req.effectiveTimeoutMs());
     }
+
+    private static Gavel_JudgmentRequest imageRequest(Gavel_ImageAsset img) {
+        Gavel_JudgmentRequest r = new Gavel_JudgmentRequest();
+        r.definitionApiName = 'Test_Photo';
+        r.definitionVersion = 1;
+        r.model = 'jev-1.14.0';
+        r.state = new Map<String, Object>{ 'photo' => img.reference, 'claim' => 'Screen cracked on arrival' };
+        r.assets = new List<Gavel_ImageAsset>{ img };
+        r.questions = new List<Gavel_Question>{ Gavel_TestFactory.noul('damage_visible'), Gavel_TestFactory.box('damage_area') };
+        r.namedCredential = 'Gavel_TypeSafe';
+        r.endpointPath = '/v1/systemone';
+        return r;
+    }
+
+    private static String hexOf(String text) {
+        return EncodingUtil.convertToHex(Blob.valueOf(text));
+    }
+
+    // Jev 1.14: images go as multipart/form-data with the opt-in header; the Box answer is parsed
+    @IsTest
+    static void imagesSentAsMultipart() {
+        Gavel_ImageAsset img = new Gavel_ImageAsset(Gavel_TestFactory.png(), 'image/png');
+        String digest = img.reference.substringBetween(':', '>');
+        Assert.areEqual(32, digest.length(), 'content-addressed reference: 32 hex digits of SHA-256');
+        String reply = new Gavel_MockProvider.Body().withModel('jev-1.14.0')
+            .noul('damage_visible', 0.93).box('damage_area', 0.2, 0.6, 0.1, 0.5, 0.9).json();
+        Sequence seq = new Sequence(new List<Object>{ reply });
+        Test.setMock(HttpCalloutMock.class, seq);
+        Gavel_JudgmentResponse r = new Gavel_TypeSafeProvider().judge(imageRequest(img));
+
+        Assert.areEqual('ok', r.status, 'detail: ' + r.errorCode);
+        Gavel_Answer box = r.answers.get('damage_area');
+        Assert.areEqual(new Map<String, Decimal>{ 'top' => 0.2, 'bottom' => 0.6, 'left' => 0.1, 'right' => 0.5 }, box.box);
+        Assert.areEqual(0.9, box.confidence);
+
+        HttpRequest sent = seq.seen[0];
+        String contentType = sent.getHeader('Content-Type');
+        Assert.isTrue(contentType.startsWith('multipart/form-data; boundary='), contentType);
+        Assert.areEqual('true', sent.getHeader('TypeSafe-Danger-Zone-Images'), 'images need the opt-in header');
+        String boundary = contentType.substringAfter('boundary=');
+        String hex = EncodingUtil.convertToHex(sent.getBodyAsBlob());
+        Assert.isTrue(hex.startsWith(hexOf('--' + boundary + '\r\nContent-Disposition: form-data; name="request"\r\nContent-Type: application/json\r\n\r\n{"model":"jev-1.14.0"')), 'request part first');
+        Assert.isTrue(hex.contains(hexOf('"type":"box","instructions":"Where is the damage_area?"')), 'box question has no criteria');
+        Assert.isTrue(hex.contains(hexOf('"type":"image","part":"asset-0"')), 'assets map names the part');
+        Assert.isTrue(hex.contains(hexOf(digest)), 'the reference appears in the request part');
+        Assert.isTrue(hex.contains(hexOf('--' + boundary + '\r\nContent-Disposition: form-data; name="asset-0"; filename="asset-0"\r\nContent-Type: image/png\r\n\r\n')
+            + EncodingUtil.convertToHex(Gavel_TestFactory.png()) + hexOf('\r\n--' + boundary + '--\r\n')), 'raw image bytes, then the closing boundary');
+    }
+
+    @IsTest
+    static void textOnlyStaysJson() {
+        Sequence seq = new Sequence(new List<Object>{ billingBody(0.82, 0.08) });
+        Test.setMock(HttpCalloutMock.class, seq);
+        new Gavel_TypeSafeProvider().judge(request());
+        Assert.areEqual('application/json', seq.seen[0].getHeader('Content-Type'));
+        Assert.isNull(seq.seen[0].getHeader('TypeSafe-Danger-Zone-Images'), 'no opt-in header without images');
+    }
+
+    @IsTest
+    static void unreferencedImageRejectedBeforeCallout() {
+        Gavel_ImageAsset img = new Gavel_ImageAsset(Gavel_TestFactory.png(), 'image/png');
+        Gavel_JudgmentRequest req = imageRequest(img);
+        req.state = new Map<String, Object>{ 'claim' => 'No photo reference here' };
+        Sequence seq = new Sequence(new List<Object>{ '{}' });
+        Test.setMock(HttpCalloutMock.class, seq);
+        Gavel_JudgmentResponse r = new Gavel_TypeSafeProvider().judge(req);
+        Assert.areEqual('invalid_request', r.status);
+        Assert.areEqual('image_not_referenced', r.errorCode);
+        Assert.areEqual(0, seq.seen.size(), 'no callout');
+    }
+
+    @IsTest
+    static void malformedBoxesAreContractMismatches() {
+        Gavel_ImageAsset img = new Gavel_ImageAsset(Gavel_TestFactory.png(), 'image/png');
+        Map<String, Object> outOfRange = new Map<String, Object>{ 'type' => 'box', 'box' => new Map<String, Object>{ 'top' => 0.1, 'bottom' => 1.4, 'left' => 0, 'right' => 1 } };
+        Map<String, Object> inverted = new Map<String, Object>{ 'type' => 'box', 'box' => new Map<String, Object>{ 'top' => 0.8, 'bottom' => 0.2, 'left' => 0, 'right' => 1 } };
+        for (Map<String, Object> bad : new List<Map<String, Object>>{ outOfRange, inverted }) {
+            String body = new Gavel_MockProvider.Body().withModel('jev-1.14.0').noul('damage_visible', 0.5).raw('damage_area', bad).json();
+            Gavel_JudgmentResponse r = run(imageRequest(img), new List<Object>{ body });
+            Assert.areEqual('contract_mismatch', r.status);
+            Assert.isTrue(r.errorCode == 'box_out_of_range' || r.errorCode == 'box_inverted', r.errorCode);
+        }
+        String missing = new Gavel_MockProvider.Body().withModel('jev-1.14.0').noul('damage_visible', 0.5)
+            .raw('damage_area', new Map<String, Object>{ 'type' => 'box' }).json();
+        Gavel_JudgmentResponse r = run(imageRequest(img), new List<Object>{ missing });
+        Assert.areEqual('ok', r.status);
+        Assert.isFalse(r.answers.get('damage_area').isValid(), 'a box answer without coordinates is invalid, not guessed');
+    }
 }
