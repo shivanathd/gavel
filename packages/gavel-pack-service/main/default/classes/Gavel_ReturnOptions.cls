@@ -4,8 +4,9 @@
  *  - bought more than <window> days ago: refund and replace are not offered;
  *  - purchase date unknown: refund and replace can be chosen but always go to review;
  *  - price above the refund limit, or unknown: refund can be chosen but always goes to review;
- *  - the latest Gavel_Return_Photo_Check on the Case found the photo does not match the claim, or shows no
- *    damage: refund and replace can be chosen but always go to review. Run the photo check first.
+ *  - the Case has a photo and the latest Gavel_Return_Photo_Check is missing, older than the photo, or found
+ *    that it does not match the claim or shows no damage: refund and replace can be chosen but always go to
+ *    review. Run the photo check first. A Case with no photo is judged on its text.
  * Options are the question's own Gavel_Option__mdt rows. Reads the Case's Asset WITH USER_MODE.
  */
 public with sharing class Gavel_ReturnOptions implements Gavel_OptionSource {
@@ -49,20 +50,24 @@ public with sharing class Gavel_ReturnOptions implements Gavel_OptionSource {
     /** Ledger rows are private to Gavel, so they are read without sharing, as Gavel_Ledger does. */
     private without sharing class PhotoCheck {
         public Boolean isFlagged(Id caseId) {
+            ContentVersion photo = Gavel_StateSources.latestImage(caseId);
+            if (photo == null) {
+                return false;
+            }
             List<Gavel_Decision_Log__c> rows = [
-                SELECT Answers_JSON__c FROM Gavel_Decision_Log__c
+                SELECT Answers_JSON__c, CreatedDate FROM Gavel_Decision_Log__c
                 WHERE Case__c = :caseId AND Definition__c = 'Gavel_Return_Photo_Check' AND Provider_Status__c = 'ok'
                 WITH SYSTEM_MODE
                 ORDER BY CreatedDate DESC
                 LIMIT 1
             ];
-            if (rows.isEmpty() || String.isBlank(rows[0].Answers_JSON__c)) {
-                return false;
+            if (rows.isEmpty() || rows[0].CreatedDate < photo.CreatedDate || String.isBlank(rows[0].Answers_JSON__c)) {
+                return true; // the current photo was never checked
             }
             Object doc = JSON.deserializeUntyped(rows[0].Answers_JSON__c);
             Object outcomes = doc instanceof Map<String, Object> ? ((Map<String, Object>) doc).get('outcomes') : null;
             if (!(outcomes instanceof Map<String, Object>)) {
-                return false;
+                return true; // unreadable result: treat as unchecked
             }
             for (String key : new List<String>{ 'matches_claim', 'damage_visible' }) {
                 Object q = ((Map<String, Object>) outcomes).get(key);

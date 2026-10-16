@@ -275,4 +275,17 @@ private class Gavel_ServicePack_Test {
         Assert.areEqual('REVIEW', triage.outcome, 'the text alone says replace; the photo says otherwise');
         Assert.areEqual('escape_selected', triage.reason);
     }
+
+    // A photo nobody has checked, or a newer photo than the last check, keeps refund and replace for a person
+    @IsTest
+    static void uncheckedPhotoSendsMoneyOutcomesToReview() {
+        Gavel_TestFactory.ops(true);
+        withMock('Gavel_Return_Triage');
+        Case c = returnCase(10, 120, 'The headband arrived cracked, photo attached.');
+        Gavel_TestFactory.attachImage(c.Id, 'photo.png', Gavel_TestFactory.png());
+        Map<String, Boolean> opts = offered(c.Id);
+        Assert.isTrue(opts.get('refund'), 'unchecked photo: refund goes to review');
+        Assert.isTrue(opts.get('replace'), 'unchecked photo: replace goes to review');
+        Assert.isFalse(opts.get('repair'));
+    }
 }

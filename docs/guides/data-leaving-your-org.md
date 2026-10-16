@@ -146,7 +146,7 @@ Reads the customer's photo on a return Case (jev-1.14.0): is damage visible, doe
 | Field path | State key | Required | Max chars | Redaction | Notes |
 |---|---|---|---|---|---|
 | `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org |
-| `Description` | claim | no | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+| `Description` | claim | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 | `Asset.Name` | product | no | 120 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
 ## Gavel_Return_Triage
