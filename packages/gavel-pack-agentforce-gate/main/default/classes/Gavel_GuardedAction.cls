@@ -108,13 +108,13 @@ public with sharing class Gavel_GuardedAction {
                 }
             }
             Map<Id, Id> existing = new Map<Id, Id>();
-            for (Gavel_Review__c rv : [SELECT Id, Decision_Log__c FROM Gavel_Review__c WHERE Decision_Log__c IN :ledgerIds]) {
+            for (Gavel_Review__c rv : [SELECT Id, Decision_Log__c FROM Gavel_Review__c WHERE Decision_Log__c IN :ledgerIds WITH SYSTEM_MODE]) {
                 existing.put(rv.Decision_Log__c, rv.Id);
             }
-            List<Group> queue = [SELECT Id FROM Group WHERE Type = 'Queue' AND DeveloperName = 'Gavel_Review_Queue' LIMIT 1];
+            List<Group> queue = [SELECT Id FROM Group WHERE Type = 'Queue' AND DeveloperName = 'Gavel_Review_Queue' WITH SYSTEM_MODE LIMIT 1];
             Map<Id, Gavel_Decision_Log__c> logs = new Map<Id, Gavel_Decision_Log__c>([
                 SELECT Id, Definition__c, Record_Id__c, Outcome__c, Case__c, Lead__c, Contact__c, Opportunity__c
-                FROM Gavel_Decision_Log__c WHERE Id IN :ledgerIds
+                FROM Gavel_Decision_Log__c WHERE Id IN :ledgerIds WITH SYSTEM_MODE
             ]);
             List<Gavel_Review__c> rows = new List<Gavel_Review__c>();
             List<Result> forRows = new List<Result>();
@@ -145,7 +145,7 @@ public with sharing class Gavel_GuardedAction {
                 forRows.add(r);
             }
             if (!rows.isEmpty()) {
-                insert rows;
+                insert as system rows;
                 for (Integer i = 0; i < rows.size(); i++) {
                     forRows[i].reviewId = rows[i].Id;
                 }

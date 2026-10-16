@@ -25,7 +25,7 @@ public without sharing class Gavel_AlertMonitor implements Schedulable {
             SELECT Definition__c def, Outcome__c outcome, COUNT(Id) n
             FROM Gavel_Decision_Log__c
             WHERE Run_At__c >= :since AND Outcome__c != 'PENDING'
-            GROUP BY Definition__c, Outcome__c
+            WITH SYSTEM_MODE GROUP BY Definition__c, Outcome__c
         ]) {
             String def = (String) ar.get('def');
             Integer n = (Integer) ar.get('n');

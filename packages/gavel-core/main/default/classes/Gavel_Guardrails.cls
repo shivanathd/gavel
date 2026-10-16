@@ -156,7 +156,7 @@ public without sharing class Gavel_Guardrails {
                 keys.add(BREAKER_KEY);
             }
             Map<String, Gavel_Counter__c> rows = new Map<String, Gavel_Counter__c>();
-            for (Gavel_Counter__c c : [SELECT Id, Key__c, Count__c, Value__c FROM Gavel_Counter__c WHERE Key__c IN :keys FOR UPDATE]) {
+            for (Gavel_Counter__c c : [SELECT Id, Key__c, Count__c, Value__c FROM Gavel_Counter__c WHERE Key__c IN :keys WITH SYSTEM_MODE FOR UPDATE]) {
                 rows.put(c.Key__c, c);
             }
             for (String k : budgetDelta.keySet()) {
@@ -223,7 +223,7 @@ public without sharing class Gavel_Guardrails {
                 base = (Decimal) cachedCount;
             } else {
                 try {
-                    List<Gavel_Counter__c> rows = [SELECT Count__c FROM Gavel_Counter__c WHERE Key__c = :k LIMIT 1];
+                    List<Gavel_Counter__c> rows = [SELECT Count__c FROM Gavel_Counter__c WHERE Key__c = :k WITH SYSTEM_MODE LIMIT 1];
                     base = rows.isEmpty() || rows[0].Count__c == null ? 0 : rows[0].Count__c;
                 } catch (Exception e) {
                     base = null;
@@ -248,7 +248,7 @@ public without sharing class Gavel_Guardrails {
         if (c instanceof String) {
             raw = (String) c;
         } else {
-            List<Gavel_Counter__c> rows = [SELECT Count__c, Value__c FROM Gavel_Counter__c WHERE Key__c = :BREAKER_KEY LIMIT 1];
+            List<Gavel_Counter__c> rows = [SELECT Count__c, Value__c FROM Gavel_Counter__c WHERE Key__c = :BREAKER_KEY WITH SYSTEM_MODE LIMIT 1];
             if (!rows.isEmpty() && rows[0].Value__c != null) {
                 raw = rows[0].Value__c + '|' + (rows[0].Count__c == null ? 0 : rows[0].Count__c.intValue());
             }

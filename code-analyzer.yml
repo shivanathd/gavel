@@ -1,0 +1,8 @@
+# Code Analyzer settings for CI (sf code-analyzer run reads this file from the repo root).
+rules:
+  flow:
+    # The four record-triggered flows (Case/Lead intake screening and created-record triage) are
+    # inactive Draft templates whose job is to screen every new record. Entry criteria would skip
+    # records by design, so this is reported at Moderate, not High. Add criteria when you activate one.
+    TriggerEntryCriteria:
+      severity: 3

@@ -103,7 +103,7 @@ public with sharing class Gavel_MockProvider implements Gavel_JudgmentProvider {
             return fixtures;
         }
         fixtures = new Map<String, Object>();
-        for (StaticResource sr : [SELECT Name, Body FROM StaticResource WHERE Name LIKE 'Gavel_Mock_Fixtures%' ORDER BY Name]) {
+        for (StaticResource sr : [SELECT Name, Body FROM StaticResource WHERE Name LIKE 'Gavel_Mock_Fixtures%' WITH SYSTEM_MODE ORDER BY Name]) {
             try {
                 Object root = JSON.deserializeUntyped(sr.Body.toString());
                 if (root instanceof Map<String, Object>) {

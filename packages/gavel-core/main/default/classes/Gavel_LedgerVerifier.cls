@@ -21,7 +21,7 @@ public without sharing class Gavel_LedgerVerifier {
             SELECT Last_Purged_Seq__c, Last_Purged_Hash__c
             FROM Gavel_Ledger_Purge__c
             WHERE Definition__c = :definition AND Last_Purged_Seq__c != NULL
-            ORDER BY Last_Purged_Seq__c DESC
+            WITH SYSTEM_MODE ORDER BY Last_Purged_Seq__c DESC
             LIMIT 1
         ];
         if (!anchors.isEmpty()) {
@@ -36,7 +36,7 @@ public without sharing class Gavel_LedgerVerifier {
                 Asymmetric_Reason__c, Top_Choice__c, Top_Confidence__c, Run_At__c, Chain_Seq__c, Prev_Hash__c, Entry_Hash__c
             FROM Gavel_Decision_Log__c
             WHERE Definition__c = :definition AND Chain_Seq__c != NULL
-            ORDER BY Chain_Seq__c ASC
+            WITH SYSTEM_MODE ORDER BY Chain_Seq__c ASC
             LIMIT 50000
         ]) {
             r.checked++;

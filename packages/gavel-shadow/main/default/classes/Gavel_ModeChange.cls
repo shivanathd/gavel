@@ -61,7 +61,7 @@ public with sharing class Gavel_ModeChange {
                 Daily_Budget_Calls__c, Definition_Hash__c, Pack__c, Review_Queue__c, Auto_Apply__c, Timeout_Ms__c
             FROM Gavel_Decision__mdt
             WHERE DeveloperName = :def.apiName
-            LIMIT 1
+            WITH SYSTEM_MODE LIMIT 1
         ];
         if (!rows.isEmpty()) {
             md.label = rows[0].MasterLabel;
