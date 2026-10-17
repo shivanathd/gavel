@@ -63,7 +63,7 @@ Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_
 
 ### Gavel_Delivery_Proof
 
-For an item-not-received Case: is a parcel visible in the delivery photo, is it at a door or entrance, and where is it. Reads the newest image on the Case, so attach the carrier's delivery photo last (or by automation). Delivery photos can show house numbers. Installs in Shadow.
+Item not received: is a parcel visible in the delivery photo, is it at a door, and where. Reads the newest Case image, so attach the carrier photo last. Photos can show house numbers. Installs in Shadow.
 
 - Target object: `Case`
 - Install mode: **Shadow**
@@ -100,7 +100,7 @@ Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_
 
 ### Gavel_Proof_Of_Purchase
 
-Checks the photo a customer sent as proof of purchase: is it a receipt or invoice, does it list the product, and where is the total (asked only next to whether a total is visible). Jev points at the total but cannot read it. Receipts show names, addresses and card digits. Installs in Shadow.
+Proof of purchase photo: is it a receipt or invoice, does it list the product, is the total visible and where. Jev points at the total but cannot read it. Receipts show names and card digits. Installs in Shadow.
 
 - Target object: `Case`
 - Install mode: **Shadow**
