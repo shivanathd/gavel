@@ -39,9 +39,9 @@ public class Gavel_TestFactory {
         return q;
     }
 
-    /** A valid 1x1 PNG. */
+    /** A valid 300x300 PNG, within the side lengths TypeSafe accepts. */
     public static Blob png() {
-        return EncodingUtil.base64Decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
+        return EncodingUtil.base64Decode('iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAAAQElEQVR42u3KMQEAAAQAMPQvKwGvU4DtXk48dMWLpmmapmmapmmapmmapmmapmmapmmapmmapmmapmmapmmadi0s8QRIt0bcDwAAAABJRU5ErkJggg==');
     }
 
     /** Attaches an image file to a record, the way a user upload or Email-to-Case does. */

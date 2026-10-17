@@ -32,6 +32,9 @@ public with sharing class Gavel_RequestValidator {
                 if (img == null || img.data == null || img.data.size() == 0 || !req.canonicalState().contains(img.reference.substringBetween(':', '>'))) {
                     return 'image_not_referenced';
                 }
+                if (!img.hasSupportedSize()) {
+                    return 'image_size_unsupported';
+                }
             }
         }
         if (req.timeoutMs != null && (req.timeoutMs < 1 || req.timeoutMs > 60000)) {

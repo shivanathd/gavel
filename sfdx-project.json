@@ -3,8 +3,8 @@
     {
       "path": "packages/gavel-core",
       "package": "gavel-core",
-      "versionName": "v1.1",
-      "versionNumber": "1.1.0.NEXT",
+      "versionName": "v1.1.1",
+      "versionNumber": "1.1.1.NEXT",
       "versionDescription": "Provider interface, TypeSafe and mock providers, state builder, policy engine, decision ledger, guardrails. Images and Box answers (Jev 1.14). Works with TypeSafe Jev.",
       "default": true,
       "definitionFile": "config/project-scratch-def.json"

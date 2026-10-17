@@ -417,4 +417,17 @@ private class Gavel_TypeSafeProvider_Test {
         Assert.areEqual('ok', r.status);
         Assert.isFalse(r.answers.get('damage_area').isValid(), 'a box answer without coordinates is invalid, not guessed');
     }
+
+    // An image TypeSafe would reject with HTTP 400 is refused before the callout, so it never counts toward the breaker
+    @IsTest
+    static void unsupportedImageSizeRefusedBeforeCallout() {
+        Gavel_ImageAsset tiny = new Gavel_ImageAsset(EncodingUtil.base64Decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='), 'image/png');
+        Sequence seq = new Sequence(new List<Object>{ '{}' });
+        Test.setMock(HttpCalloutMock.class, seq);
+        Gavel_JudgmentResponse r = new Gavel_TypeSafeProvider().judge(imageRequest(tiny));
+        Assert.areEqual('invalid_request', r.status);
+        Assert.areEqual('image_size_unsupported', r.errorCode);
+        Assert.areEqual(0, seq.seen.size(), 'no callout');
+        Assert.isFalse(Gavel_JudgmentResponse.PROVIDER_FAILURES.contains(r.status), 'not a provider failure: the breaker is unaffected');
+    }
 }

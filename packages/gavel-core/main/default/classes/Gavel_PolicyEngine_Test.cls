@@ -329,7 +329,12 @@ private class Gavel_PolicyEngine_Test {
             r.answers = new Map<String, Gavel_Answer>{ 'damage_area' => a };
             Gavel_Outcome.QuestionResult qr = Gavel_PolicyEngine.evaluateQuestion(q, r, p);
             Assert.areEqual(expected.get(c), qr.outcome, 'confidence ' + c);
-            Assert.areEqual('0.1,0.5,0,1', qr.answerValue);
+            if (qr.outcome == 'ESCALATE') {
+                Assert.isNull(qr.answerValue, 'a box is always a box: below Review_At no location is recorded');
+                Assert.areEqual('box_not_found', qr.reason);
+            } else {
+                Assert.areEqual('0.1,0.5,0,1', qr.answerValue);
+            }
             Assert.areEqual(c, qr.policyValue);
         }
         Gavel_Answer unknown = new Gavel_Answer();

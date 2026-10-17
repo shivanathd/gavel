@@ -134,8 +134,10 @@ public with sharing class Gavel_StateSources {
     /**
      * Latest PNG or JPEG file on the record or on its inbound emails (Email-to-Case attachments), as an image for
      * Jev 1.14 and later. Use with a pinned jev-1.14.0 provider and redaction profile none: images are not redacted.
-     * No file -> null. A file over Gavel_ImageAsset.maxBytes() ends the run as SKIP image_too_large; run the
-     * decision async (Run Decision Async), where the heap allows larger images.
+     * No file -> null. A file over Gavel_ImageAsset.maxBytes() ends the run as SKIP image_too_large (run the
+     * decision async, where the heap allows larger images); a side outside 280..1568 px as SKIP
+     * image_size_unsupported (the byte limit is checked first). These skips end the run only when the field is
+     * Required__c; an optional photo that cannot be sent is left out. TypeSafe ignores EXIF rotation.
      */
     public class RecordImage implements Gavel_StateSource {
         public Object resolve(Gavel_StateContext ctx) {
@@ -148,7 +150,12 @@ public with sharing class Gavel_StateSources {
             }
             Id versionId = file.Id;
             Blob data = [SELECT VersionData FROM ContentVersion WHERE Id = :versionId WITH USER_MODE].VersionData;
-            return new Gavel_ImageAsset(data, file.FileType == 'PNG' ? 'image/png' : 'image/jpeg');
+            Gavel_ImageAsset img = new Gavel_ImageAsset(data, file.FileType == 'PNG' ? 'image/png' : 'image/jpeg');
+            if (!img.hasSupportedSize()) {
+                // TypeSafe rejects sides outside 280..1568 px with HTTP 400; skip instead of feeding the breaker.
+                throw new Gavel_SkipException('image_size_unsupported');
+            }
+            return img;
         }
     }
 
