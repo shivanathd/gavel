@@ -42,11 +42,16 @@ Gavel is a set of Salesforce packages you can deploy. It runs typed, calibrated 
 | Service | `Gavel_Reply_Check` | Checks an outbound draft against the linked article: supported, contradicted or unsupported | Shadow |
 | Service | `Gavel_Return_Triage` | Refund, replace, repair, reject or a person for a return Case. The return window and refund limit are enforced in code | Shadow |
 | Service | `Gavel_Return_Photo_Check` | Reads the customer's photo (`jev-1.14.0`): damage visible, matches the claim, and a box around it | Shadow |
+| Service | `Gavel_Wrong_Item_Check` | Compares the customer's photo with the Product's catalog photo: is this the item we sent? | Shadow |
+| Service | `Gavel_Delivery_Proof` | Carrier's delivery photo: is a parcel visible, and is it at a door | Shadow |
+| Service | `Gavel_Proof_Of_Purchase` | Is the photo a real receipt, does it list the product, and where is the total | Shadow |
+| Service | `Gavel_Work_Completion` | Technician's photo on a Work Order: is the job finished, is the site left clean | Shadow |
 | Sales & Marketing | `Gavel_Lead_Quality` | Separates real buyers from students, job seekers, vendors, competitors, spam and test data | Shadow |
 | Sales & Marketing | `Gavel_Reply_Intent` | Reads the intent of an inbound reply to outreach | Shadow |
 | Sales & Marketing | `Gavel_Opt_Out_Detect` | Finds opt-out requests hidden in replies. It only ever sets Email Opt Out, never clears it | Live, review only |
 | Sales & Marketing | `Gavel_Persona` | Persona and seniority from the job title | Shadow |
 | Sales & Marketing | `Gavel_Stage_Evidence` | Checks recent activity for the evidence each Opportunity stage exit needs | Shadow |
+| Sales & Marketing | `Gavel_Product_Photo_Check` | Is a product's listing photo clear and usable, and does it show the product named | Shadow |
 | Agentforce Gate | `Gavel_Input_Screen` | Screens inbound text (email, web form, chat) for injected instructions before an agent reads it | Shadow |
 | Agentforce Gate | `Gavel_Action_Risk` | Labels an agent action as read-only, reversible or destructive. Destructive actions need a human | Shadow |
 

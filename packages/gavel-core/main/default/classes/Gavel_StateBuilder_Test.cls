@@ -301,4 +301,32 @@ private class Gavel_StateBuilder_Test {
         Assert.areEqual('image_size_unsupported', r.blockedReason, 'a 1x1 photo skips before any callout');
         Assert.isTrue(r.assets.isEmpty());
     }
+
+    // RecordImage:<lookup path> reads the photo of a related record, e.g. the catalog photo of the Case's product
+    @IsTest
+    static void relatedRecordImage() {
+        Gavel_TestFactory.ops(true);
+        Product2 p = new Product2(Name = 'Aria headphones');
+        insert p;
+        Blob catalog = EncodingUtil.base64Decode('iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAAAIklEQVR42u3BMQEAAADCoPVPbQo/oAAAAAAAAAAAAAAAeBkttAABAZVTBAAAAABJRU5ErkJggg==');
+        Gavel_TestFactory.attachImage(p.Id, 'catalog.png', catalog);
+        Account acct = new Account(Name = 'Related image');
+        insert acct;
+        Asset a = new Asset(Name = 'Aria headphones', AccountId = acct.Id, Product2Id = p.Id);
+        insert a;
+        Case c = Gavel_TestFactory.newCase('Wrong item', 'Not what I ordered');
+        c.AssetId = a.Id;
+        insert c;
+        Gavel_Definition d = Gavel_TestFactory.definition('Test_Related_Photo', 'Case');
+        d.questions.add(Gavel_TestFactory.noul('same_product'));
+        Gavel_Definition.StateField sf = new Gavel_Definition.StateField('ContentVersion.VersionData', 'catalog_photo', true);
+        sf.source = 'Gavel_StateSources.RecordImage:Asset.Product2Id';
+        d.stateFields.add(sf);
+        Gavel_StateBuilder.StateResult r = Gavel_StateBuilder.build(c.Id, d);
+        Assert.isNull(r.blockedReason, 'missing: ' + r.missingRequired);
+        Assert.areEqual(EncodingUtil.base64Encode(catalog), EncodingUtil.base64Encode(r.assets[0].data), 'the product photo, not the case');
+
+        sf.source = 'Gavel_StateSources.RecordImage:Asset.Product2Id; DELETE';
+        Assert.areEqual(Gavel_StateBuilder.INSUFFICIENT_STATE, Gavel_StateBuilder.build(c.Id, d).blockedReason, 'a malformed path reads nothing');
+    }
 }

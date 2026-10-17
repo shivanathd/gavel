@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Gavel Work Completion</label>
+    <protected>false</protected>
+    <values>
+        <field>Target_Object__c</field>
+        <value xsi:type="xsd:string">WorkOrder</value>
+    </values>
+    <values>
+        <field>Version__c</field>
+        <value xsi:type="xsd:double">1</value>
+    </values>
+    <values>
+        <field>Mode__c</field>
+        <value xsi:type="xsd:string">Shadow</value>
+    </values>
+    <values>
+        <field>Provider_Config__c</field>
+        <value xsi:type="xsd:string">TypeSafe_Jev_1_14</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Checks the technician's completion photo on a Work Order: does it show the job finished, and is the site left clean and safe. Installs in Shadow.</value>
+    </values>
+    <values>
+        <field>Owner_Email__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Daily_Budget_Calls__c</field>
+        <value xsi:type="xsd:double">2000</value>
+    </values>
+    <values>
+        <field>Pack__c</field>
+        <value xsi:type="xsd:string">service</value>
+    </values>
+    <values>
+        <field>Review_Queue__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Auto_Apply__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Timeout_Ms__c</field>
+        <value xsi:type="xsd:double">20000</value>
+    </values>
+    <values>
+        <field>Definition_Hash__c</field>
+        <value xsi:type="xsd:string">80d6fc096dc38e8dc609624ef7c670709ebf61d00b9c4ede43e423eb33718f44</value>
+    </values>
+</CustomMetadata>

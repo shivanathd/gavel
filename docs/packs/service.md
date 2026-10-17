@@ -61,6 +61,27 @@ Before a Case closes: did the customer confirm the issue is resolved in their la
 
 Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_closure_check).
 
+### Gavel_Delivery_Proof
+
+For an item-not-received Case with the carrier's delivery photo: is a parcel visible, is it at a door or entrance, and where is it. Installs in Shadow.
+
+- Target object: `Case`
+- Install mode: **Shadow**
+- Daily budget: 2000 calls
+- Provider config: `TypeSafe_Jev_1_14`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `parcel_visible`: The photo shows a delivered parcel or package. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `at_door`: The parcel is at the door, porch or entrance of a home or building. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `parcel_area`: The delivered parcel or package. | box | true / false | 0.8 | 0.5 | - | - |
+
+Asymmetric policy on `parcel_visible`: No parcel in the delivery photo is the case to flag.
+
+Asymmetric policy on `at_door`: A parcel away from any door is the case to flag.
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_delivery_proof).
+
 ### Gavel_KB_Coverage
 
 Checks whether a Knowledge article answers the case. No article, or a weak match, creates a KB gap record.
@@ -76,6 +97,27 @@ Checks whether a Knowledge article answers the case. No article, or a weak match
 | `answers_question`: The selected article answers the customer question. | noul | true / false | 0.85 | 0.5 | - | true_is_action |
 
 Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_kb_coverage).
+
+### Gavel_Proof_Of_Purchase
+
+Checks the photo a customer sent as proof of purchase: is it a real receipt, does it list the product, and where is the total. Jev points at the total but cannot read it. Installs in Shadow.
+
+- Target object: `Case`
+- Install mode: **Shadow**
+- Daily budget: 2000 calls
+- Provider config: `TypeSafe_Jev_1_14`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `is_receipt`: The photo is a real purchase receipt or invoice, not a product photo, a note or an unrelated picture. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `lists_product`: The receipt lists a purchase of the product named in the state. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `total_area`: The total amount paid on the receipt. | box | true / false | 0.8 | 0.5 | - | - |
+
+Asymmetric policy on `is_receipt`: A photo that is not a receipt is the case to flag.
+
+Asymmetric policy on `lists_product`: A receipt for something else is the case to flag.
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_proof_of_purchase).
 
 ### Gavel_Reply_Check
 
@@ -133,6 +175,44 @@ Actions (Live and AUTO only):
 - `outcome` = `reject_policy`: set_field `Case.Gavel_Return_Outcome__c` = `reject_policy`
 
 Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_return_triage).
+
+### Gavel_Work_Completion
+
+Checks the technician's completion photo on a Work Order: does it show the job finished, and is the site left clean and safe. Installs in Shadow.
+
+- Target object: `WorkOrder`
+- Install mode: **Shadow**
+- Daily budget: 2000 calls
+- Provider config: `TypeSafe_Jev_1_14`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `work_complete`: The photo shows the job described in the state finished. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `site_clean`: The work area is left clean and safe: no debris, loose tools or exposed wiring. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+
+Asymmetric policy on `work_complete`: An unfinished job reported as done is the case to flag.
+
+Asymmetric policy on `site_clean`: A hazard left on site is the case to flag.
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_work_completion).
+
+### Gavel_Wrong_Item_Check
+
+Compares the customer's photo with the catalog photo of the Case's product (Asset.Product2): is this the item we sent? Needs a PNG or JPEG on the Case and on the Product. Installs in Shadow.
+
+- Target object: `Case`
+- Install mode: **Shadow**
+- Daily budget: 2000 calls
+- Provider config: `TypeSafe_Jev_1_14`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `product_visible`: The customer photo shows a physical product, not a screenshot, a receipt or an unrelated scene. | noul | true / false | 0.85 | 0.5 | - | true_is_action |
+| `same_product`: The product in the customer photo is the same product as in the catalog photo. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+
+Asymmetric policy on `same_product`: A wrong item is what this check exists to catch.
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_wrong_item_check).
 
 <!-- generated:end -->
 

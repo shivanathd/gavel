@@ -1,7 +1,8 @@
 @IsTest
 private class Gavel_SalesMarketingPack_Test {
     private static final List<String> DEFINITIONS = new List<String>{
-        'Gavel_Lead_Quality', 'Gavel_Reply_Intent', 'Gavel_Opt_Out_Detect', 'Gavel_Persona', 'Gavel_Stage_Evidence'
+        'Gavel_Lead_Quality', 'Gavel_Reply_Intent', 'Gavel_Opt_Out_Detect', 'Gavel_Persona', 'Gavel_Stage_Evidence',
+        'Gavel_Product_Photo_Check'
     };
 
     private static Gavel_Definition withMock(String api) {
@@ -171,5 +172,23 @@ private class Gavel_SalesMarketingPack_Test {
                 Assert.areEqual('Shadow', d.mode, api + ' installs in Shadow');
             }
         }
+    }
+
+    // Listing photos: the Product's image is checked before it goes live
+    @IsTest
+    static void productPhotoCheckReadsTheProductImage() {
+        Gavel_TestFactory.ops(true);
+        withMock('Gavel_Product_Photo_Check');
+        Product2 p = new Product2(Name = 'Aria headphones', Description = 'Over-ear, black.');
+        insert p;
+        Gavel_TestFactory.attachImage(p.Id, 'listing.png', Gavel_TestFactory.png());
+        Gavel_Runtime.RunResult r = Gavel_Runtime.run(p.Id, 'Gavel_Product_Photo_Check');
+        Assert.areNotEqual('SKIP', r.outcome, 'detail: ' + r.reason);
+        Assert.areEqual(1, Gavel_MockProvider.lastRequest.assets.size());
+        Assert.areEqual('Aria headphones', Gavel_MockProvider.lastRequest.state.get('name'));
+
+        Product2 noPhoto = new Product2(Name = 'Bare product');
+        insert noPhoto;
+        Assert.areEqual('SKIP', Gavel_Runtime.run(noPhoto.Id, 'Gavel_Product_Photo_Check').outcome, 'no photo: skip');
     }
 }
