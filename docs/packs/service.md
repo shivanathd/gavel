@@ -207,8 +207,10 @@ Compares the customer's photo with the catalog photo of the Case's product (Asse
 
 | Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
 |---|---|---|---|---|---|---|
-| `product_visible`: The customer photo shows a physical product, not a screenshot, a receipt or an unrelated scene. | noul | true / false | 0.85 | 0.5 | - | true_is_action |
+| `product_visible`: The customer photo shows a physical product, not a screenshot, a receipt or an unrelated scene. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
 | `same_product`: The product in the customer photo is the same product as in the catalog photo. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+
+Asymmetric policy on `product_visible`: A photo with no product in it cannot be compared and is the case to flag.
 
 Asymmetric policy on `same_product`: A wrong item is what this check exists to catch.
 

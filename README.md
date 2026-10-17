@@ -95,6 +95,8 @@ sf org login web --alias devhub --set-default-dev-hub
 
 This deploys core, flow, shadow, calibrate, admin and then the packs you chose. It assigns `Gavel_Admin`, `Gavel_Runtime`, `Gavel_Callout` and the pack permission sets to you, and loads sample data (200 Cases, 50 Leads). Use `--dry-run` to see the plan first. Or install the released unlocked packages in the same order from the [v1.0.0 release](https://github.com/shivanathd/gavel/releases/tag/v1.0.0) (`sf package install --package YOUR_PACKAGE_VERSION_ID --wait 20`, replacing `YOUR_PACKAGE_VERSION_ID` with the 04t ID from the release notes).
 
+**Upgrading:** a package upgrade reinstalls that package's shipped custom metadata. Upgrading `gavel-core` resets `Gavel_Ops_Config` to its defaults, which turns egress off, so turn it back on afterwards (verified on 1.1.0 → 1.1.1). After upgrading a pack, also check each of its definitions' `Mode__c` and thresholds.
+
 After deploy, no flow is active and egress is off. In this state nothing leaves the org, and every run is recorded as `SKIP egress_disabled`.
 
 **3. Add the TypeSafe API key.** See [the next section](#the-typesafe-api-key).
