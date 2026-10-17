@@ -8,7 +8,8 @@
  * Noul (POL-001.3): a = probability of the action side (Noul_Direction__c).
  *   a >= auto_accept -> AUTO (act); a <= min(review_at, 1 - auto_accept) -> AUTO with no action;
  *   a >= review_at -> REVIEW; otherwise ESCALATE.
- * Box: located for a reviewer, banded on confidence like Score; validation keeps it out of actions.
+ * Box: located for a reviewer, banded on confidence like Score; validation keeps it out of actions. A box answer is
+ *   always a box, even when nothing is there, so below Review_At it records no location (box_not_found).
  * Definition outcome = most conservative over Required_For_Action__c questions, or all questions if
  * none are required (POL-001.6). Shadow/Draft compute the outcome but suppress actions (POL-001.7).
  */
@@ -22,6 +23,7 @@ public with sharing class Gavel_PolicyEngine {
     public static final String R_BELOW_REVIEW = 'confidence_below_review';
     public static final String R_POLICY_MISSING = 'policy_missing';
     public static final String R_INVALID_RESPONSE = 'invalid_response';
+    public static final String R_BOX_NOT_FOUND = 'box_not_found';
     public static final String SUPPRESS_SHADOW = 'action_suppressed_shadow';
     public static final String SUPPRESS_DRAFT = 'action_suppressed_draft';
     public static final String SUPPRESS_AUTO_APPLY_OFF = 'auto_apply_disabled';
@@ -105,6 +107,10 @@ public with sharing class Gavel_PolicyEngine {
         }
         if (q.isBox()) {
             score(qr, a, policy);
+            if (qr.outcome == Gavel_Outcome.ESCALATE) {
+                qr.reason = R_BOX_NOT_FOUND;
+                return qr;
+            }
             List<String> edges = new List<String>();
             for (String side : new List<String>{ 'top', 'bottom', 'left', 'right' }) {
                 edges.add(a.box.get(side).stripTrailingZeros().toPlainString());

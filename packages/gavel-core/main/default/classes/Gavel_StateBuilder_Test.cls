@@ -276,4 +276,29 @@ private class Gavel_StateBuilder_Test {
         Assert.areEqual('image_too_large', big.blockedReason, 'the skip reason names the cause');
         Assert.isTrue(big.assets.isEmpty());
     }
+
+    // TypeSafe rejects sides outside 280..1568 px with HTTP 400; Gavel reads the header and skips instead
+    @IsTest
+    static void imageSizeReadFromHeader() {
+        Gavel_ImageAsset png = new Gavel_ImageAsset(Gavel_TestFactory.png(), 'image/png');
+        Assert.areEqual(new List<Integer>{ 300, 300 }, png.dimensions());
+        Gavel_ImageAsset jpeg = new Gavel_ImageAsset(EncodingUtil.base64Decode('/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABsSFBcUERsXFhceHBsgKEIrKCUlKFE6PTBCYFVlZF9VXVtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/wAALCAEYASwBAREA/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/ACiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiv/9k='), 'image/jpeg');
+        Assert.areEqual(new List<Integer>{ 300, 280 }, jpeg.dimensions(), 'JPEG size from the SOF marker');
+        Assert.isTrue(jpeg.hasSupportedSize());
+        Gavel_ImageAsset wide = new Gavel_ImageAsset(EncodingUtil.base64Decode('iVBORw0KGgoAAAANSUhEUgAABkAAAAEsAQAAAACz5kKlAAABBElEQVR42u3PAQEAAAQDsNO/Mz3YGqwmN3RERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERE3kUWsQIDV6jmGioAAAAASUVORK5CYII='), 'image/png');
+        Assert.areEqual(new List<Integer>{ 1600, 300 }, wide.dimensions());
+        Assert.isFalse(wide.hasSupportedSize(), 'over 1568 px');
+        Assert.isFalse(new Gavel_ImageAsset(Blob.valueOf('not an image'), 'image/png').hasSupportedSize(), 'unreadable header');
+    }
+
+    @IsTest
+    static void unsupportedImageSizeSkips() {
+        Gavel_TestFactory.ops(true);
+        Case c = Gavel_TestFactory.newCase('Return', 'Photo is a tiny thumbnail');
+        insert c;
+        Gavel_TestFactory.attachImage(c.Id, 'thumb.png', EncodingUtil.base64Decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='));
+        Gavel_StateBuilder.StateResult r = Gavel_StateBuilder.build(c.Id, photoDefinition());
+        Assert.areEqual('image_size_unsupported', r.blockedReason, 'a 1x1 photo skips before any callout');
+        Assert.isTrue(r.assets.isEmpty());
+    }
 }
