@@ -66,6 +66,16 @@ Persona and seniority from the job title. Edit the options to match your ideal c
 | `Title` | title | yes | 128 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 | `Company` | company | no | 255 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
+## Gavel_Product_Photo_Check
+
+Checks a product's photo before it goes into a listing: is it clear and usable, and does it show the product named. Installs in Shadow. Target object: `Product2`. Installs in **Shadow**.
+
+| Field path | State key | Required | Max chars | Redaction | Notes |
+|---|---|---|---|---|---|
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
+| `Name` | name | yes | 255 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+| `Description` | description | no | 1000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+
 ## Gavel_Reply_Intent
 
 Reads the intent of an inbound reply to outreach. Target object: `EmailMessage`. Installs in **Shadow**.
@@ -119,6 +129,15 @@ Before a Case closes: did the customer confirm the issue is resolved in their la
 |---|---|---|---|---|---|
 | `EmailMessage.TextBody` | last_inbound | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | last inbound email bodies on the record, quoted reply chains removed, 2,000 characters each |
 
+## Gavel_Delivery_Proof
+
+Item not received: is a parcel visible in the delivery photo, is it at a door, and where. Reads the newest Case image, so attach the carrier photo last. Photos can show house numbers. Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
+
+| Field path | State key | Required | Max chars | Redaction | Notes |
+|---|---|---|---|---|---|
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
+| `Description` | claim | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+
 ## Gavel_KB_Coverage
 
 Checks whether a Knowledge article answers the case. No article, or a weak match, creates a KB gap record. Target object: `Case`. Installs in **Shadow**.
@@ -129,6 +148,15 @@ Checks whether a Knowledge article answers the case. No article, or a weak match
 | `Description` | description | no | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
 Also sent as answer options: the Id, Title and Summary (first 2,000 characters) of up to 20 online Knowledge articles found by SOSL on the case subject (max 50).
+
+## Gavel_Proof_Of_Purchase
+
+Proof of purchase photo: is it a receipt or invoice, does it list the product, is the total visible and where. Jev points at the total but cannot read it. Receipts show names and card digits. Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
+
+| Field path | State key | Required | Max chars | Redaction | Notes |
+|---|---|---|---|---|---|
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
+| `Asset.Name` | product | yes | 120 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
 ## Gavel_Reply_Check
 
@@ -145,7 +173,7 @@ Reads the customer's photo on a return Case (jev-1.14.0): is damage visible, doe
 
 | Field path | State key | Required | Max chars | Redaction | Notes |
 |---|---|---|---|---|---|
-| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org |
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
 | `Description` | claim | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 | `Asset.Name` | product | no | 120 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
@@ -162,3 +190,24 @@ Decides how to handle a return request: refund, replace, repair, reject under po
 | `Asset.PurchaseDate` | purchase_date | no | 20 | none | field value |
 | `Asset.Price` | item_price | no | 20 | none | field value |
 | `EmailMessage.TextBody` | recent_emails | no | 4000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | last inbound email bodies on the record, quoted reply chains removed, 2,000 characters each |
+
+## Gavel_Work_Completion
+
+Checks the technician's completion photo on a Work Order: does it show the job finished, and is the site left clean and safe. Installs in Shadow. Target object: `WorkOrder`. Installs in **Shadow**.
+
+| Field path | State key | Required | Max chars | Redaction | Notes |
+|---|---|---|---|---|---|
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
+| `Subject` | job_title | no | 255 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+| `Description` | job | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+
+## Gavel_Wrong_Item_Check
+
+Compares the customer's photo with the catalog photo of the Case's product (Asset.Product2): is this the item we sent? Needs a PNG or JPEG on the Case and on the Product. Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
+
+| Field path | State key | Required | Max chars | Redaction | Notes |
+|---|---|---|---|---|---|
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
+| `ContentVersion.VersionData` | catalog_photo | yes | 100 | none | the latest PNG or JPEG file on the related record `Asset.Product2Id`, sent as an image (jev-1.14.0). Images are not redacted |
+| `Asset.Name` | product | no | 120 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
+| `Description` | claim | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |

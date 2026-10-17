@@ -60,6 +60,26 @@ Persona and seniority from the job title. Edit the options to match your ideal c
 
 Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_persona).
 
+### Gavel_Product_Photo_Check
+
+Checks a product's photo before it goes into a listing: is it clear and usable, and does it show the product named. Installs in Shadow.
+
+- Target object: `Product2`
+- Install mode: **Shadow**
+- Daily budget: 2000 calls
+- Provider config: `TypeSafe_Jev_1_14`
+
+| Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
+|---|---|---|---|---|---|---|
+| `usable_photo`: The photo is a clear, well-lit photo of one product, fit for a store listing: not blurry, not a screenshot, no watermark. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `matches_name`: The photo shows the product named in the state. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+
+Asymmetric policy on `usable_photo`: An unusable listing photo is the case to flag.
+
+Asymmetric policy on `matches_name`: A photo of a different product is the case to flag.
+
+Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_product_photo_check).
+
 ### Gavel_Reply_Intent
 
 Reads the intent of an inbound reply to outreach.

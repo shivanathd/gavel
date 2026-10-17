@@ -2,8 +2,11 @@
 private class Gavel_ServicePack_Test {
     private static final List<String> DEFINITIONS = new List<String>{
         'Gavel_Case_Triage', 'Gavel_Case_Urgency', 'Gavel_KB_Coverage', 'Gavel_Closure_Check', 'Gavel_Reply_Check',
-        'Gavel_Return_Triage', 'Gavel_Return_Photo_Check'
+        'Gavel_Return_Triage', 'Gavel_Return_Photo_Check',
+        'Gavel_Wrong_Item_Check', 'Gavel_Delivery_Proof', 'Gavel_Proof_Of_Purchase', 'Gavel_Work_Completion'
     };
+    /** A second valid 300x300 PNG, different bytes from Gavel_TestFactory.png(). */
+    private static final String OTHER_PNG = 'iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAAAIklEQVR42u3BMQEAAADCoPVPbQo/oAAAAAAAAAAAAAAAeBkttAABAZVTBAAAAABJRU5ErkJggg==';
 
     private static Gavel_Definition withMock(String api) {
         Gavel_Definition d = Gavel_DefinitionRepo.get(api);
@@ -287,5 +290,64 @@ private class Gavel_ServicePack_Test {
         Assert.isTrue(opts.get('refund'), 'unchecked photo: refund goes to review');
         Assert.isTrue(opts.get('replace'), 'unchecked photo: replace goes to review');
         Assert.isFalse(opts.get('repair'));
+    }
+
+    // Wrong item: the customer's photo is compared with the catalog photo of the Case's product
+    @IsTest
+    static void wrongItemComparesWithCatalogPhoto() {
+        Gavel_TestFactory.ops(true);
+        withMock('Gavel_Wrong_Item_Check');
+        Product2 p = new Product2(Name = 'Aria headphones');
+        insert p;
+        Gavel_TestFactory.attachImage(p.Id, 'catalog.png', EncodingUtil.base64Decode(OTHER_PNG));
+        Account acct = new Account(Name = 'Wrong item customer');
+        insert acct;
+        Asset a = new Asset(Name = 'Aria headphones', AccountId = acct.Id, Product2Id = p.Id, PurchaseDate = Date.today().addDays(-3), Price = 129);
+        insert a;
+        Case c = Gavel_TestFactory.newCase('Wrong item', 'This is not what I ordered, see the photo.');
+        c.AccountId = acct.Id;
+        c.AssetId = a.Id;
+        insert c;
+        Gavel_TestFactory.attachImage(c.Id, 'photo.png', Gavel_TestFactory.png());
+        Gavel_Runtime.RunResult r = Gavel_Runtime.run(c.Id, 'Gavel_Wrong_Item_Check');
+        Assert.areNotEqual('SKIP', r.outcome, 'detail: ' + r.reason);
+        Gavel_JudgmentRequest sent = Gavel_MockProvider.lastRequest;
+        Assert.areEqual(2, sent.assets.size(), 'the customer photo and the catalog photo both go');
+        Assert.areNotEqual(sent.state.get('photo'), sent.state.get('catalog_photo'));
+
+        Case noCatalog = returnCase(3, 129, 'Wrong colour arrived.');
+        Gavel_TestFactory.attachImage(noCatalog.Id, 'photo.png', Gavel_TestFactory.png());
+        Gavel_Runtime.RunResult skipped = Gavel_Runtime.run(noCatalog.Id, 'Gavel_Wrong_Item_Check');
+        Assert.areEqual('SKIP', skipped.outcome, 'no catalog photo: nothing to compare against');
+        Assert.areEqual('insufficient_state', skipped.reason);
+    }
+
+    // Delivery proof and proof of purchase: the Case photo goes as an image, with a Box behind a whether question
+    @IsTest
+    static void deliveryAndReceiptChecksSendThePhoto() {
+        Gavel_TestFactory.ops(true);
+        for (String api : new List<String>{ 'Gavel_Delivery_Proof', 'Gavel_Proof_Of_Purchase' }) {
+            withMock(api);
+            Case c = returnCase(3, 129, 'Photo attached for ' + api);
+            Gavel_TestFactory.attachImage(c.Id, 'photo.png', Gavel_TestFactory.png());
+            Gavel_Runtime.RunResult r = Gavel_Runtime.run(c.Id, api);
+            Assert.areNotEqual('SKIP', r.outcome, api + ': ' + r.reason);
+            Assert.areEqual(1, Gavel_MockProvider.lastRequest.assets.size(), api);
+            Assert.areEqual('jev-1.14.0', Gavel_MockProvider.lastRequest.model, api);
+        }
+    }
+
+    // Field service: the technician's completion photo on a Work Order
+    @IsTest
+    static void workCompletionReadsTheWorkOrderPhoto() {
+        Gavel_TestFactory.ops(true);
+        withMock('Gavel_Work_Completion');
+        WorkOrder w = new WorkOrder(Subject = 'Replace router', Description = 'Swap the faulty router and tidy the cabling.');
+        insert w;
+        Gavel_TestFactory.attachImage(w.Id, 'done.png', Gavel_TestFactory.png());
+        Gavel_Runtime.RunResult r = Gavel_Runtime.run(w.Id, 'Gavel_Work_Completion');
+        Assert.areNotEqual('SKIP', r.outcome, 'detail: ' + r.reason);
+        Assert.areEqual(1, Gavel_MockProvider.lastRequest.assets.size());
+        Assert.areEqual('Swap the faulty router and tidy the cabling.', Gavel_MockProvider.lastRequest.state.get('job'));
     }
 }

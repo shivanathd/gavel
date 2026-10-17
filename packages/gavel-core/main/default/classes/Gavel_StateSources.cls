@@ -133,7 +133,8 @@ public with sharing class Gavel_StateSources {
 
     /**
      * Latest PNG or JPEG file on the record or on its inbound emails (Email-to-Case attachments), as an image for
-     * Jev 1.14 and later. Use with a pinned jev-1.14.0 provider and redaction profile none: images are not redacted.
+     * Jev 1.14 and later. With an argument, the image comes from a related record instead: "RecordImage:AssetId",
+     * or one level further, "RecordImage:Asset.Product2Id" (the catalog photo of the Case's product). Use with a pinned jev-1.14.0 provider and redaction profile none: images are not redacted.
      * No file -> null. A file over Gavel_ImageAsset.maxBytes() ends the run as SKIP image_too_large (run the
      * decision async, where the heap allows larger images); a side outside 280..1568 px as SKIP
      * image_size_unsupported (the byte limit is checked first). These skips end the run only when the field is
@@ -141,7 +142,8 @@ public with sharing class Gavel_StateSources {
      */
     public class RecordImage implements Gavel_StateSource {
         public Object resolve(Gavel_StateContext ctx) {
-            ContentVersion file = ctx.recordId == null ? null : latestImage(ctx.recordId);
+            Id source = String.isBlank(ctx.arg) ? ctx.recordId : relatedId(ctx);
+            ContentVersion file = source == null ? null : latestImage(source);
             if (file == null) {
                 return null;
             }
@@ -157,6 +159,28 @@ public with sharing class Gavel_StateSources {
             }
             return img;
         }
+    }
+
+    /** Id held by a lookup path on the target record ("AssetId" or "Asset.Product2Id"), read WITH USER_MODE. */
+    private static Id relatedId(Gavel_StateContext ctx) {
+        String path = ctx.arg.trim();
+        if (ctx.recordId == null || !Pattern.matches('[A-Za-z0-9_]+(\\.[A-Za-z0-9_]+)?', path) || !Pattern.matches('[A-Za-z0-9_]+', ctx.targetObject)) {
+            return null;
+        }
+        List<SObject> rows = Database.queryWithBinds(
+            'SELECT ' + path + ' FROM ' + ctx.targetObject + ' WHERE Id = :rid LIMIT 1',
+            new Map<String, Object>{ 'rid' => ctx.recordId },
+            AccessLevel.USER_MODE
+        );
+        if (rows.isEmpty()) {
+            return null;
+        }
+        SObject row = rows[0];
+        if (path.contains('.')) {
+            row = row.getSObject(path.substringBefore('.'));
+            path = path.substringAfter('.');
+        }
+        return row == null ? null : (Id) row.get(path);
     }
 
     /**

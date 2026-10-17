@@ -6,7 +6,7 @@ The model judges. Your org's policy decides. Gavel keeps a record of both.
 
 Gavel is a set of Salesforce packages you can deploy. It runs typed, calibrated judgments (Choice, Score, Noul) from Flow, Apex and Agentforce. Every judgment passes through a policy you set and lands in an immutable ledger. Every decision runs in Shadow mode first and is calibrated against what your people actually do.
 
-> **Status:** v1 is implemented and verified in a scratch org. All task and acceptance evals pass, and the live contract test passes against `api.typesafe.ai` with `jev-1.13.0`. v1.0.0 is released as unlocked packages: install links are on the [v1.0.0 release](https://github.com/shivanathd/gavel/releases/tag/v1.0.0). Build status and design calls are in [PROGRESS.md](PROGRESS.md). The spec is in [docs/spec/active/2026-10-01-gavel-v1/](docs/spec/active/2026-10-01-gavel-v1/).
+> **Status:** v1 is implemented and verified in a scratch org. All task and acceptance evals pass, and the live contract test passes against `api.typesafe.ai` with `jev-1.13.0`. Gavel is released as unlocked packages; install links are on the [latest release](https://github.com/shivanathd/gavel/releases/latest). Build status and design calls are in [PROGRESS.md](PROGRESS.md). The spec is in [docs/spec/active/2026-10-01-gavel-v1/](docs/spec/active/2026-10-01-gavel-v1/).
 
 ## Contents
 
@@ -42,11 +42,18 @@ Gavel is a set of Salesforce packages you can deploy. It runs typed, calibrated 
 | Service | `Gavel_Reply_Check` | Checks an outbound draft against the linked article: supported, contradicted or unsupported | Shadow |
 | Service | `Gavel_Return_Triage` | Refund, replace, repair, reject or a person for a return Case. The return window and refund limit are enforced in code | Shadow |
 | Service | `Gavel_Return_Photo_Check` | Reads the customer's photo (`jev-1.14.0`): damage visible, matches the claim, and a box around it | Shadow |
+| Service | `Gavel_Wrong_Item_Check` | Compares the customer's photo with the Product's catalog photo: is this the item we sent? | Shadow |
+| Service | `Gavel_Delivery_Proof` | Carrier's delivery photo: is a parcel visible, and is it at a door | Shadow |
+| Service | `Gavel_Proof_Of_Purchase` | Is the photo a real receipt, does it list the product, and where is the total | Shadow |
+| Service | `Gavel_Work_Completion` | Technician's photo on a Work Order: is the job finished, is the site left clean | Shadow |
 | Sales & Marketing | `Gavel_Lead_Quality` | Separates real buyers from students, job seekers, vendors, competitors, spam and test data | Shadow |
 | Sales & Marketing | `Gavel_Reply_Intent` | Reads the intent of an inbound reply to outreach | Shadow |
 | Sales & Marketing | `Gavel_Opt_Out_Detect` | Finds opt-out requests hidden in replies. It only ever sets Email Opt Out, never clears it | Live, review only |
 | Sales & Marketing | `Gavel_Persona` | Persona and seniority from the job title | Shadow |
 | Sales & Marketing | `Gavel_Stage_Evidence` | Checks recent activity for the evidence each Opportunity stage exit needs | Shadow |
+| Sales & Marketing | `Gavel_Product_Photo_Check` | Is a product's listing photo clear and usable, and does it show the product named | Shadow |
+
+The photo decisions (Return Photo Check, Wrong Item, Delivery Proof, Proof of Purchase, Work Completion, Product Photo) ship with **no actions**. Their outcome says how sure Jev was, not what to do: `AUTO` means every required question was confident, whichever way it went. Read the per-question answers (`answer`, `outcome` in `Answers_JSON__c`, or `answerValues` from the Apex API) before a Flow acts on one, and test them on your own photos in Shadow before trusting them.
 | Agentforce Gate | `Gavel_Input_Screen` | Screens inbound text (email, web form, chat) for injected instructions before an agent reads it | Shadow |
 | Agentforce Gate | `Gavel_Action_Risk` | Labels an agent action as read-only, reversible or destructive. Destructive actions need a human | Shadow |
 
@@ -88,7 +95,9 @@ sf org login web --alias devhub --set-default-dev-hub
 ./scripts/deploy.sh --org gavel-scratch --packs service,sales-marketing,agentforce-gate --sample-data
 ```
 
-This deploys core, flow, shadow, calibrate, admin and then the packs you chose. It assigns `Gavel_Admin`, `Gavel_Runtime`, `Gavel_Callout` and the pack permission sets to you, and loads sample data (200 Cases, 50 Leads). Use `--dry-run` to see the plan first. Or install the released unlocked packages in the same order from the [v1.0.0 release](https://github.com/shivanathd/gavel/releases/tag/v1.0.0) (`sf package install --package YOUR_PACKAGE_VERSION_ID --wait 20`, replacing `YOUR_PACKAGE_VERSION_ID` with the 04t ID from the release notes).
+This deploys core, flow, shadow, calibrate, admin and then the packs you chose. It assigns `Gavel_Admin`, `Gavel_Runtime`, `Gavel_Callout` and the pack permission sets to you, and loads sample data (200 Cases, 50 Leads). Use `--dry-run` to see the plan first. Or install the released unlocked packages in the same order from the [latest release](https://github.com/shivanathd/gavel/releases/latest) (`sf package install --package YOUR_PACKAGE_VERSION_ID --wait 20`, replacing `YOUR_PACKAGE_VERSION_ID` with the 04t ID from the release notes).
+
+**Upgrading:** a package upgrade reinstalls that package's shipped custom metadata. Upgrading `gavel-core` resets `Gavel_Ops_Config` to its defaults, which turns egress off, so turn it back on afterwards (verified on 1.1.0 → 1.1.1). After upgrading a pack, also check each of its definitions' `Mode__c` and thresholds.
 
 After deploy, no flow is active and egress is off. In this state nothing leaves the org, and every run is recorded as `SKIP egress_disabled`.
 

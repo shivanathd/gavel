@@ -17,7 +17,7 @@ const SOURCE_NOTE = {
   'Gavel_StateSources.RecentActivity': 'last Task and Event descriptions and email bodies on the record within 90 days',
   'Gavel_StateSources.Input': 'text passed to the action by the caller',
   'Gavel_ServiceSources.LinkedArticle': 'Summary of the Knowledge article attached to the email case',
-  'Gavel_StateSources.RecordImage': 'the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org',
+  'Gavel_StateSources.RecordImage': 'the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt',
 };
 const out = [];
 out.push('# Data leaving your org', '');
@@ -45,7 +45,11 @@ for (const d of decisions) {
     .sort((a, b) => Number(v(a, 'Order__c') || 0) - Number(v(b, 'Order__c') || 0));
   for (const f of fields) {
     const src = v(f, 'Source__c');
-    const note = src ? (SOURCE_NOTE[src.split(':')[0]] || src) : 'field value';
+    const [cls, arg] = src ? src.split(':') : [];
+    const note = !src ? 'field value'
+      : cls === 'Gavel_StateSources.RecordImage' && arg
+        ? `the latest PNG or JPEG file on the related record \`${arg}\`, sent as an image (jev-1.14.0). Images are not redacted`
+        : (SOURCE_NOTE[cls] || src);
     out.push(`| \`${v(f, 'Field_Path__c')}\` | ${v(f, 'State_Key__c')} | ${v(f, 'Required__c') === 'true' ? 'yes' : 'no'} | ${Number(v(f, 'Max_Chars__c'))} | ${PROFILE[v(f, 'Redaction_Profile__c') || 'strict']} | ${note} |`);
   }
   if (d.devName === 'Gavel_Input_Screen') {

@@ -15,6 +15,10 @@
     "version": "1",
     "hash": "f6441e062d902a8c581ec66d2da72545c56659e74864dd460397ba9fb530487f"
   },
+  "Gavel_Delivery_Proof": {
+    "version": "1",
+    "hash": "4f7adda458f2602ddaa04cf08a3789c75de200f3c5febef08673f708ac54ff75"
+  },
   "Gavel_Input_Screen": {
     "version": "1",
     "hash": "ebeffd5ccbca975bd4080f85952d2594730e6bb37587d8428e394294937b6160"
@@ -35,6 +39,14 @@
     "version": "1",
     "hash": "c769bd47825f35ef84ab1c56af3dc9fc2f87c2f646ec7a350504eb45ee4e175c"
   },
+  "Gavel_Product_Photo_Check": {
+    "version": "1",
+    "hash": "ceb04a56fb5a8836edeebfa6c8c20ac26d17d141377d413b5fc429a0953cd408"
+  },
+  "Gavel_Proof_Of_Purchase": {
+    "version": "1",
+    "hash": "65a1419ec4008c3c90525bcc3d48d115faf6907797d64d7cd61320b96333eb3c"
+  },
   "Gavel_Reply_Check": {
     "version": "1",
     "hash": "2166fe4c28ebd1367f51c1e6b4e4d68109bfd82a1c259f986fec8b79fb8ec572"
@@ -54,5 +66,13 @@
   "Gavel_Stage_Evidence": {
     "version": "1",
     "hash": "217dd1ebe157591b41e3021cd30a48ccca02f7bc0632fc03aa317c25aa030be7"
+  },
+  "Gavel_Work_Completion": {
+    "version": "1",
+    "hash": "45395458d3a42199fa6292d16c63f7747e24127d172f93f087bd13d99e521740"
+  },
+  "Gavel_Wrong_Item_Check": {
+    "version": "1",
+    "hash": "0178b597b4aa3784d41df21474db7f5bdacd598e5869425ae5e4cb790d86fe23"
   }
 }
