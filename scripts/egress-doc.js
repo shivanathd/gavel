@@ -17,7 +17,7 @@ const SOURCE_NOTE = {
   'Gavel_StateSources.RecentActivity': 'last Task and Event descriptions and email bodies on the record within 90 days',
   'Gavel_StateSources.Input': 'text passed to the action by the caller',
   'Gavel_ServiceSources.LinkedArticle': 'Summary of the Knowledge article attached to the email case',
-  'Gavel_StateSources.RecordImage': 'the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org',
+  'Gavel_StateSources.RecordImage': 'the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt',
 };
 const out = [];
 out.push('# Data leaving your org', '');

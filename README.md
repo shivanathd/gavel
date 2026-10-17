@@ -6,7 +6,7 @@ The model judges. Your org's policy decides. Gavel keeps a record of both.
 
 Gavel is a set of Salesforce packages you can deploy. It runs typed, calibrated judgments (Choice, Score, Noul) from Flow, Apex and Agentforce. Every judgment passes through a policy you set and lands in an immutable ledger. Every decision runs in Shadow mode first and is calibrated against what your people actually do.
 
-> **Status:** v1 is implemented and verified in a scratch org. All task and acceptance evals pass, and the live contract test passes against `api.typesafe.ai` with `jev-1.13.0`. v1.0.0 is released as unlocked packages: install links are on the [v1.0.0 release](https://github.com/shivanathd/gavel/releases/tag/v1.0.0). Build status and design calls are in [PROGRESS.md](PROGRESS.md). The spec is in [docs/spec/active/2026-10-01-gavel-v1/](docs/spec/active/2026-10-01-gavel-v1/).
+> **Status:** v1 is implemented and verified in a scratch org. All task and acceptance evals pass, and the live contract test passes against `api.typesafe.ai` with `jev-1.13.0`. Gavel is released as unlocked packages; install links are on the [latest release](https://github.com/shivanathd/gavel/releases/latest). Build status and design calls are in [PROGRESS.md](PROGRESS.md). The spec is in [docs/spec/active/2026-10-01-gavel-v1/](docs/spec/active/2026-10-01-gavel-v1/).
 
 ## Contents
 
@@ -52,6 +52,8 @@ Gavel is a set of Salesforce packages you can deploy. It runs typed, calibrated 
 | Sales & Marketing | `Gavel_Persona` | Persona and seniority from the job title | Shadow |
 | Sales & Marketing | `Gavel_Stage_Evidence` | Checks recent activity for the evidence each Opportunity stage exit needs | Shadow |
 | Sales & Marketing | `Gavel_Product_Photo_Check` | Is a product's listing photo clear and usable, and does it show the product named | Shadow |
+
+The photo decisions (Return Photo Check, Wrong Item, Delivery Proof, Proof of Purchase, Work Completion, Product Photo) ship with **no actions**. Their outcome says how sure Jev was, not what to do: `AUTO` means every required question was confident, whichever way it went. Read the per-question answers (`answer`, `outcome` in `Answers_JSON__c`, or `answerValues` from the Apex API) before a Flow acts on one, and test them on your own photos in Shadow before trusting them.
 | Agentforce Gate | `Gavel_Input_Screen` | Screens inbound text (email, web form, chat) for injected instructions before an agent reads it | Shadow |
 | Agentforce Gate | `Gavel_Action_Risk` | Labels an agent action as read-only, reversible or destructive. Destructive actions need a human | Shadow |
 
@@ -93,7 +95,7 @@ sf org login web --alias devhub --set-default-dev-hub
 ./scripts/deploy.sh --org gavel-scratch --packs service,sales-marketing,agentforce-gate --sample-data
 ```
 
-This deploys core, flow, shadow, calibrate, admin and then the packs you chose. It assigns `Gavel_Admin`, `Gavel_Runtime`, `Gavel_Callout` and the pack permission sets to you, and loads sample data (200 Cases, 50 Leads). Use `--dry-run` to see the plan first. Or install the released unlocked packages in the same order from the [v1.0.0 release](https://github.com/shivanathd/gavel/releases/tag/v1.0.0) (`sf package install --package YOUR_PACKAGE_VERSION_ID --wait 20`, replacing `YOUR_PACKAGE_VERSION_ID` with the 04t ID from the release notes).
+This deploys core, flow, shadow, calibrate, admin and then the packs you chose. It assigns `Gavel_Admin`, `Gavel_Runtime`, `Gavel_Callout` and the pack permission sets to you, and loads sample data (200 Cases, 50 Leads). Use `--dry-run` to see the plan first. Or install the released unlocked packages in the same order from the [latest release](https://github.com/shivanathd/gavel/releases/latest) (`sf package install --package YOUR_PACKAGE_VERSION_ID --wait 20`, replacing `YOUR_PACKAGE_VERSION_ID` with the 04t ID from the release notes).
 
 **Upgrading:** a package upgrade reinstalls that package's shipped custom metadata. Upgrading `gavel-core` resets `Gavel_Ops_Config` to its defaults, which turns egress off, so turn it back on afterwards (verified on 1.1.0 → 1.1.1). After upgrading a pack, also check each of its definitions' `Mode__c` and thresholds.
 

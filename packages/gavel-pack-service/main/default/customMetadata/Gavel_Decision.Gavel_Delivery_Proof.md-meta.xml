@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>Description__c</field>
-        <value xsi:type="xsd:string">For an item-not-received Case with the carrier's delivery photo: is a parcel visible, is it at a door or entrance, and where is it. Installs in Shadow.</value>
+        <value xsi:type="xsd:string">For an item-not-received Case: is a parcel visible in the delivery photo, is it at a door or entrance, and where is it. Reads the newest image on the Case, so attach the carrier's delivery photo last (or by automation). Delivery photos can show house numbers. Installs in Shadow.</value>
     </values>
     <values>
         <field>Owner_Email__c</field>

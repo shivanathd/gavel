@@ -16,7 +16,7 @@
     </values>
     <values>
         <field>Prompt__c</field>
-        <value xsi:type="xsd:string">The receipt lists a purchase of the product named in the state.</value>
+        <value xsi:type="xsd:string">The receipt lists a purchase of the product named in the state. Line items may be abbreviated or coded.</value>
     </values>
     <values>
         <field>Instructions__c</field>

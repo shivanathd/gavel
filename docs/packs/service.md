@@ -63,7 +63,7 @@ Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_
 
 ### Gavel_Delivery_Proof
 
-For an item-not-received Case with the carrier's delivery photo: is a parcel visible, is it at a door or entrance, and where is it. Installs in Shadow.
+For an item-not-received Case: is a parcel visible in the delivery photo, is it at a door or entrance, and where is it. Reads the newest image on the Case, so attach the carrier's delivery photo last (or by automation). Delivery photos can show house numbers. Installs in Shadow.
 
 - Target object: `Case`
 - Install mode: **Shadow**
@@ -100,7 +100,7 @@ Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_
 
 ### Gavel_Proof_Of_Purchase
 
-Checks the photo a customer sent as proof of purchase: is it a real receipt, does it list the product, and where is the total. Jev points at the total but cannot read it. Installs in Shadow.
+Checks the photo a customer sent as proof of purchase: is it a receipt or invoice, does it list the product, and where is the total (asked only next to whether a total is visible). Jev points at the total but cannot read it. Receipts show names, addresses and card digits. Installs in Shadow.
 
 - Target object: `Case`
 - Install mode: **Shadow**
@@ -109,13 +109,16 @@ Checks the photo a customer sent as proof of purchase: is it a real receipt, doe
 
 | Question | Type | Options | Auto accept | Review at | Min margin | Noul direction |
 |---|---|---|---|---|---|---|
-| `is_receipt`: The photo is a real purchase receipt or invoice, not a product photo, a note or an unrelated picture. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
-| `lists_product`: The receipt lists a purchase of the product named in the state. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `is_receipt`: The photo shows a purchase receipt or invoice: paper, photographed, or a screenshot of an emailed receipt. Not a product photo, a note or an unrelated picture. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `lists_product`: The receipt lists a purchase of the product named in the state. Line items may be abbreviated or coded. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
+| `total_visible`: The total amount paid is visible on the receipt. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
 | `total_area`: The total amount paid on the receipt. | box | true / false | 0.8 | 0.5 | - | - |
 
 Asymmetric policy on `is_receipt`: A photo that is not a receipt is the case to flag.
 
 Asymmetric policy on `lists_product`: A receipt for something else is the case to flag.
+
+Asymmetric policy on `total_visible`: A receipt with no visible total cannot be checked.
 
 Data sent: see [Data leaving your org](../guides/data-leaving-your-org.md#gavel_proof_of_purchase).
 

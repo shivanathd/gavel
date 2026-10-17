@@ -329,4 +329,31 @@ private class Gavel_StateBuilder_Test {
         sf.source = 'Gavel_StateSources.RecordImage:Asset.Product2Id; DELETE';
         Assert.areEqual(Gavel_StateBuilder.INSUFFICIENT_STATE, Gavel_StateBuilder.build(c.Id, d).blockedReason, 'a malformed path reads nothing');
     }
+
+    // The same file in two image fields (for example a catalog image also attached to the Case) skips the run
+    @IsTest
+    static void sameImageInTwoFieldsSkips() {
+        Gavel_TestFactory.ops(true);
+        Product2 p = new Product2(Name = 'Aria headphones');
+        insert p;
+        Gavel_TestFactory.attachImage(p.Id, 'catalog.png', Gavel_TestFactory.png());
+        Account acct = new Account(Name = 'Same image');
+        insert acct;
+        Asset a = new Asset(Name = 'Aria headphones', AccountId = acct.Id, Product2Id = p.Id);
+        insert a;
+        Case c = Gavel_TestFactory.newCase('Wrong item', 'Is this what I ordered?');
+        c.AssetId = a.Id;
+        insert c;
+        Gavel_TestFactory.attachImage(c.Id, 'photo.png', Gavel_TestFactory.png());
+        Gavel_Definition d = Gavel_TestFactory.definition('Test_Same_Image', 'Case');
+        d.questions.add(Gavel_TestFactory.noul('same_product'));
+        Gavel_Definition.StateField photo = new Gavel_Definition.StateField('ContentVersion.VersionData', 'photo', true);
+        photo.source = 'Gavel_StateSources.RecordImage';
+        Gavel_Definition.StateField catalog = new Gavel_Definition.StateField('ContentVersion.VersionData', 'catalog_photo', true);
+        catalog.source = 'Gavel_StateSources.RecordImage:Asset.Product2Id';
+        d.stateFields.add(photo);
+        d.stateFields.add(catalog);
+        Gavel_StateBuilder.StateResult r = Gavel_StateBuilder.build(c.Id, d);
+        Assert.areEqual(Gavel_StateBuilder.DUPLICATE_IMAGE, r.blockedReason, 'a photo compared with itself proves nothing');
+    }
 }

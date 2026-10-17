@@ -117,7 +117,7 @@
       "package": "gavel-pack-service",
       "versionName": "v1.2",
       "versionNumber": "1.2.0.NEXT",
-      "versionDescription": "Case triage, real urgency, KB coverage and gap detection, closure check, reply check, return triage and return photo check.",
+      "versionDescription": "Case triage, real urgency, KB coverage and gap detection, closure check, reply check, return triage and return photo check; photo checks: wrong item, delivery proof, proof of purchase, work completion.",
       "default": false,
       "dependencies": [
         {
@@ -140,7 +140,7 @@
       "package": "gavel-pack-sales-marketing",
       "versionName": "v1.1",
       "versionNumber": "1.1.0.NEXT",
-      "versionDescription": "Lead quality, reply intent, hidden opt-out detection, persona and stage evidence.",
+      "versionDescription": "Lead quality, reply intent, hidden opt-out detection, persona and stage evidence; product listing photo check.",
       "default": false,
       "dependencies": [
         {

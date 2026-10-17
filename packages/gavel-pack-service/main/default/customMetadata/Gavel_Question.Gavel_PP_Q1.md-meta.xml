@@ -16,7 +16,7 @@
     </values>
     <values>
         <field>Prompt__c</field>
-        <value xsi:type="xsd:string">The photo is a real purchase receipt or invoice, not a product photo, a note or an unrelated picture.</value>
+        <value xsi:type="xsd:string">The photo shows a purchase receipt or invoice: paper, photographed, or a screenshot of an emailed receipt. Not a product photo, a note or an unrelated picture.</value>
     </values>
     <values>
         <field>Instructions__c</field>

@@ -72,7 +72,7 @@ Checks a product's photo before it goes into a listing: is it clear and usable, 
 
 | Field path | State key | Required | Max chars | Redaction | Notes |
 |---|---|---|---|---|---|
-| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org |
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
 | `Name` | name | yes | 255 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 | `Description` | description | no | 1000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
@@ -131,11 +131,11 @@ Before a Case closes: did the customer confirm the issue is resolved in their la
 
 ## Gavel_Delivery_Proof
 
-For an item-not-received Case with the carrier's delivery photo: is a parcel visible, is it at a door or entrance, and where is it. Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
+For an item-not-received Case: is a parcel visible in the delivery photo, is it at a door or entrance, and where is it. Reads the newest image on the Case, so attach the carrier's delivery photo last (or by automation). Delivery photos can show house numbers. Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
 
 | Field path | State key | Required | Max chars | Redaction | Notes |
 |---|---|---|---|---|---|
-| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org |
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
 | `Description` | claim | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
 ## Gavel_KB_Coverage
@@ -151,11 +151,11 @@ Also sent as answer options: the Id, Title and Summary (first 2,000 characters) 
 
 ## Gavel_Proof_Of_Purchase
 
-Checks the photo a customer sent as proof of purchase: is it a real receipt, does it list the product, and where is the total. Jev points at the total but cannot read it. Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
+Checks the photo a customer sent as proof of purchase: is it a receipt or invoice, does it list the product, and where is the total (asked only next to whether a total is visible). Jev points at the total but cannot read it. Receipts show names, addresses and card digits. Installs in Shadow. Target object: `Case`. Installs in **Shadow**.
 
 | Field path | State key | Required | Max chars | Redaction | Notes |
 |---|---|---|---|---|---|
-| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org |
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
 | `Asset.Name` | product | yes | 120 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
 ## Gavel_Reply_Check
@@ -173,7 +173,7 @@ Reads the customer's photo on a return Case (jev-1.14.0): is damage visible, doe
 
 | Field path | State key | Required | Max chars | Redaction | Notes |
 |---|---|---|---|---|---|
-| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org |
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
 | `Description` | claim | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 | `Asset.Name` | product | no | 120 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
@@ -197,7 +197,7 @@ Checks the technician's completion photo on a Work Order: does it show the job f
 
 | Field path | State key | Required | Max chars | Redaction | Notes |
 |---|---|---|---|---|---|
-| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org |
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
 | `Subject` | job_title | no | 255 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 | `Description` | job | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 
@@ -207,7 +207,7 @@ Compares the customer's photo with the catalog photo of the Case's product (Asse
 
 | Field path | State key | Required | Max chars | Redaction | Notes |
 |---|---|---|---|---|---|
-| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo, such as a shipping label, leaves the org |
+| `ContentVersion.VersionData` | photo | yes | 100 | none | the latest PNG or JPEG file on the record or its inbound emails, sent as an image (jev-1.14.0). Images are not redacted: anything visible in the photo leaves the org, such as a shipping label, a house number, or the name, address and card digits on a receipt |
 | `ContentVersion.VersionData` | catalog_photo | yes | 100 | none | the latest PNG or JPEG file on the related record `Asset.Product2Id`, sent as an image (jev-1.14.0). Images are not redacted |
 | `Asset.Name` | product | no | 120 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |
 | `Description` | claim | yes | 2000 | strict (email, phone, card, CVV, SSN, Aadhaar, India PAN) | field value |

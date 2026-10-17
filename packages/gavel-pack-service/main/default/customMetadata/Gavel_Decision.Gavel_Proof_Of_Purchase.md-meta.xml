@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>Description__c</field>
-        <value xsi:type="xsd:string">Checks the photo a customer sent as proof of purchase: is it a real receipt, does it list the product, and where is the total. Jev points at the total but cannot read it. Installs in Shadow.</value>
+        <value xsi:type="xsd:string">Checks the photo a customer sent as proof of purchase: is it a receipt or invoice, does it list the product, and where is the total (asked only next to whether a total is visible). Jev points at the total but cannot read it. Receipts show names, addresses and card digits. Installs in Shadow.</value>
     </values>
     <values>
         <field>Owner_Email__c</field>
@@ -48,6 +48,6 @@
     </values>
     <values>
         <field>Definition_Hash__c</field>
-        <value xsi:type="xsd:string">78ff1e8cbedec1804fa61231df4138e44e7d2c75afa19db4ebff04e28d305f03</value>
+        <value xsi:type="xsd:string">65a1419ec4008c3c90525bcc3d48d115faf6907797d64d7cd61320b96333eb3c</value>
     </values>
 </CustomMetadata>

@@ -16,6 +16,8 @@ public with sharing class Gavel_StateBuilder {
     public static final String RECORD_NOT_FOUND = 'record_not_found';
     public static final String BAD_FIELD_PATH = 'bad_field_path';
     public static final String INSUFFICIENT_STATE = 'insufficient_state';
+    /** Two image fields resolved to the same file: comparing a photo with itself proves nothing. */
+    public static final String DUPLICATE_IMAGE = 'duplicate_image';
 
     public class StateResult {
         public Map<String, Object> state = new Map<String, Object>();
@@ -29,6 +31,7 @@ public with sharing class Gavel_StateBuilder {
         public List<String> badPaths = new List<String>();
         /** Images from state sources; state holds their references, the request sends the bytes. */
         public List<Gavel_ImageAsset> assets = new List<Gavel_ImageAsset>();
+        public Boolean duplicateImage = false;
 
         public String redactionSummary() {
             return String.join(redactionsApplied, ',');
@@ -155,6 +158,8 @@ public with sharing class Gavel_StateBuilder {
         result.stateHash = Gavel_Json.sha256Hex(result.stateJson);
         if (!result.missingRequired.isEmpty()) {
             result.blockedReason = sourceSkip == null ? INSUFFICIENT_STATE : sourceSkip;
+        } else if (result.duplicateImage) {
+            result.blockedReason = DUPLICATE_IMAGE;
         }
         return result;
     }
@@ -194,7 +199,9 @@ public with sharing class Gavel_StateBuilder {
             for (Gavel_ImageAsset a : result.assets) {
                 seen = seen || a.reference == img.reference;
             }
-            if (!seen) {
+            if (seen) {
+                result.duplicateImage = true;
+            } else {
                 result.assets.add(img);
             }
             return img.reference;

@@ -45,7 +45,7 @@
   },
   "Gavel_Proof_Of_Purchase": {
     "version": "1",
-    "hash": "78ff1e8cbedec1804fa61231df4138e44e7d2c75afa19db4ebff04e28d305f03"
+    "hash": "65a1419ec4008c3c90525bcc3d48d115faf6907797d64d7cd61320b96333eb3c"
   },
   "Gavel_Reply_Check": {
     "version": "1",
@@ -69,7 +69,7 @@
   },
   "Gavel_Work_Completion": {
     "version": "1",
-    "hash": "80d6fc096dc38e8dc609624ef7c670709ebf61d00b9c4ede43e423eb33718f44"
+    "hash": "45395458d3a42199fa6292d16c63f7747e24127d172f93f087bd13d99e521740"
   },
   "Gavel_Wrong_Item_Check": {
     "version": "1",
