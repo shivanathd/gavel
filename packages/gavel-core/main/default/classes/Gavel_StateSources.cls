@@ -136,7 +136,8 @@ public with sharing class Gavel_StateSources {
      * Jev 1.14 and later. Use with a pinned jev-1.14.0 provider and redaction profile none: images are not redacted.
      * No file -> null. A file over Gavel_ImageAsset.maxBytes() ends the run as SKIP image_too_large (run the
      * decision async, where the heap allows larger images); a side outside 280..1568 px as SKIP
-     * image_size_unsupported. TypeSafe ignores EXIF rotation, so upright the photo before upload.
+     * image_size_unsupported (the byte limit is checked first). These skips end the run only when the field is
+     * Required__c; an optional photo that cannot be sent is left out. TypeSafe ignores EXIF rotation.
      */
     public class RecordImage implements Gavel_StateSource {
         public Object resolve(Gavel_StateContext ctx) {

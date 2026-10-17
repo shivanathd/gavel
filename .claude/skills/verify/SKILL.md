@@ -40,7 +40,9 @@ real provider. Apex tests are CI's job; this recipe drives the installed product
 - Files: anonymous Apex is capped at 32 KB, so upload photos with REST:
   `sf api request rest /services/data/v64.0/sobjects/ContentVersion --method POST --body - < cv.json`, where the
   body has `VersionData` (base64) and `FirstPublishLocationId`. `--body <path>` sends the path text, not the file.
-- The response cache keys on the state hash for `Cache_TTL_Min__c` (60). Use a new record to force a fresh call.
+- The response cache keys on the state hash, not the record, for `Cache_TTL_Min__c` (60) minutes. Two records with
+  identical state share a cached answer. To force a fresh call, change a state value, such as the photo or the
+  description.
 - zsh does not word-split `$var`, so pass arguments explicitly.
 
 ## Flows worth driving (returns)
@@ -50,5 +52,5 @@ real provider. Apex tests are CI's job; this recipe drives the installed product
   (triage `REVIEW`).
 - Triage only: purchased 45 days ago (refund and replace not offered), $900 (`refund` goes to `REVIEW`), and Live
   (`Case.Gavel_Return_Outcome__c` is set).
-- Image limits: TypeSafe accepts 280–1568 px per side. Smaller or larger images must `SKIP image_size_unsupported`
-  before any callout.
+- Image limits: TypeSafe accepts 280–1568 px per side. For a required photo, any other size must
+  `SKIP image_size_unsupported` before any callout. A file over the byte limit skips first as `image_too_large`.

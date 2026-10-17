@@ -40,7 +40,7 @@ public with sharing class Gavel_ImageAsset {
     }
 
     private static List<Integer> readSize(String hex) {
-        if (hex.startsWith('89504e470d0a1a0a') && hex.length() >= 48) {
+        if (hex.startsWith('89504e470d0a1a0a') && hex.length() >= 66 && hex.substring(24, 32) == '49484452') { // IHDR, 13-byte body
             return new List<Integer>{ toInt(hex.substring(32, 40)), toInt(hex.substring(40, 48)) };
         }
         if (!hex.startsWith('ffd8')) {

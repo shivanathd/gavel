@@ -9,7 +9,7 @@ How sending works:
 - Text is redacted before it is serialized: matches become `[REDACTED:<type>]` and the ledger records only `type:count`. Redaction is best-effort pattern matching, not DLP.
 - Text is cut at the listed maximum with a `[truncated]` marker.
 - The ledger stores a SHA-256 hash of what was sent, not the text, unless an admin turns on `Store_State__c`.
-- Images (only definitions pinned to jev-1.14.0 or later) are sent as files with the TypeSafe image opt-in header. They are not redacted or truncated. The ledger keeps only their SHA-256 digest, never the bytes. Each side must be 280 to 1568 px, or the run is skipped before anything is sent.
+- Images (only definitions pinned to jev-1.14.0 or later) are sent as files with the TypeSafe image opt-in header. They are not redacted or truncated. The ledger keeps only their SHA-256 digest, never the bytes. Each side must be 280 to 1568 px. A required photo outside that range skips the run before anything is sent; an optional one is left out.
 - Labels and feedback are never sent to the provider.
 - TypeSafe data retention and processing terms are not yet verified (OQ-1). Treat egress as sending data to a third-party processor until that is resolved.
 

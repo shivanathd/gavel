@@ -108,6 +108,7 @@ public with sharing class Gavel_PolicyEngine {
         if (q.isBox()) {
             score(qr, a, policy);
             if (qr.outcome == Gavel_Outcome.ESCALATE) {
+                qr.answerValue = null;
                 qr.reason = R_BOX_NOT_FOUND;
                 return qr;
             }
