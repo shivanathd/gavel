@@ -124,6 +124,8 @@ def upload():
             if r.get('uploaded_' + target):
                 continue
             path = image_path(ref)
+            if isinstance(ref, dict):
+                fit(path)  # a photo cached before fit() existed can still be too tall
             body = json.dumps({'Title': os.path.basename(path), 'PathOnClient': os.path.basename(path), 'FirstPublishLocationId': target,
                                'VersionData': base64.b64encode(open(path, 'rb').read()).decode()})
             out = subprocess.run(['sf', 'api', 'request', 'rest', '/services/data/v64.0/sobjects/ContentVersion', '--method', 'POST',
