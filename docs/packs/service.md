@@ -74,7 +74,7 @@ Item not received: is a parcel visible in the delivery photo, is it at a door, a
 |---|---|---|---|---|---|---|
 | `parcel_visible`: The photo shows a delivered parcel or package. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
 | `at_door`: The parcel is at the door, porch or entrance of a home or building. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
-| `parcel_area`: The delivered parcel or package. | box | true / false | 0.8 | 0.5 | - | - |
+| `parcel_area`: The delivered parcel or package. | box | location, kept when `parcel_visible` is true | 0.8 | 0.5 | - | - |
 
 Asymmetric policy on `parcel_visible`: No parcel in the delivery photo is the case to flag.
 
@@ -112,7 +112,7 @@ Proof of purchase photo: is it a receipt or invoice, does it list the product, i
 | `is_receipt`: The photo shows a purchase receipt or invoice: paper, photographed, or a screenshot of an emailed receipt. Not a product photo, a note or an unrelated picture. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
 | `lists_product`: The receipt lists a purchase of the product named in the state. Line items may be abbreviated or coded. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
 | `total_visible`: The total amount paid is visible on the receipt. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
-| `total_area`: The total amount paid on the receipt. | box | true / false | 0.8 | 0.5 | - | - |
+| `total_area`: The total amount paid on the receipt. | box | location, kept when `total_visible` is true | 0.8 | 0.5 | - | - |
 
 Asymmetric policy on `is_receipt`: A photo that is not a receipt is the case to flag.
 
@@ -150,7 +150,7 @@ Reads the customer's photo on a return Case (jev-1.14.0): is damage visible, doe
 |---|---|---|---|---|---|---|
 | `damage_visible`: The photo in the state shows visible damage or a defect on the product. | noul | true / false | 0.85 | 0.5 | - | true_is_action |
 | `matches_claim`: The photo is consistent with the damage or fault the customer describes in the claim. | noul | true / false | 0.85 | 0.5 | - | false_is_action |
-| `damage_area`: The damaged or defective area of the product in the photo. | box | true / false | 0.8 | 0.5 | - | - |
+| `damage_area`: The damaged or defective area of the product in the photo. | box | location, kept when `damage_visible` is true | 0.8 | 0.5 | - | - |
 
 Asymmetric policy on `matches_claim`: A photo that does not match the claim is the case to flag.
 

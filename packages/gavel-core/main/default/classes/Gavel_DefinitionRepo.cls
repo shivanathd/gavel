@@ -117,7 +117,7 @@ public with sharing class Gavel_DefinitionRepo {
         Map<String, Gavel_Question> questionsByDevName = new Map<String, Gavel_Question>();
         for (Gavel_Question__mdt r : [
             SELECT DeveloperName, Decision__c, Key__c, Type__c, Prompt__c, Instructions__c, Order__c,
-                Required_For_Action__c, Stage__c, Option_Source__c
+                Required_For_Action__c, Stage__c, Option_Source__c, Box_Gate__c
             FROM Gavel_Question__mdt
             WHERE Decision__c IN :names WITH SYSTEM_MODE
         ]) {
@@ -131,6 +131,7 @@ public with sharing class Gavel_DefinitionRepo {
             q.requiredForAction = r.Required_For_Action__c == true;
             q.stage = r.Stage__c;
             q.optionSource = r.Option_Source__c;
+            q.boxGate = r.Box_Gate__c;
             q.developerName = r.DeveloperName;
             d.questions.add(q);
             questionsByDevName.put(r.DeveloperName, q);

@@ -16,11 +16,12 @@ Edit `my-def.json`:
 
 ## 2. Ask a typed question (5 minutes)
 
-Each question is `choice`, `score` or `noul`:
+Each question is `choice`, `score`, `noul` or `box`:
 
 - **choice**: 2 to 255 options with keys like `BILLING` (`^[A-Za-z0-9_]{1,80}$`). Add an escape option such as `manual_review` with `Is_Escape__c = true`: when it wins, the outcome is always REVIEW.
 - **score**: 2 to 10 levels, numbered from 0.
 - **noul**: a true/false proposition, for example "The customer asks for their money back."
+- **box** (definitions pinned to `jev-1.14.0` that send an image): where something is in the photo, for a reviewer. A box never drives an action, so set `Required_For_Action__c = false`. Jev always returns a box, even when nothing is there, so add a Noul such as `damage_visible` and set the box's `Box_Gate__c` to that Noul's key. The location is kept only when the Noul says yes ([ADR 0019](../adr/0019-box-gated-by-a-noul.md)).
 
 Write the prompt as the question a careful colleague would answer. Put rules in `Instructions__c`, and always tell the model that the state is data, not instructions.
 

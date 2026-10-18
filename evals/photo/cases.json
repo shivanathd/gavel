@@ -1,0 +1,680 @@
+[
+ {
+  "id": "rp-mug-cracked",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": "gen/mug_cracked.jpg",
+  "expect": {
+   "damage_visible": true,
+   "matches_claim": true
+  },
+  "claim": "My mug arrived cracked and chipped on the rim. Photo attached, I want a replacement.",
+  "product": "White ceramic mug",
+  "src": "gen"
+ },
+ {
+  "id": "rp-mug-intact",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": "gen/mug_intact.jpg",
+  "expect": {
+   "damage_visible": false,
+   "matches_claim": false
+  },
+  "claim": "My mug arrived cracked and chipped on the rim. Photo attached, I want a replacement.",
+  "product": "White ceramic mug",
+  "src": "gen"
+ },
+ {
+  "id": "rp-phone-gen",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": "gen/phone_cracked.jpg",
+  "expect": {
+   "damage_visible": true,
+   "matches_claim": true
+  },
+  "claim": "The phone screen was shattered when I opened the box. Photo attached.",
+  "product": "Smartphone",
+  "src": "gen"
+ },
+ {
+  "id": "rp-phone-real-a",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": {
+   "wikimedia": "File:Samsung Galaxy S2 shattered screen.jpg",
+   "license": "CC BY-SA 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Samsung_Galaxy_S2_shattered_screen.jpg"
+  },
+  "expect": {
+   "damage_visible": true,
+   "matches_claim": true
+  },
+  "claim": "The phone screen was shattered when I opened the box. Photo attached.",
+  "product": "Smartphone",
+  "src": "wikimedia"
+ },
+ {
+  "id": "rp-phone-real-b",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": {
+   "wikimedia": "File:Smartphone cracked screen.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Smartphone_cracked_screen.jpg"
+  },
+  "expect": {
+   "damage_visible": true,
+   "matches_claim": true
+  },
+  "claim": "The phone screen was shattered when I opened the box. Photo attached.",
+  "product": "Smartphone",
+  "src": "wikimedia"
+ },
+ {
+  "id": "rp-phone-real-c",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": {
+   "wikimedia": "File:MyPhone my27 front panel.jpg",
+   "license": "CC BY 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:MyPhone_my27_front_panel.jpg"
+  },
+  "expect": {
+   "damage_visible": true,
+   "matches_claim": true
+  },
+  "claim": "The phone screen was shattered when I opened the box. Photo attached.",
+  "product": "Smartphone",
+  "src": "wikimedia"
+ },
+ {
+  "id": "rp-headphones",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": "gen/headphones_broken.jpg",
+  "expect": {
+   "damage_visible": true,
+   "matches_claim": true
+  },
+  "claim": "The headband snapped the first time I put them on. Photo attached.",
+  "product": "Over-ear headphones",
+  "src": "gen"
+ },
+ {
+  "id": "rp-headphones-wrongclaim",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": "gen/headphones_broken.jpg",
+  "expect": {
+   "damage_visible": true,
+   "matches_claim": false
+  },
+  "claim": "My mug arrived cracked and chipped on the rim. Photo attached, I want a replacement.",
+  "product": "White ceramic mug",
+  "src": "gen"
+ },
+ {
+  "id": "rp-redmug-real",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": {
+   "wikimedia": "File:Coffee - Massachusetts.jpg",
+   "license": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:Coffee_-_Massachusetts.jpg"
+  },
+  "expect": {
+   "damage_visible": false,
+   "matches_claim": false
+  },
+  "claim": "My mug arrived cracked and chipped on the rim. Photo attached, I want a replacement.",
+  "product": "Red ceramic mug",
+  "src": "wikimedia"
+ },
+ {
+  "id": "rp-whitemug-real",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": {
+   "wikimedia": "File:Amazon Echo Dot (virtual digital assistant) with normal coffee mug as size comparison.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Amazon_Echo_Dot_(virtual_digital_assistant)_with_normal_coffee_mug_as_size_comparison.jpg"
+  },
+  "expect": {
+   "damage_visible": false,
+   "matches_claim": false
+  },
+  "claim": "My mug arrived cracked and chipped on the rim. Photo attached, I want a replacement.",
+  "product": "White ceramic mug",
+  "src": "wikimedia"
+ },
+ {
+  "id": "rp-kettle-nofault",
+  "defn": "Gavel_Return_Photo_Check",
+  "img": "gen/kettle_studio.jpg",
+  "expect": {
+   "damage_visible": false
+  },
+  "claim": "The kettle stopped heating after a week.",
+  "product": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "wi-lamp-same",
+  "defn": "Gavel_Wrong_Item_Check",
+  "img": "gen/lamp_customer.jpg",
+  "expect": {
+   "product_visible": true,
+   "same_product": true
+  },
+  "claim": "This is not what I ordered, photo attached.",
+  "product": "Cobalt ceramic table lamp",
+  "catalog": "gen/lamp_catalog.jpg",
+  "src": "gen"
+ },
+ {
+  "id": "wi-lamp-other",
+  "defn": "Gavel_Wrong_Item_Check",
+  "img": "gen/lamp_wrong.jpg",
+  "expect": {
+   "product_visible": true,
+   "same_product": false
+  },
+  "claim": "This is not what I ordered, photo attached.",
+  "product": "Cobalt ceramic table lamp",
+  "catalog": "gen/lamp_catalog.jpg",
+  "src": "gen"
+ },
+ {
+  "id": "wi-gameboy-same",
+  "defn": "Gavel_Wrong_Item_Check",
+  "img": {
+   "wikimedia": "File:Game-Boy-FL.jpg",
+   "license": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Game-Boy-FL.jpg"
+  },
+  "expect": {
+   "product_visible": true,
+   "same_product": true
+  },
+  "claim": "This is not what I ordered, photo attached.",
+  "product": "Nintendo Game Boy",
+  "catalog": {
+   "wikimedia": "File:Game-Boy-Original.jpg",
+   "license": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Game-Boy-Original.jpg"
+  },
+  "src": "wikimedia"
+ },
+ {
+  "id": "wi-gameboy-advance",
+  "defn": "Gavel_Wrong_Item_Check",
+  "img": {
+   "wikimedia": "File:Nintendo-Game-Boy-Advance-Milky-Blue-FL.jpg",
+   "license": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Nintendo-Game-Boy-Advance-Milky-Blue-FL.jpg"
+  },
+  "expect": {
+   "product_visible": true,
+   "same_product": false
+  },
+  "claim": "This is not what I ordered, photo attached.",
+  "product": "Nintendo Game Boy",
+  "catalog": {
+   "wikimedia": "File:Game-Boy-Original.jpg",
+   "license": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Game-Boy-Original.jpg"
+  },
+  "src": "wikimedia"
+ },
+ {
+  "id": "wi-kettle-plastic",
+  "defn": "Gavel_Wrong_Item_Check",
+  "img": {
+   "wikimedia": "File:2023 Czajnik elektryczny N'OVEEN.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:2023_Czajnik_elektryczny_N%27OVEEN.jpg"
+  },
+  "expect": {
+   "product_visible": true,
+   "same_product": false
+  },
+  "claim": "This is not what I ordered, photo attached.",
+  "product": "Steel Kettle 1.7L",
+  "catalog": "gen/kettle_studio.jpg",
+  "src": "mixed"
+ },
+ {
+  "id": "wi-screenshot",
+  "defn": "Gavel_Wrong_Item_Check",
+  "img": "gen/kettle_screenshot.jpg",
+  "expect": {
+   "product_visible": false
+  },
+  "claim": "This is not what I ordered, photo attached.",
+  "product": "Steel Kettle 1.7L",
+  "catalog": "gen/kettle_studio.jpg",
+  "src": "gen"
+ },
+ {
+  "id": "wi-receipt",
+  "defn": "Gavel_Wrong_Item_Check",
+  "img": "gen/receipt_kettle.jpg",
+  "expect": {
+   "product_visible": false
+  },
+  "claim": "This is not what I ordered, photo attached.",
+  "product": "Steel Kettle 1.7L",
+  "catalog": "gen/kettle_studio.jpg",
+  "src": "gen"
+ },
+ {
+  "id": "dp-door-gen",
+  "defn": "Gavel_Delivery_Proof",
+  "img": "gen/parcel_door.jpg",
+  "expect": {
+   "parcel_visible": true,
+   "at_door": true
+  },
+  "claim": "Tracking says delivered but I never got my parcel.",
+  "src": "gen"
+ },
+ {
+  "id": "dp-door-real",
+  "defn": "Gavel_Delivery_Proof",
+  "img": {
+   "wikimedia": "File:Damaged fragile parcel delivered to doorstep.jpg",
+   "license": "CC BY 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Damaged_fragile_parcel_delivered_to_doorstep.jpg"
+  },
+  "expect": {
+   "parcel_visible": true,
+   "at_door": true
+  },
+  "claim": "Tracking says delivered but I never got my parcel.",
+  "src": "wikimedia"
+ },
+ {
+  "id": "dp-desk",
+  "defn": "Gavel_Delivery_Proof",
+  "img": "gen/parcel_desk.jpg",
+  "expect": {
+   "parcel_visible": true,
+   "at_door": false
+  },
+  "claim": "Tracking says delivered but I never got my parcel.",
+  "src": "gen"
+ },
+ {
+  "id": "dp-empty-gen",
+  "defn": "Gavel_Delivery_Proof",
+  "img": "gen/door_empty.jpg",
+  "expect": {
+   "parcel_visible": false
+  },
+  "claim": "Tracking says delivered but I never got my parcel.",
+  "src": "gen"
+ },
+ {
+  "id": "dp-empty-real",
+  "defn": "Gavel_Delivery_Proof",
+  "img": {
+   "wikimedia": "File:Funchal (Madeira, Portugal), Rua de Santa Maria 39 -- 2025 -- 0831.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Funchal_(Madeira,_Portugal),_Rua_de_Santa_Maria_39_--_2025_--_0831.jpg"
+  },
+  "expect": {
+   "parcel_visible": false
+  },
+  "claim": "Tracking says delivered but I never got my parcel.",
+  "src": "wikimedia"
+ },
+ {
+  "id": "dp-facade-real",
+  "defn": "Gavel_Delivery_Proof",
+  "img": {
+   "wikimedia": "File:Cape Town (ZA), Wale Street -- 2024 -- 3536.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Cape_Town_(ZA),_Wale_Street_--_2024_--_3536.jpg"
+  },
+  "expect": {
+   "parcel_visible": false
+  },
+  "claim": "Tracking says delivered but I never got my parcel.",
+  "src": "wikimedia"
+ },
+ {
+  "id": "pp-kettle",
+  "defn": "Gavel_Proof_Of_Purchase",
+  "img": "gen/receipt_kettle.jpg",
+  "expect": {
+   "is_receipt": true,
+   "total_visible": true,
+   "lists_product": true
+  },
+  "product": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "pp-grocery-not-kettle",
+  "defn": "Gavel_Proof_Of_Purchase",
+  "img": "gen/receipt_grocery.jpg",
+  "expect": {
+   "is_receipt": true,
+   "total_visible": true,
+   "lists_product": false
+  },
+  "product": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "pp-torn",
+  "defn": "Gavel_Proof_Of_Purchase",
+  "img": "gen/receipt_torn.jpg",
+  "expect": {
+   "is_receipt": true,
+   "total_visible": false,
+   "lists_product": true
+  },
+  "product": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "pp-nl-oliveoil",
+  "defn": "Gavel_Proof_Of_Purchase",
+  "img": {
+   "wikimedia": "File:Sahan Supermarket receipt, Hillegersberg, Rotterdam (2021) 03.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Sahan_Supermarket_receipt,_Hillegersberg,_Rotterdam_(2021)_03.jpg"
+  },
+  "expect": {
+   "is_receipt": true,
+   "total_visible": true,
+   "lists_product": true
+  },
+  "product": "Olive oil 1L",
+  "src": "wikimedia"
+ },
+ {
+  "id": "pp-nl-top-only",
+  "defn": "Gavel_Proof_Of_Purchase",
+  "img": {
+   "wikimedia": "File:Sahan Supermarket receipt, Hillegersberg, Rotterdam (2021) 04.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Sahan_Supermarket_receipt,_Hillegersberg,_Rotterdam_(2021)_04.jpg"
+  },
+  "expect": {
+   "is_receipt": true,
+   "total_visible": false,
+   "lists_product": true
+  },
+  "product": "Olive oil 1L",
+  "src": "wikimedia"
+ },
+ {
+  "id": "pp-bonbini-wipes",
+  "defn": "Gavel_Proof_Of_Purchase",
+  "img": {
+   "wikimedia": "File:B\u1ecdn Bini Supermarket receipt (2019) 01.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:B%E1%BB%8Dn_Bini_Supermarket_receipt_(2019)_01.jpg"
+  },
+  "expect": {
+   "is_receipt": true,
+   "total_visible": true,
+   "lists_product": true
+  },
+  "product": "Baby wipes",
+  "src": "wikimedia"
+ },
+ {
+  "id": "pp-bonbini-not-kettle",
+  "defn": "Gavel_Proof_Of_Purchase",
+  "img": {
+   "wikimedia": "File:B\u1ecdn Bini Supermarket receipt (2019) 01.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:B%E1%BB%8Dn_Bini_Supermarket_receipt_(2019)_01.jpg"
+  },
+  "expect": {
+   "is_receipt": true,
+   "lists_product": false,
+   "total_visible": true
+  },
+  "product": "Steel Kettle 1.7L",
+  "src": "wikimedia"
+ },
+ {
+  "id": "pp-note",
+  "defn": "Gavel_Proof_Of_Purchase",
+  "img": {
+   "wikimedia": "File:Aim of Life - Handwritten note - Bhagat Singh.jpg",
+   "license": "Public domain",
+   "page": "https://commons.wikimedia.org/wiki/File:Aim_of_Life_-_Handwritten_note_-_Bhagat_Singh.jpg"
+  },
+  "expect": {
+   "is_receipt": false,
+   "total_visible": false
+  },
+  "product": "Steel Kettle 1.7L",
+  "src": "wikimedia"
+ },
+ {
+  "id": "pp-mug",
+  "defn": "Gavel_Proof_Of_Purchase",
+  "img": "gen/mug_intact.jpg",
+  "expect": {
+   "is_receipt": false,
+   "total_visible": false
+  },
+  "product": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "wc-light-done",
+  "defn": "Gavel_Work_Completion",
+  "img": "gen/light_done.jpg",
+  "expect": {
+   "work_complete": true,
+   "site_clean": true
+  },
+  "job": {
+   "subject": "Install ceiling light",
+   "description": "Install a ceiling light fixture in the hallway."
+  },
+  "src": "gen"
+ },
+ {
+  "id": "wc-light-wires",
+  "defn": "Gavel_Work_Completion",
+  "img": "gen/light_wires.jpg",
+  "expect": {
+   "work_complete": false,
+   "site_clean": false
+  },
+  "job": {
+   "subject": "Install ceiling light",
+   "description": "Install a ceiling light fixture in the hallway."
+  },
+  "src": "gen"
+ },
+ {
+  "id": "wc-paint-done",
+  "defn": "Gavel_Work_Completion",
+  "img": "gen/paint_done.jpg",
+  "expect": {
+   "work_complete": true,
+   "site_clean": true
+  },
+  "job": {
+   "subject": "Paint bedroom wall",
+   "description": "Paint the bedroom feature wall sage green."
+  },
+  "src": "gen"
+ },
+ {
+  "id": "wc-paint-half",
+  "defn": "Gavel_Work_Completion",
+  "img": "gen/paint_half.jpg",
+  "expect": {
+   "work_complete": false,
+   "site_clean": false
+  },
+  "job": {
+   "subject": "Paint bedroom wall",
+   "description": "Paint the bedroom feature wall sage green."
+  },
+  "src": "gen"
+ },
+ {
+  "id": "wc-switch-wires-real",
+  "defn": "Gavel_Work_Completion",
+  "img": {
+   "wikimedia": "File:Three light switches with exposed wiring.jpg",
+   "license": "CC BY 2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Three_light_switches_with_exposed_wiring.jpg"
+  },
+  "expect": {
+   "work_complete": false,
+   "site_clean": false
+  },
+  "job": {
+   "subject": "Replace light switch",
+   "description": "Replace the wall light switch in the kitchen."
+  },
+  "src": "wikimedia"
+ },
+ {
+  "id": "wc-debris-real",
+  "defn": "Gavel_Work_Completion",
+  "img": {
+   "wikimedia": "File:A shop under renovation, with debris of construction materials all around, Tai Po, Hong Kong.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:A_shop_under_renovation,_with_debris_of_construction_materials_all_around,_Tai_Po,_Hong_Kong.jpg"
+  },
+  "expect": {
+   "site_clean": false
+  },
+  "job": {
+   "subject": "Remove old tiles",
+   "description": "Remove the old wall tiles and leave the room clean."
+  },
+  "src": "wikimedia"
+ },
+ {
+  "id": "ph-kettle-studio",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": "gen/kettle_studio.jpg",
+  "expect": {
+   "usable_photo": true,
+   "matches_name": true
+  },
+  "name": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "ph-kettle-blurry",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": "gen/kettle_blurry.jpg",
+  "expect": {
+   "usable_photo": false
+  },
+  "name": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "ph-kettle-watermark",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": "gen/kettle_watermark.jpg",
+  "expect": {
+   "usable_photo": false,
+   "matches_name": true
+  },
+  "name": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "ph-kettle-screenshot",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": "gen/kettle_screenshot.jpg",
+  "expect": {
+   "usable_photo": false
+  },
+  "name": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "ph-lamp-named-kettle",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": "gen/lamp_catalog.jpg",
+  "expect": {
+   "usable_photo": true,
+   "matches_name": false
+  },
+  "name": "Steel Kettle 1.7L",
+  "src": "gen"
+ },
+ {
+  "id": "ph-nikon-real",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": {
+   "wikimedia": "File:Nikon Z 5 w Nikkor 50mm f1.8S.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Nikon_Z_5_w_Nikkor_50mm_f1.8S.jpg"
+  },
+  "expect": {
+   "usable_photo": true,
+   "matches_name": true
+  },
+  "name": "Nikon mirrorless camera with lens",
+  "src": "wikimedia"
+ },
+ {
+  "id": "ph-jvc-real",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": {
+   "wikimedia": "File:Hi-Fi compact (shelf) system JVC UX-G300 (edited, without background).jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Hi-Fi_compact_(shelf)_system_JVC_UX-G300_(edited,_without_background).jpg"
+  },
+  "expect": {
+   "usable_photo": true,
+   "matches_name": true
+  },
+  "name": "JVC micro hi-fi system",
+  "src": "wikimedia"
+ },
+ {
+  "id": "ph-whitekettle-real",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": {
+   "wikimedia": "File:2023 Czajnik elektryczny N'OVEEN.jpg",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:2023_Czajnik_elektryczny_N%27OVEEN.jpg"
+  },
+  "expect": {
+   "usable_photo": true,
+   "matches_name": true
+  },
+  "name": "White electric kettle",
+  "src": "wikimedia"
+ },
+ {
+  "id": "ph-watermark-real",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": {
+   "wikimedia": "File:StockPhotoWatermarkExample.png",
+   "license": "CC BY-SA 4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:StockPhotoWatermarkExample.png"
+  },
+  "expect": {
+   "usable_photo": false
+  },
+  "name": "Utility truck",
+  "src": "wikimedia"
+ },
+ {
+  "id": "ph-teacup-named-nikon",
+  "defn": "Gavel_Product_Photo_Check",
+  "img": {
+   "wikimedia": "File:Cup of tea isolated on white background - Petr Kratochvil.jpg",
+   "license": "CC0",
+   "page": "https://commons.wikimedia.org/wiki/File:Cup_of_tea_isolated_on_white_background_-_Petr_Kratochvil.jpg"
+  },
+  "expect": {
+   "matches_name": false
+  },
+  "name": "Nikon mirrorless camera with lens",
+  "src": "wikimedia"
+ }
+]

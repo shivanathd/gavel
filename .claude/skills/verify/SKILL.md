@@ -47,8 +47,8 @@ real provider. Apex tests are CI's job; this recipe drives the installed product
 
 ## Flows worth driving (returns)
 
-- Photo check, then triage, on: a damaged photo; a wrong or intact photo (expect `matches_claim` false, a Box below
-  Review_At, and `box_not_found`); no photo (`SKIP insufficient_state`); and a photo replaced after the check
+- Photo check, then triage, on: a damaged photo; a wrong or intact photo (expect `matches_claim` false, and
+  `box_not_found` because the `damage_visible` gate says no); no photo (`SKIP insufficient_state`); and a photo replaced after the check
   (triage `REVIEW`).
 - Triage only: purchased 45 days ago (refund and replace not offered), $900 (`refund` goes to `REVIEW`), and Live
   (`Case.Gavel_Return_Outcome__c` is set).

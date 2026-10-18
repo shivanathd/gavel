@@ -19,6 +19,8 @@ public with sharing class Gavel_Question {
     public Boolean requiredForAction = true;
     public String stage;
     public String optionSource;
+    /** Box only: key of the Noul that says whether the thing is there (Box_Gate__c). */
+    public String boxGate;
     public String developerName;
 
     public Gavel_Question() {
@@ -89,6 +91,7 @@ public with sharing class Gavel_Question {
         q.requiredForAction = requiredForAction;
         q.stage = stage;
         q.optionSource = optionSource;
+        q.boxGate = boxGate;
         q.developerName = developerName;
         return q;
     }

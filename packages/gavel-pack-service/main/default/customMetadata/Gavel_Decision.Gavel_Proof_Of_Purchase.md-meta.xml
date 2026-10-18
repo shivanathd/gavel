@@ -8,7 +8,7 @@
     </values>
     <values>
         <field>Version__c</field>
-        <value xsi:type="xsd:double">1</value>
+        <value xsi:type="xsd:double">2</value>
     </values>
     <values>
         <field>Mode__c</field>
@@ -48,6 +48,6 @@
     </values>
     <values>
         <field>Definition_Hash__c</field>
-        <value xsi:type="xsd:string">65a1419ec4008c3c90525bcc3d48d115faf6907797d64d7cd61320b96333eb3c</value>
+        <value xsi:type="xsd:string">36be7ff2c30515a6e45bb364cada8715da621610104942e5f46588d27ca67956</value>
     </values>
 </CustomMetadata>

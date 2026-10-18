@@ -260,4 +260,43 @@ private class Gavel_DefinitionValidator_Test {
         withAction.actionMaps.add(a);
         Assert.isTrue(Gavel_DefinitionValidator.validate(Gavel_TestFactory.seal(withAction)).errors.contains('action_on_box_question'));
     }
+
+    // Box_Gate__c names a Noul in the same definition, and only a box may have one
+    @IsTest
+    static void boxGateRules() {
+        Gavel_Definition ok = validTwoQuestion();
+        Gavel_Question gated = Gavel_TestFactory.box('fraud_area');
+        gated.boxGate = 'fraud_concern';
+        ok.questions.add(gated);
+        ok.policies.add(Gavel_TestFactory.policy('fraud_area', 0.8, 0.5, null));
+        Gavel_DefinitionValidator.Result valid = Gavel_DefinitionValidator.validate(Gavel_TestFactory.seal(ok));
+        Assert.isTrue(valid.valid, 'a box gated by a Noul is valid: ' + valid.errors);
+
+        // Fraud_Concern: the engine looks the gate up case-sensitively, so a different case must fail validation
+        for (String gate : new List<String>{ 'category', 'missing_key', 'Fraud_Concern' }) {
+            Gavel_Definition bad = validTwoQuestion();
+            Gavel_Question q = Gavel_TestFactory.box('fraud_area');
+            q.boxGate = gate;
+            bad.questions.add(q);
+            bad.policies.add(Gavel_TestFactory.policy('fraud_area', 0.8, 0.5, null));
+            Assert.isTrue(Gavel_DefinitionValidator.validate(Gavel_TestFactory.seal(bad)).errors.contains('box_gate_not_noul'), gate);
+        }
+
+        Gavel_Definition onNoul = validTwoQuestion();
+        onNoul.questions[1].boxGate = 'fraud_concern';
+        Assert.isTrue(Gavel_DefinitionValidator.validate(Gavel_TestFactory.seal(onNoul)).errors.contains('box_gate_on_non_box'));
+    }
+
+    // Box_Gate__c is hashed only when set: existing definitions keep their hash, a gate changes it
+    @IsTest
+    static void boxGateHashedOnlyWhenSet() {
+        Gavel_Definition d = validTwoQuestion();
+        d.questions.add(Gavel_TestFactory.box('fraud_area'));
+        d.policies.add(Gavel_TestFactory.policy('fraud_area', 0.8, 0.5, null));
+        String ungated = Gavel_DefinitionHasher.compute(d);
+        d.questions[2].boxGate = '';
+        Assert.areEqual(ungated, Gavel_DefinitionHasher.compute(d), 'blank gate hashes like no gate');
+        d.questions[2].boxGate = 'fraud_concern';
+        Assert.areNotEqual(ungated, Gavel_DefinitionHasher.compute(d));
+    }
 }
