@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Box_Gate__c</fullName>
+    <description>Box questions only: Key__c of the Noul in the same definition that says whether the thing is in the image. The location is recorded only when that Noul answers true.</description>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <externalId>false</externalId>
+    <label>Box Gate</label>
+    <length>40</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

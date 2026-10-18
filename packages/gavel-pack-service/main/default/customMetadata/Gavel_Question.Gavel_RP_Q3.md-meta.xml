@@ -38,4 +38,8 @@
         <field>Option_Source__c</field>
         <value xsi:nil="true"/>
     </values>
+    <values>
+        <field>Box_Gate__c</field>
+        <value xsi:type="xsd:string">damage_visible</value>
+    </values>
 </CustomMetadata>

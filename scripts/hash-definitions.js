@@ -117,6 +117,8 @@ function buildDefinitions(records) {
         ['Required_For_Action__c', bool(q, 'Required_For_Action__c')],
         ['Stage__c', str(qv('Stage__c'))],
         ['Option_Source__c', str(qv('Option_Source__c'))],
+        // Added in 1.2.1: hashed only when set, so definitions without a gate keep their hash.
+        ...(str(qv('Box_Gate__c')) ? [['Box_Gate__c', str(qv('Box_Gate__c'))]] : []),
       ]));
       const os = {};
       for (const o of options.filter((o) => str(o.values['Question__c']) === q.devName)) {

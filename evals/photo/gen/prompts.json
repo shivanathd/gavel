@@ -1,0 +1,28 @@
+{
+ "model": "gpt-image-2.5-flare",
+ "size": "1024x1024",
+ "quality": "medium",
+ "prompts": {
+  "mug_cracked": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A plain white ceramic coffee mug on a kitchen counter with a clear crack running down its side and a chip missing from the rim.",
+  "mug_intact": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A plain white ceramic coffee mug on a kitchen counter, undamaged and clean.",
+  "phone_cracked": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A black smartphone lying on a wooden table, its screen badly shattered with spider-web cracks.",
+  "headphones_broken": "Realistic smartphone photo taken by a customer, natural light, no text overlay. Black over-ear headphones on a bed with the plastic headband snapped in two.",
+  "lamp_catalog": "Professional e-commerce catalog photo, pure white background: a cobalt-blue ceramic table lamp with a round body and a white drum shade.",
+  "lamp_customer": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A cobalt-blue ceramic table lamp with a round body and a white drum shade, sitting on a bedside table in a bedroom.",
+  "lamp_wrong": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A tall green glass table lamp with a brass stem and a pleated beige shade, sitting on a bedside table in a bedroom.",
+  "parcel_door": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A cardboard delivery parcel left on the doormat in front of a closed house front door.",
+  "door_empty": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A closed house front door with an empty doormat and porch, nothing on the ground.",
+  "parcel_desk": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A cardboard delivery parcel on an office desk next to a laptop, indoors.",
+  "receipt_kettle": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A crumpled paper store receipt on a table. Printed lines: 'HOMEWARE STORE', 'STEEL KETTLE 1.7L  39.99', 'TEA TOWEL  4.50', 'SUBTOTAL 44.49', 'TAX 3.56', 'TOTAL 48.05', 'VISA ****1234'.",
+  "receipt_grocery": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A paper supermarket receipt on a table. Printed lines: 'FRESH MART', 'BANANAS 1.20', 'MILK 2L 2.10', 'BREAD 1.80', 'EGGS 12 3.40', 'TOTAL 8.50'.",
+  "receipt_torn": "Realistic smartphone photo taken by a customer, natural light, no text overlay. The top half of a torn paper store receipt on a table, the bottom part torn away. Printed lines visible: 'HOMEWARE STORE', 'STEEL KETTLE 1.7L  39.99', 'TEA TOWEL  4.50' and then the torn edge.",
+  "light_done": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A newly installed round white ceiling light fixture in a tidy hallway, light on, clean floor, finished ceiling.",
+  "light_wires": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A hole in a hallway ceiling with bare electrical wires hanging out, no fixture installed, a ladder, a drill and plaster dust on the floor below.",
+  "paint_done": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A bedroom wall freshly painted an even sage green, clean floor, furniture back in place.",
+  "paint_half": "Realistic smartphone photo taken by a customer, natural light, no text overlay. A bedroom wall half painted sage green with the old white paint still showing on the rest, paint tray, rollers and drop cloths on the floor.",
+  "kettle_studio": "Professional e-commerce product photo on a pure white background: a brushed stainless steel electric kettle, sharp, evenly lit.",
+  "kettle_blurry": "A very blurry, dim, out-of-focus phone photo of a stainless steel electric kettle in a dark kitchen, heavy motion blur.",
+  "kettle_watermark": "A product photo of a stainless steel electric kettle on white, with a large semi-transparent diagonal 'SAMPLE - STOCKPIX' watermark across the whole image.",
+  "kettle_screenshot": "A phone screenshot of a shopping website product page: status bar at the top, a small stainless steel kettle image, the title 'Steel Kettle 1.7L', a price, and an 'Add to cart' button."
+ }
+}

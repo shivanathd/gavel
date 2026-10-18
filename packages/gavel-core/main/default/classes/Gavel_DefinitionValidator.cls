@@ -112,6 +112,22 @@ public with sharing class Gavel_DefinitionValidator {
             }
             validateOptions(q, r);
         }
+        for (Gavel_Question q : d.questions) {
+            if (String.isBlank(q.boxGate)) {
+                continue;
+            }
+            if (!q.isBox()) {
+                r.add('box_gate_on_non_box');
+                continue;
+            }
+            Gavel_Question gate = null;
+            for (Gavel_Question g : d.questions) {
+                gate = g.key == q.boxGate ? g : gate;
+            }
+            if (gate == null || !gate.isNoul()) {
+                r.add('box_gate_not_noul');
+            }
+        }
     }
 
     /** Option rules shared with request validation (choice 2..255, score 2..10 from 0). */

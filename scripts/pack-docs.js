@@ -26,7 +26,9 @@ function packTables(pack) {
       const opts = recs.filter((o) => o.type === 'Gavel_Option' && v(o, 'Question__c') === q.devName).sort((a, b) => Number(v(a, 'Order__c')) - Number(v(b, 'Order__c')))
         .map((o) => `\`${v(o, 'Key__c')}\`${v(o, 'Is_Escape__c') === 'true' ? ' (escape)' : ''}`).join(', ');
       const p = recs.find((r) => r.type === 'Gavel_Policy' && v(r, 'Decision__c') === d.devName && v(r, 'Question_Key__c') === v(q, 'Key__c'));
-      const optText = v(q, 'Option_Source__c') ? `runtime: ${v(q, 'Option_Source__c')}` : (opts || 'true / false');
+      const optText = v(q, 'Option_Source__c') ? `runtime: ${v(q, 'Option_Source__c')}`
+        : v(q, 'Type__c') === 'box' ? (v(q, 'Box_Gate__c') ? `location, kept when \`${v(q, 'Box_Gate__c')}\` is true` : 'location')
+        : (opts || 'true / false');
       out.push(`| \`${v(q, 'Key__c')}\`: ${v(q, 'Prompt__c')} | ${v(q, 'Type__c')} | ${optText} | ${p ? Number(v(p, 'Auto_Accept__c')) : '-'} | ${p ? Number(v(p, 'Review_At__c')) : '-'} | ${p && v(p, 'Min_Margin__c') ? Number(v(p, 'Min_Margin__c')) : '-'} | ${p ? v(p, 'Noul_Direction__c') || '-' : '-'} |`);
     }
     const asym = recs.filter((r) => r.type === 'Gavel_Policy' && v(r, 'Decision__c') === d.devName && v(r, 'Asymmetric_Reason__c'));

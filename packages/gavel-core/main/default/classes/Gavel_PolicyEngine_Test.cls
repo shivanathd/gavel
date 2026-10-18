@@ -346,4 +346,49 @@ private class Gavel_PolicyEngine_Test {
         r.answers = new Map<String, Gavel_Answer>{ 'damage_area' => unknown };
         Assert.areEqual('REVIEW', Gavel_PolicyEngine.evaluateQuestion(q, r, p).outcome, 'no confidence: review');
     }
+
+    // Box with Box_Gate__c: the gate Noul decides whether a location is kept, not box confidence (ADR 0019)
+    @IsTest
+    static void boxGateDecidesLocation() {
+        Gavel_Question q = Gavel_TestFactory.box('damage_area');
+        q.boxGate = 'damage_visible';
+        Gavel_Definition.Policy p = Gavel_TestFactory.policy('damage_area', 0.8, 0.5, null);
+        Gavel_Answer box = new Gavel_Answer();
+        box.key = 'damage_area';
+        box.answerType = 'box';
+        box.box = new Map<String, Decimal>{ 'top' => 0.10, 'bottom' => 0.5, 'left' => 0, 'right' => 1.0 };
+
+        // Present, but a low box confidence: kept for the reviewer (the real cracked phones scored 0.31 to 0.49)
+        box.confidence = 0.31;
+        Gavel_Outcome.QuestionResult low = Gavel_PolicyEngine.evaluateQuestion(q,
+            ok(new Map<String, Gavel_Answer>{ 'damage_area' => box, 'damage_visible' => noulAnswer('damage_visible', 0.98) }), p);
+        Assert.areEqual('REVIEW', low.outcome);
+        Assert.areEqual('box_low_confidence', low.reason);
+        Assert.areEqual('0.1,0.5,0,1', low.answerValue);
+
+        // Present and confident: banded like Score
+        box.confidence = 0.9;
+        Gavel_Outcome.QuestionResult high = Gavel_PolicyEngine.evaluateQuestion(q,
+            ok(new Map<String, Gavel_Answer>{ 'damage_area' => box, 'damage_visible' => noulAnswer('damage_visible', 0.98) }), p);
+        Assert.areEqual('AUTO', high.outcome);
+        Assert.areEqual('0.1,0.5,0,1', high.answerValue);
+
+        // Absent: no location even for a confident box (the torn receipt's box sat on a line item at 0.44)
+        Gavel_Outcome.QuestionResult absent = Gavel_PolicyEngine.evaluateQuestion(q,
+            ok(new Map<String, Gavel_Answer>{ 'damage_area' => box, 'damage_visible' => noulAnswer('damage_visible', 0.03) }), p);
+        Assert.areEqual('ESCALATE', absent.outcome);
+        Assert.areEqual('box_not_found', absent.reason);
+        Assert.isNull(absent.answerValue);
+
+        // No valid gate answer: fail closed
+        Gavel_Answer invalidGate = Gavel_Answer.invalid('damage_visible', 'noul');
+        for (Map<String, Gavel_Answer> answers : new List<Map<String, Gavel_Answer>>{
+            new Map<String, Gavel_Answer>{ 'damage_area' => box },
+            new Map<String, Gavel_Answer>{ 'damage_area' => box, 'damage_visible' => invalidGate }
+        }) {
+            Gavel_Outcome.QuestionResult none = Gavel_PolicyEngine.evaluateQuestion(q, ok(answers), p);
+            Assert.areEqual('box_not_found', none.reason);
+            Assert.isNull(none.answerValue);
+        }
+    }
 }

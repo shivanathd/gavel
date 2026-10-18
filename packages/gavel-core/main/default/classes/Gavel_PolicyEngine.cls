@@ -9,7 +9,10 @@
  *   a >= auto_accept -> AUTO (act); a <= min(review_at, 1 - auto_accept) -> AUTO with no action;
  *   a >= review_at -> REVIEW; otherwise ESCALATE.
  * Box: located for a reviewer, banded on confidence like Score; validation keeps it out of actions. A box answer is
- *   always a box, even when nothing is there, so below Review_At it records no location (box_not_found).
+ *   always a box, even when nothing is there. With Box_Gate__c, the gate Noul decides whether the thing is there:
+ *   probability below 0.5 (or no valid gate answer) records no location (box_not_found); otherwise the location is
+ *   kept, and a box confidence below Review_At is REVIEW box_low_confidence. Box confidence alone is a poor signal:
+ *   correct boxes on real photos scored 0.2 to 0.5 (ADR 0019). Without a gate, below Review_At records no location.
  * Definition outcome = most conservative over Required_For_Action__c questions, or all questions if
  * none are required (POL-001.6). Shadow/Draft compute the outcome but suppress actions (POL-001.7).
  */
@@ -24,6 +27,7 @@ public with sharing class Gavel_PolicyEngine {
     public static final String R_POLICY_MISSING = 'policy_missing';
     public static final String R_INVALID_RESPONSE = 'invalid_response';
     public static final String R_BOX_NOT_FOUND = 'box_not_found';
+    public static final String R_BOX_LOW_CONFIDENCE = 'box_low_confidence';
     public static final String SUPPRESS_SHADOW = 'action_suppressed_shadow';
     public static final String SUPPRESS_DRAFT = 'action_suppressed_draft';
     public static final String SUPPRESS_AUTO_APPLY_OFF = 'auto_apply_disabled';
@@ -107,7 +111,17 @@ public with sharing class Gavel_PolicyEngine {
         }
         if (q.isBox()) {
             score(qr, a, policy);
-            if (qr.outcome == Gavel_Outcome.ESCALATE) {
+            if (String.isNotBlank(q.boxGate)) {
+                Gavel_Answer gate = resp.answers.get(q.boxGate);
+                Boolean present = gate != null && gate.isValid() && gate.probability != null && gate.probability >= 0.5;
+                if (!present) {
+                    qr.answerValue = null;
+                    return mark(qr, Gavel_Outcome.ESCALATE, R_BOX_NOT_FOUND);
+                }
+                if (qr.outcome == Gavel_Outcome.ESCALATE) {
+                    mark(qr, Gavel_Outcome.REVIEW, R_BOX_LOW_CONFIDENCE);
+                }
+            } else if (qr.outcome == Gavel_Outcome.ESCALATE) {
                 qr.answerValue = null;
                 qr.reason = R_BOX_NOT_FOUND;
                 return qr;

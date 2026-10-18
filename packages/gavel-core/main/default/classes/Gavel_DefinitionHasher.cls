@@ -41,7 +41,7 @@ public with sharing class Gavel_DefinitionHasher {
         qKeys.sort(LEXICAL);
         for (String k : qKeys) {
             Gavel_Question q = qByKey.get(k);
-            lines.add(rec('question', new List<String>{
+            List<String> qPairs = new List<String>{
                 'Key__c', str(q.key),
                 'Type__c', str(q.questionType),
                 'Prompt__c', str(q.prompt),
@@ -50,7 +50,12 @@ public with sharing class Gavel_DefinitionHasher {
                 'Required_For_Action__c', bool(q.requiredForAction),
                 'Stage__c', str(q.stage),
                 'Option_Source__c', str(q.optionSource)
-            }));
+            };
+            // Added in 1.2.1: hashed only when set, so definitions without a gate keep their hash.
+            if (String.isNotBlank(q.boxGate)) {
+                qPairs.addAll(new List<String>{ 'Box_Gate__c', str(q.boxGate) });
+            }
+            lines.add(rec('question', qPairs));
             Map<String, Gavel_Option> oByKey = new Map<String, Gavel_Option>();
             if (q.options != null) {
                 for (Gavel_Option o : q.options) {

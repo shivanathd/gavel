@@ -4,7 +4,7 @@
       "path": "packages/gavel-core",
       "package": "gavel-core",
       "versionName": "v1.2",
-      "versionNumber": "1.2.0.NEXT",
+      "versionNumber": "1.3.0.NEXT",
       "versionDescription": "Provider interface, TypeSafe and mock providers, state builder, policy engine, decision ledger, guardrails. Images and Box answers (Jev 1.14). Works with TypeSafe Jev.",
       "default": true,
       "definitionFile": "config/project-scratch-def.json"
@@ -116,13 +116,13 @@
       "path": "packages/gavel-pack-service",
       "package": "gavel-pack-service",
       "versionName": "v1.2",
-      "versionNumber": "1.2.0.NEXT",
+      "versionNumber": "1.3.0.NEXT",
       "versionDescription": "Case triage, real urgency, KB coverage and gap detection, closure check, reply check, return triage and return photo check; photo checks: wrong item, delivery proof, proof of purchase, work completion.",
       "default": false,
       "dependencies": [
         {
           "package": "gavel-core",
-          "versionNumber": "1.2.0.RELEASED"
+          "versionNumber": "1.3.0.RELEASED"
         },
         {
           "package": "gavel-flow",

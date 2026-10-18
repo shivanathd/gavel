@@ -271,3 +271,17 @@ Each ADR is also copied to `docs/adr/NNNN-title.md` in the repo. Council note fo
 **Consequences.** Enterprises can use it freely, and contributors keep their copyright.
 
 **Alternatives.** MIT (no patent grant).
+
+---
+
+## ADR-019: A Box location is kept when its Noul says the thing is there
+
+**Status:** Accepted (2026-10-18)
+
+**Context.** A Box answer is always a box. On 49 labelled photos, box confidence did not separate present from absent: correct boxes on real photos scored 0.20 to 0.49, ghost boxes 0.03 to 0.18, and a wrong box on a torn receipt 0.44. The Noul next to each box was right on all 26.
+
+**Decision.** `Gavel_Question__mdt.Box_Gate__c` names that Noul. Below 0.5, or with no valid gate answer: `box_not_found`. At 0.5 or more: the location is kept, and a low box confidence is `REVIEW box_low_confidence`. Ungated boxes keep the previous rule. The field is hashed only when set.
+
+**Consequences.** Reviewers see correct low-confidence locations. Boxes still never drive actions.
+
+**Alternatives.** A lower box threshold; pairing by key naming convention.

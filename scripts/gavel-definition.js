@@ -29,7 +29,7 @@ function exportDefinition(name) {
     decision: pick(decision, ['Target_Object__c', 'Version__c', 'Mode__c', 'Provider_Config__c', 'Description__c', 'Owner_Email__c',
       'Daily_Budget_Calls__c', 'Pack__c', 'Review_Queue__c', 'Auto_Apply__c', 'Timeout_Ms__c']),
     questions: questions.map((q) => ({
-      ...pick(q, ['Key__c', 'Type__c', 'Prompt__c', 'Instructions__c', 'Order__c', 'Required_For_Action__c', 'Stage__c', 'Option_Source__c']),
+      ...pick(q, ['Key__c', 'Type__c', 'Prompt__c', 'Instructions__c', 'Order__c', 'Required_For_Action__c', 'Stage__c', 'Option_Source__c', 'Box_Gate__c']),
       options: records.filter((o) => o.type === 'Gavel_Option' && o.values.Question__c === q.devName)
         .map((o) => pick(o, ['Key__c', 'Label__c', 'Description__c', 'Level__c', 'Is_Escape__c', 'Order__c'])),
     })),
