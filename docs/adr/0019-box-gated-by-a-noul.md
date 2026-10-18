@@ -11,8 +11,8 @@ A Jev 1.14 Box answer is always a box, even when the thing it locates is not in 
 location only when the box's own confidence cleared `Review_At__c` (0.5 in the shipped photo decisions), and recorded
 `box_not_found` otherwise.
 
-A live run on 49 labelled photos (22 real Wikimedia Commons photos, 21 `gpt-image-2.5` images, through released
-1.2.0 against `jev-1.14.0`) showed that box confidence is a poor signal for presence:
+A live run of 49 labelled cases over 43 distinct images (22 real Wikimedia Commons photos, 21 `gpt-image-2.5-flare`
+images, through released 1.2.0 against `jev-1.14.0`) showed that box confidence is a poor signal for presence:
 
 - Correct boxes scored low: the damage on three real cracked phones (0.31 to 0.49) and the totals on two clearly
   legible receipts (0.20 and 0.44). Gavel discarded all five.

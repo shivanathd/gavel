@@ -16,8 +16,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(HERE, '.cache')
 ORG = os.environ.get('GAVEL_ORG', 'gavel-eval')
 CASES = json.load(open(os.path.join(HERE, 'cases.json')))
-IDS = os.path.join(CACHE, 'ids.json')
-RESULTS = os.path.join(CACHE, 'results.json')
+# Record IDs and results belong to one org; photos are shared.
+ORG_CACHE = os.path.join(CACHE, urllib.parse.quote(ORG, safe=''))
+IDS = os.path.join(ORG_CACHE, 'ids.json')
+RESULTS = os.path.join(ORG_CACHE, 'results.json')
 UA = {'User-Agent': 'GavelPhotoEval/1.0 (https://github.com/shivanathd/gavel)'}
 GATES = {'damage_area': 'damage_visible', 'parcel_area': 'parcel_visible', 'total_area': 'total_visible'}
 
@@ -38,7 +40,7 @@ def sf(args, stdin=None):
 
 
 def apex(src):
-    path = os.path.join(CACHE, 'tmp.apex')
+    path = os.path.join(ORG_CACHE, 'tmp.apex')
     open(path, 'w').write(src)
     d = sf(['apex', 'run', '--file', path])
     if d.get('status') != 0 or not d['result'].get('success'):
@@ -171,7 +173,7 @@ def score():
 
 
 if __name__ == '__main__':
-    os.makedirs(CACHE, exist_ok=True)
+    os.makedirs(ORG_CACHE, exist_ok=True)
     steps = {'fetch': fetch, 'records': records, 'upload': upload, 'run': run, 'score': score}
     for step in sys.argv[1:] or ['score']:
         steps[step]()

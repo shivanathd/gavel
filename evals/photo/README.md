@@ -1,6 +1,6 @@
 # Photo eval
 
-49 labelled photos through the six photo decisions, run live: `Gavel.run` in a scratch org against `jev-1.14.0`.
+49 labelled cases over 43 distinct images, through the six photo decisions, run live: `Gavel.run` in a scratch org against `jev-1.14.0`.
 Each case has a photo, the record text (claim, product, job or product name) and the expected answer for each Noul.
 
 - **Generated (`gen/`)**: 21 images from `gpt-image-2.5-flare`, prompts in `gen/prompts.json`. Generated in matched
