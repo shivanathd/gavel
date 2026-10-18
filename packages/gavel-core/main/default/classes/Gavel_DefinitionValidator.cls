@@ -122,7 +122,7 @@ public with sharing class Gavel_DefinitionValidator {
             }
             Gavel_Question gate = null;
             for (Gavel_Question g : d.questions) {
-                gate = g.key == q.boxGate ? g : gate;
+                gate = g.key != null && g.key.equals(q.boxGate) ? g : gate; // the engine looks the gate up case-sensitively
             }
             if (gate == null || !gate.isNoul()) {
                 r.add('box_gate_not_noul');

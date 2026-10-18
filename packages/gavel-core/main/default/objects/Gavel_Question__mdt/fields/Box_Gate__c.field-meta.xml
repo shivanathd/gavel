@@ -5,7 +5,7 @@
     <fieldManageability>SubscriberControlled</fieldManageability>
     <externalId>false</externalId>
     <label>Box Gate</label>
-    <length>40</length>
+    <length>80</length>
     <required>false</required>
     <type>Text</type>
     <unique>false</unique>

@@ -272,7 +272,8 @@ private class Gavel_DefinitionValidator_Test {
         Gavel_DefinitionValidator.Result valid = Gavel_DefinitionValidator.validate(Gavel_TestFactory.seal(ok));
         Assert.isTrue(valid.valid, 'a box gated by a Noul is valid: ' + valid.errors);
 
-        for (String gate : new List<String>{ 'category', 'missing_key' }) {
+        // Fraud_Concern: the engine looks the gate up case-sensitively, so a different case must fail validation
+        for (String gate : new List<String>{ 'category', 'missing_key', 'Fraud_Concern' }) {
             Gavel_Definition bad = validTwoQuestion();
             Gavel_Question q = Gavel_TestFactory.box('fraud_area');
             q.boxGate = gate;

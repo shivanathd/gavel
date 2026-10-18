@@ -51,7 +51,7 @@ public with sharing class Gavel_DefinitionHasher {
                 'Stage__c', str(q.stage),
                 'Option_Source__c', str(q.optionSource)
             };
-            // Added in 1.2.1: hashed only when set, so definitions without a gate keep their hash.
+            // Added in core 1.3.0: hashed only when set, so definitions without a gate keep their hash.
             if (String.isNotBlank(q.boxGate)) {
                 qPairs.addAll(new List<String>{ 'Box_Gate__c', str(q.boxGate) });
             }
