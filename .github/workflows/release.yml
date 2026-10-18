@@ -37,7 +37,15 @@ jobs:
             ver=$(jq -r --arg p "$p" '.packageDirectories[] | select(.package == $p) | .versionNumber' sfdx-project.json | sed 's/\.NEXT$//')
             id=$(sf package version list --packages "$p" --released --json | jq -r --arg v "$ver." '[.result[] | select(.Version | startswith($v))] | sort_by(.Version) | last | .SubscriberPackageVersionId // empty')
             if [ -z "$id" ]; then
-              id=$(sf package version create --package "$p" --code-coverage --installation-key-bypass --wait 90 --json | jq -r '.result.SubscriberPackageVersionId // empty')
+              # Retry: a pack created seconds after its dependency was promoted can fail to resolve
+              # "<dep>@x.y.z.RELEASED" (seen in v1.3.0). Print the real error instead of exiting inside a pipe.
+              for attempt in 1 2 3; do
+                sf package version create --package "$p" --code-coverage --installation-key-bypass --wait 90 --json > create.json || true
+                id=$(jq -r '.result.SubscriberPackageVersionId // empty' create.json)
+                [ -n "$id" ] && break
+                echo "::warning::version create attempt $attempt failed for $p: $(jq -r '.message // .result.Error // "unknown" | tostring' create.json)"
+                sleep 120
+              done
               [ -n "$id" ] || { echo "::error::version create failed for $p"; exit 1; }
               sf package version promote --package "$id" --no-prompt
             else
