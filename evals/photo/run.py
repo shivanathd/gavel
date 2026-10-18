@@ -53,12 +53,22 @@ def q(s):
     return "'" + s.replace('\\', '\\\\').replace("'", "\\'") + "'"
 
 
+def fit(path):
+    """Shrink to at most 1568 px per side (TypeSafe's limit). Commons serves fixed thumbnail widths, so a
+    portrait photo can come back taller than asked."""
+    from PIL import Image
+    im = Image.open(path)
+    if max(im.size) > 1568:
+        im.thumbnail((1568, 1568))
+        im.convert('RGB').save(path, quality=90)
+
+
 def fetch():
     for c in CASES:
         for ref in [c['img'], c.get('catalog')]:
             if not isinstance(ref, dict) or os.path.exists(image_path(ref)):
                 continue
-            # Thumbnail that fits 1280x1568, inside TypeSafe's 280..1568 px per side.
+            # About 1280 px wide; fit() then enforces TypeSafe's 280..1568 px per side.
             p = {'action': 'query', 'titles': ref['wikimedia'], 'prop': 'imageinfo', 'iiprop': 'url',
                  'iiurlwidth': 1280, 'iiurlheight': 1568, 'format': 'json'}
             for attempt in range(5):
@@ -67,6 +77,7 @@ def fetch():
                     page = next(iter(json.load(urllib.request.urlopen(api, timeout=30))['query']['pages'].values()))
                     url = page['imageinfo'][0]['thumburl']
                     open(image_path(ref), 'wb').write(urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60).read())
+                    fit(image_path(ref))
                     break
                 except urllib.error.HTTPError as e:
                     if e.code != 429:
@@ -113,6 +124,8 @@ def upload():
             if r.get('uploaded_' + target):
                 continue
             path = image_path(ref)
+            if isinstance(ref, dict):
+                fit(path)  # a photo cached before fit() existed can still be too tall
             body = json.dumps({'Title': os.path.basename(path), 'PathOnClient': os.path.basename(path), 'FirstPublishLocationId': target,
                                'VersionData': base64.b64encode(open(path, 'rb').read()).decode()})
             out = subprocess.run(['sf', 'api', 'request', 'rest', '/services/data/v64.0/sobjects/ContentVersion', '--method', 'POST',

@@ -8,7 +8,7 @@ Each case has a photo, the record text (claim, product, job or product name) and
 - **Real (Wikimedia Commons)**: 22 photos, downloaded at run time by `run.py fetch` and not stored here. Each case
   names the file, its licence and its page. Commons search results are noisy, so each photo was checked by hand.
 
-Run it against an org set up as in `.claude/skills/verify/SKILL.md` (released packages, egress on, key set):
+Run it (Python 3 with Pillow) against an org set up as in `.claude/skills/verify/SKILL.md` (released packages, egress on, key set):
 
 ```bash
 python3 evals/photo/run.py fetch records upload run score
@@ -22,6 +22,7 @@ exactly when the gate Noul's label says the thing is there.
 | Build | Labels right | Confidently wrong | Boxes handled right |
 |---|---|---|---|
 | 1.2.0 (box confidence only) | 93 / 94 | 1 | 21 / 26 |
+| 1.3.0 (box gated by its Noul, ADR 0019), installed from the release, 2026-10-19 | 93 / 94 | 1 | 26 / 26 |
 
 The one miss: a phone screenshot of a shop page was read as "shows a physical product" (0.89). The same run said it
 is not the catalog product (0.11), so the case still came out as the wrong item. The five dropped boxes were correct:
